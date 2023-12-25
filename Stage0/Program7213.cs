@@ -4,9 +4,9 @@ namespace Stage0
 {
 	public partial class Program
 	{
-		stataic partial void Welcome7213()
+		static partial void Welcome7213()
 		{
-			Console.Writeline("good luck to us<3");
+			Console.WriteLine("good luck to us<3");
 		}
 	}
 }
