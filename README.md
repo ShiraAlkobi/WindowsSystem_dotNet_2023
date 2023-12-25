@@ -2,6 +2,4 @@
 # dotNet5784_5353_7213
 Mini project in Windows system - Machon Tal 2023
 hey world!
-
-
-will you accept my change?
+how are you Shira?
