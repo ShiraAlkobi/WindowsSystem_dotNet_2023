@@ -3,12 +3,18 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stage0", "Stage0\Stage0.csproj", "{925332FF-5F4D-47EE-BFD1-54C5731DCED9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Stage0", "Stage0\Stage0.csproj", "{925332FF-5F4D-47EE-BFD1-54C5731DCED9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{09EC409F-AFC3-4936-9CE1-DCA5408B5819}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalFacade", "DalFacade\DalFacade.csproj", "{73BD9B64-BAD5-4C50-8442-8DB324F9C602}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalList", "DalList\DalList.csproj", "{139DCC0E-43EF-43CF-A928-157891C1A536}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalTest", "DalTest\DalTest.csproj", "{8F753C61-7C99-43AB-B54A-C0092ACF829D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +26,18 @@ Global
 		{925332FF-5F4D-47EE-BFD1-54C5731DCED9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{925332FF-5F4D-47EE-BFD1-54C5731DCED9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{925332FF-5F4D-47EE-BFD1-54C5731DCED9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73BD9B64-BAD5-4C50-8442-8DB324F9C602}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73BD9B64-BAD5-4C50-8442-8DB324F9C602}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73BD9B64-BAD5-4C50-8442-8DB324F9C602}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73BD9B64-BAD5-4C50-8442-8DB324F9C602}.Release|Any CPU.Build.0 = Release|Any CPU
+		{139DCC0E-43EF-43CF-A928-157891C1A536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{139DCC0E-43EF-43CF-A928-157891C1A536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{139DCC0E-43EF-43CF-A928-157891C1A536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{139DCC0E-43EF-43CF-A928-157891C1A536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F753C61-7C99-43AB-B54A-C0092ACF829D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F753C61-7C99-43AB-B54A-C0092ACF829D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F753C61-7C99-43AB-B54A-C0092ACF829D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F753C61-7C99-43AB-B54A-C0092ACF829D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
