@@ -1,6 +1,5 @@
 ﻿namespace DalTest
 {
-    using System.Threading.Channels;
     using Dal;
     using DalApi;
     using DO;
@@ -40,12 +39,9 @@
                             Console.WriteLine("try again\n");
                             break;
                     }
-                    if (choice != 0)
-                    {
-                        Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n");
-                        s_choice = Console.ReadLine();
-                        int.TryParse(s_choice, out choice);
-                    }
+                    Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n");
+                    s_choice = Console.ReadLine();
+                    int.TryParse(s_choice, out choice);
                 } while (choice != 0);
             }
             catch (Exception e) { Console.WriteLine(e); }
@@ -72,22 +68,16 @@
                     break;
                 case 4:
                     readAllTasks();
-                    break;
+                break;
                 case 5:
+
                     Console.WriteLine("enter task Id to update: \n");
                     string? temp = Console.ReadLine();
                     int t_id = int.Parse(temp!);
-                    try
-                    {
-                        Task? t = s_dalTask!.Read(t_id);
-                        if (t != null)
-                        {
-                            Console.WriteLine(t);
-                            updateTask(t);
-                        }
-                    }
-                    catch (Exception e){ Console.WriteLine(e); }
-                        break;
+                     Task? t = new();
+                    t=s_dalTask!.Read(t_id);
+                    updateTask(t);
+                    break;
                 case 6:
                     deleteTask();
                     break;
@@ -131,19 +121,7 @@
                             readAllEngineers();
                             break;
                         case 5:
-                            Console.WriteLine("enter engineer Id to update: \n");
-                            string? temp = Console.ReadLine();
-                            int t_id = int.Parse(temp!);
-                            try
-                            {
-                                Engineer? t = s_dalEngineer!.Read(t_id);
-                                if (t != null)
-                                {
-                                    Console.WriteLine(t);
-                                    updateEngineer(t);
-                                }
-                            }
-                            catch (Exception e) { Console.WriteLine(e); }
+                            updateEngineer();
                             break;
                         case 6:
                             deleteEngineer();
@@ -185,19 +163,7 @@
                             readAllDependencies();
                             break;
                         case 5:
-                            Console.WriteLine("enter task Id to update: \n");
-                            string? temp = Console.ReadLine();
-                            int t_id = int.Parse(temp!);
-                            try
-                            {
-                                Dependency? t = s_dalDependency!.Read(t_id);
-                                if (t != null)
-                                {
-                                    Console.WriteLine(t);
-                                    updateDependency(t);
-                                }
-                            }
-                            catch(Exception e) { Console.WriteLine(e); }
+                            updateDependency();
                             break;
                         case 6:
                             deleteDependency();
@@ -259,9 +225,8 @@
             DO.EngineerExperience t_Complexity=(EngineerExperience)Enum.Parse(typeof(EngineerExperience), temp);
             Task t = new(0, t_Alias, t_Description, false,DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
                t_DeadlineDate, t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
-           int newID= s_dalTask!.Create(t);
-            Console.WriteLine("the new task is: "+s_dalTask.Read(newID));
-
+            s_dalTask!.Create(t);
+           
         }        
         private static void readTask()
         {
@@ -285,80 +250,62 @@
         }
         private static void updateTask(Task t)
         {
-            string? temp, t_alias;
-            DateTime t_ScheduledDate, t_StartDate, t_DeadlineDate, t_CompleteDate;
-            TimeSpan t_RequiredEffortTime;
-            ///enter alias and check if needs to be changed
-            Console.WriteLine("enter the task values:\n Alias: ");
-            t_alias = Console.ReadLine();
-            if (t_alias == "" || t_alias == null)
-                t_alias = t.Alias;
-            ///enter description etc...
-              Console.WriteLine("\n Description: ");
-            string? t_Description = Console.ReadLine();
-            if (t_Description==""||t_Description==null)
-                t_Description = t.Description;
 
-            Console.WriteLine("\n Scheduled Date: ");
-            temp = Console.ReadLine();
-            if (temp == "" || temp == null)
-                 t_ScheduledDate = t.ScheduledDate;
-            else
-                 DateTime.TryParse(temp!,out t_ScheduledDate);
+            Console.WriteLine("enter task Id to update: \n");
+            string? temp = Console.ReadLine();
+            int t_id = int.Parse(temp!);
+            //Task? t = s_dalTask!.Read(t_id);
+            if (t != null)
+            {
+                string? t_alias;
+                Console.WriteLine("enter the task values:\n Alias: ");
+                temp = Console.ReadLine();
+                if (temp == ""||temp==null)
+                    t_alias = t.Alias;
+                else
+                   
+            
+                Console.WriteLine("\n Description: ");
+                string? t_Description = Console.ReadLine();
 
-            Console.WriteLine("\n Start Date: ");
-            temp = Console.ReadLine();
-            if(temp==""||temp==null)
-                t_StartDate = t.StartDate;
-            else
-                 DateTime.TryParse(temp!,out t_StartDate);
+                Console.WriteLine("enter the task values:\n Scheduled Date: ");
+                temp = Console.ReadLine();
+                DateTime t_ScheduledDate = DateTime.Parse(temp!);
 
-            Console.WriteLine("\n Required effort time: ");
-            temp = Console.ReadLine();
-            if (temp==""||temp == null)
-                t_RequiredEffortTime = t.RequiredEffortTime;
-            else
-                TimeSpan.TryParse(temp!,out t_RequiredEffortTime);
+                Console.WriteLine("enter the task values:\n Start Date: ");
+                temp = Console.ReadLine();
+                DateTime t_StartDate = DateTime.Parse(temp!);
 
-            Console.WriteLine("\n Deadline Date: ");
-            temp = Console.ReadLine();
-            if (temp == "" || temp == null)
-                t_DeadlineDate= t.DeadlineDate;
-            else
-                DateTime.TryParse(temp!,out t_DeadlineDate);
+                Console.WriteLine("enter the task values:\n Required effort time: ");
+                temp = Console.ReadLine();
+                TimeSpan t_RequiredEffortTime = TimeSpan.Parse(temp!);
 
-            Console.WriteLine("\n Complete Date: ");
-            temp = Console.ReadLine();
-            if (temp == "" || temp == null)
-                t_CompleteDate = t.CompleteDate;
-            else
-                DateTime.TryParse(temp!,out t_CompleteDate);
+                Console.WriteLine("enter the task values:\n Deadline Date: ");
+                temp = Console.ReadLine();
+                DateTime t_DeadlineDate = DateTime.Parse(temp!);
 
-            Console.WriteLine("\n Deliverables: ");
-            string t_Deliverables = Console.ReadLine()!;
-            if (t_Deliverables == "" || t_Deliverables == null)
-                t_Deliverables = t.Deliverables;
+                Console.WriteLine("enter the task values:\n Complete Date: ");
+                temp = Console.ReadLine();
+                DateTime t_CompleteDate = DateTime.Parse(temp!);
 
-            Console.WriteLine("\n Remarks: ");
-            string t_Remarks = Console.ReadLine()!;
-            if(t_Remarks==""||t_Remarks == null)    
-                t_Remarks = t.Remarks;
-            int t_EngineerID;
-            Console.WriteLine("\n Engineer ID: ");
-            temp = Console.ReadLine();
-            int.TryParse(temp!,out t_EngineerID);
-            if (temp == "" || temp == null)
-                t_EngineerID = t.EngineerId;
+                Console.WriteLine("enter the task values:\n Deliverables: ");
+                string t_Deliverables = Console.ReadLine()!;
 
-            Console.WriteLine("Complexity:\n0 - Beginner\n1 - AdvancedBeginner\n2 - Intermediate\n3 - Advanced\n4 - Expert\n");
-            temp = Console.ReadLine();
-            DO.EngineerExperience t_Complexity = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), temp);
-            if(temp==""||temp==null)
-                t_Complexity = t.Complexity;
-            Task p = new(t.Id, t_alias, t_Description, false, DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
-                t_DeadlineDate, t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
-            s_dalTask!.Update(p);
-            Console.WriteLine(p);
+                Console.WriteLine("enter the task values:\n Remarks: ");
+                string t_Remarks = Console.ReadLine()!;
+
+                Console.WriteLine("enter the task values:\n Engineer ID: ");
+                temp = Console.ReadLine();
+                int t_EngineerID = int.Parse(temp!);
+
+                Console.WriteLine("Complexity:\n0 - Beginner\n1 - AdvancedBeginner\n2 - Intermediate\n3 - Advanced\n4 - Expert\n");
+                temp = Console.ReadLine();
+                DO.EngineerExperience t_Complexity = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), temp);
+                Task t = new(0, t_Alias, t_Description, false, DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
+                   t_DeadlineDate, t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
+                s_dalTask!.Create(t);
+            }
+            else { Console.WriteLine("id not found\n"); }
         }
         private static void deleteTask()
         {
@@ -418,45 +365,6 @@
                 Console.WriteLine(e);
             }
         }
-
-        private static void updateEngineer(Engineer t)
-        {
-            string? temp, t_Email, t_Name;
-            double? t_Cost;
-            int t_Id;
-            
-            Console.WriteLine("enter the engineer values:\n ID: ");
-            temp = Console.ReadLine();
-            t_Id = int.Parse(temp!);
-            if (temp == "" || temp == null)
-                t_Id = t.Id;
-
-            Console.WriteLine("\n Email: ");
-            t_Email = Console.ReadLine();
-            if (t_Email == "" || t_Email == null)
-                t_Email = t.Email;
-
-            Console.WriteLine("\n Cost: ");
-            temp = Console.ReadLine();
-            t_Cost=double.Parse(temp!);
-            if (temp == "" || temp == null)
-                t_Cost = t.Cost;
-
-            Console.WriteLine("\n Name: ");
-            t_Name = Console.ReadLine();
-            if (t_Name == "" || t_Name == null)
-                t_Name = t.Name;
-
-
-            Console.WriteLine("Level:\n0 - Beginner\n1 - AdvancedBeginner\n2 - Intermediate\n3 - Advanced\n4 - Expert\n");
-            temp = Console.ReadLine();
-            DO.EngineerExperience? t_Level = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), temp);
-            if (temp == "" || temp == null)
-                t_Level = t.Level;
-            Engineer p = new(t_Id, t_Email, t_Cost, t_Name, t_Level);
-            s_dalEngineer!.Update(p);
-            Console.WriteLine(p);
-        }
         private static void deleteEngineer()
         {
             Console.WriteLine("Enter the ID of the engineer to delete: ");
@@ -484,10 +392,7 @@
 
             Dependency d = new(0, t_Dependent, t_DependsOn);
             s_dalDependency!.Create(d);
-            int newID = s_dalDependency!.Create(d);
-            Console.WriteLine("the new dependency is: " + s_dalDependency.Read(newID));
         }
-        
         private static void readDependency()
         {
             Console.WriteLine("Enter the ID of the dependency: ");
@@ -500,7 +405,6 @@
             }
             else { Console.WriteLine("ID was not found"); }
         }
-        //print all of the dependencies
         private static void readAllDependencies()
         {
             List<Dependency> dependencies = s_dalDependency!.ReadAll();
@@ -509,41 +413,17 @@
                 Console.WriteLine(d);
             }
         }
-        //update the t object 
-        private static void updateDependency(Dependency t)
-        {
-            string? temp;
-            int t_Dependent,t_DependsOn;
-            //in each field' checks if the user typed blank- doesn't want the field to change
-            Console.WriteLine("enter the engineer values:\n The dependent task ID: ");
-            temp = Console.ReadLine();
-            t_Dependent = int.Parse(temp!);
-            if (temp == "" || temp == null)
-                t_Dependent = t.DependentTask;
-
-            Console.WriteLine("\n depends on task ID: ");
-            temp = Console.ReadLine();
-            t_DependsOn = int.Parse(temp!);
-            if (temp == "" || temp == null)
-                t_DependsOn = t.DependsOnTask;
-
-            Dependency p = new(t.Id,t_Dependent, t_DependsOn);
-            s_dalDependency!.Update(p);
-            Console.WriteLine(p);
-        }
-        /// <summary>
-        /// delete a dependency by id
-        /// </summary>
         private static void deleteDependency()
         {
             Console.WriteLine("Enter the ID of the dependency to delete: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);//convert from string
-            try ///delete can throw exceptions
+            int t_Id = int.Parse(temp!);
+            try
             {
                 s_dalDependency!.Delete(t_Id);
             }
             catch (Exception ex) { Console.WriteLine(ex); }
-        } 
+        }
     }
+}
 }
