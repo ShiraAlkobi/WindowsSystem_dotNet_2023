@@ -45,7 +45,7 @@ public class TaskImplementation : ITask
             throw new Exception($"Task with ID={item.Id} does Not exist");
         else
         {
-            Task temp = DataSource.Tasks.Find(p => p.Id == item.Id);
+            Task temp = DataSource.Tasks.Find(p => p.Id == item.Id)!;
             DataSource.Tasks.Remove(temp);
             DataSource.Tasks.Add(item);
         }
