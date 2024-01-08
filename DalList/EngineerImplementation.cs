@@ -21,7 +21,7 @@ public class EngineerImplementation : IEngineer
             throw new Exception($"Engineer with ID={id} does Not exist");
         else
         {
-            Engineer temp = DataSource.Engineers.Find(p => p.Id == id);
+            Engineer temp = DataSource.Engineers.Find(p => p.Id == id)!;
             DataSource.Engineers.Remove(temp);
         }
     }
@@ -44,7 +44,7 @@ public class EngineerImplementation : IEngineer
             throw new Exception($"Engineer with ID={item.Id} does Not exist");
         else
         {
-            Engineer temp = DataSource.Engineers.Find(p => p.Id == item.Id);
+            Engineer temp = DataSource.Engineers.Find(p => p.Id == item.Id)!;
             DataSource.Engineers.Remove(temp);
             DataSource.Engineers.Add(item);
         }
