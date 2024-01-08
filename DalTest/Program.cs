@@ -416,9 +416,6 @@
         /// <summary>
         /// deleting task from the list
         /// </summary>
-        /// <summary>
-        /// deleting task from the list
-        /// </summary>
         private static void deleteTask()
         {
             Console.WriteLine("Enter the ID of the task to delete: ");
@@ -566,7 +563,6 @@
             int newID = s_dalDependency!.Create(d);//calling the create func, which returns the new task's ID (identifing runnung number)
             Console.WriteLine("the new dependency is: " + s_dalDependency.Read(newID));
         }
-
         /// <summary>
         /// print dependency with input id
         /// </summary>
@@ -581,7 +577,7 @@
                 Task dependent = s_dalTask!.Read(d.DependentTask)!;//find the dependent task
                 Task dependsOn = s_dalTask!.Read(d.DependsOnTask)!;//find the task the is depended on
                 //print id of dependency,descriptions of dependent an depends ov task
-                Console.WriteLine("Dependency { Id = " + d.Id + ", DependentTask = " + dependent.Description + ", DependsOnTask = " + dependsOn.Description + "}");
+                Console.WriteLine("Dependency { Id = "+d.Id+", DependentTask = "+dependent.Description+", DependsOnTask = "+dependsOn.Description +"}");
             }
             else { Console.WriteLine("ID was not found"); }
         }
@@ -640,10 +636,10 @@
         {
             Console.WriteLine("Enter the ID of the dependency to delete: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);//convert from string
-            try //delete can throw exceptions
+            int t_Id = int.Parse(temp!);//convert from string to int
+            try ///delete can throw exceptions
             {
-                s_dalDependency!.Delete(t_Id);
+                s_dalDependency!.Delete(t_Id);//delete using interface function
             }
             catch (Exception ex) { Console.WriteLine(ex); }
         }
