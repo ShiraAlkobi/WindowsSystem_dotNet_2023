@@ -269,24 +269,30 @@
             Console.WriteLine("the new task is: " + s_dalTask.Read(newID));
 
         }
+        /// <summary>
+        /// prints the task with the input id
+        /// </summary>
         private static void readTask()
         {
             Console.WriteLine("Enter the ID of the task: ");
-            string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);
-            Task t = s_dalTask!.Read(t_Id)!;
-            if (t != null)
+            string? temp = Console.ReadLine();//read the id
+            int t_Id = int.Parse(temp!);//convert from string to int
+            Task t = s_dalTask!.Read(t_Id)!;//use read function of task interface to import the right task
+            if (t != null)//if the task exists
             {
-                Console.WriteLine(t);
+                Console.WriteLine(t);//print
             }
             else { Console.WriteLine("ID was not found"); }
         }
+        /// <summary>
+        /// prints all tasks
+        /// </summary>
         private static void readAllTasks()
         {
-            List<Task> tasks = s_dalTask!.ReadAll();
-            foreach (Task t in tasks)
+            List<Task> tasks = s_dalTask!.ReadAll();//import list of tasks
+            foreach (Task t in tasks)//for each task in the list
             {
-                Console.WriteLine(t);
+                Console.WriteLine(t);//print tasks details
             }
         }
         /// <summary>
@@ -370,16 +376,19 @@
             s_dalTask!.Update(p);
             Console.WriteLine(p);
         }
+        /// <summary>
+        /// deleting task from the list
+        /// </summary>
         private static void deleteTask()
         {
             Console.WriteLine("Enter the ID of the task to delete: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);
+            int t_Id = int.Parse(temp!);//converting string to int
             try
             {
-                s_dalTask!.Delete(t_Id);
+                s_dalTask!.Delete(t_Id);//calling delete function from interface
             }
-            catch (Exception ex) { Console.WriteLine(ex); }
+            catch (Exception ex) { Console.WriteLine(ex); }//throe exception
         }
 
 
@@ -408,24 +417,30 @@
             Engineer e = new(t_ID, t_Email, t_Cost, t_Name, t_Level);
             s_dalEngineer!.Create(e);
         }
+        /// <summary>
+        /// prints the engineer with the input id
+        /// </summary>
         private static void readEngineer()
         {
             Console.WriteLine("Enter the ID of the engineer: ");
-            string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);
-            Engineer e = s_dalEngineer!.Read(t_Id)!;
+            string? temp = Console.ReadLine();//reading to nullable string
+            int t_Id = int.Parse(temp!);//converting to int
+            Engineer e = s_dalEngineer!.Read(t_Id)!;//using read function of interface to import the right engineer
             if (e != null)
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e);//print details
             }
             else { Console.WriteLine("ID was not found"); }
         }
+        /// <summary>
+        /// prints all engineers
+        /// </summary>
         private static void readAllEngineers()
         {
-            List<Engineer> engineers = s_dalEngineer!.ReadAll();
-            foreach (Engineer e in engineers)
+            List<Engineer> engineers = s_dalEngineer!.ReadAll();//import list
+            foreach (Engineer e in engineers)//for each engineer int the list
             {
-                Console.WriteLine(e);
+                Console.WriteLine(e);//print
             }
         }
 
@@ -465,14 +480,17 @@
             s_dalEngineer!.Update(p);
             Console.WriteLine(p);
         }
+        /// <summary>
+        /// delete engineer from list
+        /// </summary>
         private static void deleteEngineer()
         {
             Console.WriteLine("Enter the ID of the engineer to delete: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);
+            int t_Id = int.Parse(temp!);//convert to int
             try
             {
-                s_dalEngineer!.Delete(t_Id);
+                s_dalEngineer!.Delete(t_Id);//delete using interface function
             }
             catch (Exception ex) { Console.WriteLine(ex); }
         }
@@ -495,31 +513,35 @@
             int newID = s_dalDependency!.Create(d);
             Console.WriteLine("the new dependency is: " + s_dalDependency.Read(newID));
         }
-
+        /// <summary>
+        /// print dependency with input id
+        /// </summary>
         private static void readDependency()
         {
             Console.WriteLine("Enter the ID of the dependency: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);
-            Dependency d = s_dalDependency!.Read(t_Id)!;
+            int t_Id = int.Parse(temp!);//converting to int
+            Dependency d = s_dalDependency!.Read(t_Id)!;//importing the right dependency
             if (d != null)
             {
-                Task dependent = s_dalTask!.Read(d.DependentTask)!;
-                Task dependsOn = s_dalTask!.Read(d.DependsOnTask)!;
-
+                Task dependent = s_dalTask!.Read(d.DependentTask)!;//find the dependent task
+                Task dependsOn = s_dalTask!.Read(d.DependsOnTask)!;//find the task the is depended on
+                //print id of dependency,descriptions of dependent an depends ov task
                 Console.WriteLine("Dependency { Id = "+d.Id+", DependentTask = "+dependent.Description+", DependsOnTask = "+dependsOn.Description +"}");
             }
             else { Console.WriteLine("ID was not found"); }
         }
-        //print all of the dependencies
+        /// <summary>
+        /// print all of the dependencies
+        /// </summary>
         private static void readAllDependencies()
         {
-            List<Dependency> dependencies = s_dalDependency!.ReadAll();
+            List<Dependency> dependencies = s_dalDependency!.ReadAll();//import list
             foreach (Dependency d in dependencies)
             {
-                Task dependent = s_dalTask!.Read(d.DependentTask)!;
-                Task dependsOn = s_dalTask!.Read(d.DependsOnTask)!;
-
+                Task dependent = s_dalTask!.Read(d.DependentTask)!;//find the dependent task
+                Task dependsOn = s_dalTask!.Read(d.DependsOnTask)!;//find the task the is depended on
+                //print id of dependency,descriptions of dependent an depends ov task
                 Console.WriteLine("Dependency { Id = " + d.Id + ", DependentTask = " + dependent.Description + ", DependsOnTask = " + dependsOn.Description + "}");
             }
         }
@@ -555,10 +577,10 @@
         {
             Console.WriteLine("Enter the ID of the dependency to delete: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);//convert from string
+            int t_Id = int.Parse(temp!);//convert from string to int
             try ///delete can throw exceptions
             {
-                s_dalDependency!.Delete(t_Id);
+                s_dalDependency!.Delete(t_Id);//delete using interface function
             }
             catch (Exception ex) { Console.WriteLine(ex); }
         }
