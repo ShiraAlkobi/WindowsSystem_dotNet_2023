@@ -1,5 +1,4 @@
-﻿
-namespace DO;
+﻿namespace DO;
 /// <summary>
 /// This class represents the dependency between tasks
 /// </summary>
