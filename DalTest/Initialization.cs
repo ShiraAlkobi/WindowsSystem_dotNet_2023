@@ -16,25 +16,10 @@ public static class Initialization
         {
             string? t_Alias = ($"TaskName{i}");
             string? t_Description = ($"This task is {i} out of 50");
-            bool? t_IsMileStone = false;
             DateTime? t_CreatedAtDate = DateTime.Today;
-            DateTime t_ScheduledDate = DateTime.Today.AddDays(2);
-            int Range1 = 10;
-            int RandomNumOfDays = s_rand.Next(Range1);
-            DateTime t_StartDate = t_ScheduledDate.AddDays(RandomNumOfDays);
-            TimeSpan t_RequiredEffortTime = TimeSpan.FromDays(365);
-            DateTime t_DeadlineDate = t_ScheduledDate.AddDays(365);
-            DateTime t_CompleteDate = t_StartDate.AddDays(365);
-            string t_Deliverables = ($"Deliverable of task {i}");
-            string t_Remarks = ($"No comment on task {i}");
-            int t_Id;
-            do
-                t_Id = s_rand.Next(100000000, 999999999);
-            while (s_dalEngineer!.Read(t_Id) != null);
-            EngineerExperience[] enumValues = (EngineerExperience[])Enum.GetValues(typeof(EngineerExperience));
-            DO.EngineerExperience t_Complexity = enumValues[s_rand.Next(enumValues.Length)];
-            Task t_Task = new(0, t_Alias, t_Description, false, t_CreatedAtDate, t_ScheduledDate, t_StartDate,
-                t_RequiredEffortTime, t_DeadlineDate, t_CompleteDate, t_Deliverables, t_Remarks, t_Id, t_Complexity);
+
+
+            Task t_Task = new(0, t_Alias, t_Description, false, t_CreatedAtDate, default(DateTime), default(DateTime), default(TimeSpan), default(DateTime), default(DateTime), null, null, 0, 0);
             s_dalTask!.Create(t_Task);
         }
 
