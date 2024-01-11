@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using DalApi;
 using DO;
 //CRUD functions for the engineer entity
-public class EngineerImplementation : IEngineer //derived from this interface
+internal class EngineerImplementation : IEngineer //derived from this interface
 {
     ///getting an engineer's object and adding it to the DataSounce
     public int Create(Engineer item)

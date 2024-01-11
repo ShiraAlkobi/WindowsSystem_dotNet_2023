@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using DalApi;
 using DO;
 //CRUD functions for the dependency entity
-public class DependencyImplementation : IDependency //derived from this interface
+internal class DependencyImplementation : IDependency //derived from this interface
 {
     ///getting a dependency's object and adding it to the DataSounce
     public int Create(Dependency item) 

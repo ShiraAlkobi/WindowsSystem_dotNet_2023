@@ -1,6 +1,7 @@
 ﻿namespace DalTest;
 using DalApi;
 using DO;
+using DalList;
 using System;
 using System.Security.Cryptography;
 /// <summary>
@@ -10,11 +11,9 @@ using System.Security.Cryptography;
 public static class Initialization
 {
     /// <summary>
-    /// creating interface type objects so we can use the methods from the interfaces;
+    /// creating interface type object of IDal so we can use the entities` methods
     /// </summary>
-    private static ITask? s_dalTask;
-    private static IEngineer? s_dalEngineer;
-    private static IDependency? s_dalDependency;
+    private static IDal? s_dal;
     private static readonly Random s_rand = new();//random type object for when needed
     /// <summary>
     /// this function create the tasks that need to be done for the renovating
@@ -45,14 +44,14 @@ public static class Initialization
             };
         ///loop that will initialize the id, create time and description fields of task
         ///and push it to the list using create() of interface
-        for (int i = 0; i < taskDescriptions.Length; i++)
+        for (int i = 0; i < 20; i++)
         {
             string t_Alias = $"TaskName{i + 1}";//id
             string t_Description = taskDescriptions[i];//what is the task (using the array)
             DateTime t_CreatedAtDate = DateTime.Today;//initialize the creation date of the task to today
             //creating new task wuth the correct fields
             Task t_Task = new Task(0, t_Alias, t_Description, false, t_CreatedAtDate, default, default, default, default, default, null, null, 0, 0);
-            s_dalTask!.Create(t_Task);//push it to list
+            s_dal!.Task.Create(t_Task);//push it to list
         }
     }
 
@@ -67,9 +66,9 @@ public static class Initialization
             int t_Id;
             do
                 t_Id = s_rand.Next(100000000, 999999999);//random id
-            while (s_dalEngineer!.Read(t_Id) != null);//if the random id already exists,draw another one
+            while (s_dal!.Engineer.Read(t_Id) != null);//if the random id already exists,draw another one
             t_Engineer = new Engineer(t_Id, null, null, null, null);//initialize the engineer with the id
-            s_dalEngineer!.Create(t_Engineer);//push to list
+            s_dal!.Engineer.Create(t_Engineer);//push to list
         }
     }
     /// <summary>
@@ -77,7 +76,7 @@ public static class Initialization
     /// </summary>
     private static void CreateDependencies()
     {
-        List<Task> TaskList = s_dalTask!.ReadAll();//import the task list
+        List<Task> TaskList = s_dal!.Task.ReadAll();//import the task list
         if (TaskList != null)//if the list is not empty
         {
             Dependency d;
@@ -85,29 +84,29 @@ public static class Initialization
             //loop that will create the dependencies between the
             //first task-Define Renovation Goals and Budget to the others
             //cant start any of the other tasks without completing the first one
-            for (int i = 0; i < 19; i++)
+            for (int i = 0; i <19; i++)
             {
-                t1 = TaskList[i + 1];
+                t1 = TaskList[i];
                 d = new Dependency(0, t1.Id, TaskList[0].Id);
-                s_dalDependency!.Create(d);
+                s_dal!.Dependency.Create(d);
             }
             //loop that will create the dependencies between the
             //last task-Cleanup and Interior Decorating to the others
             //cant start the last task without completing all the others
-            for (int i = 1; i < 19; i++)
+            for (int i = 0; i < 18; i++)
             {
-                t1 = TaskList[i];
+                t1 = TaskList[i+1];
                 d = new Dependency(0, TaskList[19].Id, t1.Id);
-                s_dalDependency!.Create(d);
+                s_dal!.Dependency.Create(d);
             }
             //loop that will create the dependencies between the
             //second to last task-Final Inspection to the others
             //cant start this task without completing the tasks before it
-            for (int i = 1; i < 18; i++)
+            for (int i = 0; i < 17; i++)
             {
-                t1 = TaskList[i];
+                t1 = TaskList[i+1];
                 d = new Dependency(0, TaskList[18].Id, t1.Id);
-                s_dalDependency!.Create(d);
+                s_dal!.Dependency.Create(d);
             }
         }
     }
@@ -119,11 +118,9 @@ public static class Initialization
     /// <param name="dalEngineer"></param>
     /// <param name="dalDependency"></param>
     /// <exception cref="NullReferenceException"></exception>
-    public static void Do(ITask? dalTask, IEngineer? dalEngineer, IDependency? dalDependency)
+    public static void Do(IDal dal)
     {
-        s_dalTask = dalTask ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalEngineer = dalEngineer ?? throw new NullReferenceException("DAL can not be null!");
-        s_dalDependency = dalDependency ?? throw new NullReferenceException("DAL can not be null!");
+        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
         createTasks();
         createEngineers();
         CreateDependencies();

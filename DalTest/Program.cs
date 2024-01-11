@@ -9,11 +9,8 @@
     /// </summary>
     internal class Program
     {
-        //So we can use the CRUD funcs
-        private static ITask? s_dalTask = new TaskImplementation();
-        private static IEngineer? s_dalEngineer = new EngineerImplementation();
-        private static IDependency? s_dalDependency = new DependencyImplementation();
-
+        /// creating interface type object of IDal so we can use the entities` methods
+        static readonly IDal s_dal = new DalList(); 
         /// <summary>
         /// Main function
         /// </summary>
@@ -22,7 +19,7 @@
         {
             try //to catch any exceptions
             {
-                Initialization.Do(s_dalTask, s_dalEngineer, s_dalDependency); //initializing each entity's data source
+                Initialization.Do(s_dal); //initializing each entity's data source
                 int choice;
                 string? s_choice;
                 Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n");
@@ -97,7 +94,7 @@
                             int t_id = int.Parse(temp!);
                             try
                             {
-                                Task? t = s_dalTask!.Read(t_id);
+                                Task? t = s_dal!.Task.Read(t_id);
                                 if (t != null)//preventing dealing with null in the update
                                 {
                                     Console.WriteLine(t); //print before updating
@@ -159,7 +156,7 @@
                             int.TryParse(temp!,out t_id);
                             try
                             {
-                                Engineer? t = s_dalEngineer!.Read(t_id);
+                                Engineer? t = s_dal!.Engineer.Read(t_id);
                                 if (t != null) //preventing dealing with null in the update
                                 {
                                     Console.WriteLine(t); //print before updating
@@ -216,7 +213,7 @@
                             int t_id = int.Parse(temp!);
                             try
                             {
-                                Dependency? t = s_dalDependency!.Read(t_id);
+                                Dependency? t = s_dal!.Dependency.Read(t_id);
                                 if (t != null)//preventing dealing with null in the update
                                 {
                                     Console.WriteLine(t); //print before updating
@@ -299,8 +296,8 @@
             //creating the task to add, with the gotten values
             Task t = new(0, t_Alias, t_Description, false, DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
                t_DeadlineDate, t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
-            int newID = s_dalTask!.Create(t); //calling the create func, which returns the new task's ID (identifing running number)
-            Console.WriteLine("the new task is: " + s_dalTask.Read(newID)); //printing for the user
+            int newID = s_dal!.Task.Create(t); //calling the create func, which returns the new task's ID (identifing running number)
+            Console.WriteLine("the new task is: " + s_dal!.Task.Read(newID)); //printing for the user
 
         }
         /// <summary>
@@ -311,7 +308,7 @@
             Console.WriteLine("Enter the ID of the task: ");
             string? temp = Console.ReadLine();//read the id
             int t_Id = int.Parse(temp!);//convert from string to int
-            Task t = s_dalTask!.Read(t_Id)!;//use read function of task interface to import the right task
+            Task t = s_dal!.Task.Read(t_Id)!;//use read function of task interface to import the right task
             if (t != null)//if the task exists
             {
                 Console.WriteLine(t);//print
@@ -323,7 +320,7 @@
         /// </summary>
         private static void readAllTasks()
         {
-            List<Task> tasks = s_dalTask!.ReadAll();//import list of tasks
+            List<Task> tasks = s_dal!.Task.ReadAll();//import list of tasks
             foreach (Task t in tasks)//for each task in the list
             {
                 Console.WriteLine(t);//print tasks details
@@ -410,7 +407,7 @@
             //create the task with the updated values we got
             Task p = new(t.Id, t_alias, t_Description, false, DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
                 t_DeadlineDate, t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
-            s_dalTask!.Update(p); //call for the update func
+            s_dal!.Task.Update(p); //call for the update func
             Console.WriteLine(p); //print the task after updating
         }
         /// <summary>
@@ -423,7 +420,7 @@
             int t_Id = int.Parse(temp!);//converting string to int
             try
             {
-                s_dalTask!.Delete(t_Id);//calling delete function from interface
+                s_dal!.Task.Delete(t_Id);//calling delete function from interface
             }
             catch (Exception ex) { Console.WriteLine(ex); }//throe exception
         }
@@ -455,7 +452,7 @@
             DO.EngineerExperience t_Level = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), temp);
             //creating the engineer to add, with the gotten values
             Engineer e = new(t_ID, t_Email, t_Cost, t_Name, t_Level);
-            s_dalEngineer!.Create(e);//calling the create func
+            s_dal!.Engineer.Create(e);//calling the create func
         }
         /// <summary>
         /// prints the engineer with the input id
@@ -465,7 +462,7 @@
             Console.WriteLine("Enter the ID of the engineer: ");
             string? temp = Console.ReadLine();//reading to nullable string
             int t_Id = int.Parse(temp!);//converting to int
-            Engineer e = s_dalEngineer!.Read(t_Id)!;//using read function of interface to import the right engineer
+            Engineer e = s_dal!.Engineer.Read(t_Id)!;//using read function of interface to import the right engineer
             if (e != null)
             {
                 Console.WriteLine(e);//print details
@@ -477,7 +474,7 @@
         /// </summary>
         private static void readAllEngineers()
         {
-            List<Engineer> engineers = s_dalEngineer!.ReadAll();//import list
+            List<Engineer> engineers = s_dal!.Engineer.ReadAll();//import list
             foreach (Engineer e in engineers)//for each engineer int the list
             {
                 Console.WriteLine(e);//print
@@ -523,7 +520,7 @@
                 t_Level = t.Level;
             //create the engineer with the updated values we got
             Engineer p = new(t_Id, t_Email, t_Cost, t_Name, t_Level);
-            s_dalEngineer!.Update(p);//call for the update func
+            s_dal!.Engineer.Update(p);//call for the update func
             Console.WriteLine(p);//print the engineer after updating
         }
         /// <summary>
@@ -536,7 +533,7 @@
             int t_Id = int.Parse(temp!);//convert to int
             try
             {
-                s_dalEngineer!.Delete(t_Id);//delete using interface function
+                s_dal!.Engineer.Delete(t_Id);//delete using interface function
             }
             catch (Exception ex) { Console.WriteLine(ex); }
         }
@@ -559,9 +556,9 @@
             int t_DependsOn = int.Parse(temp!);
             //creating the dependency to add, with the gotten values
             Dependency d = new(0, t_Dependent, t_DependsOn);
-            s_dalDependency!.Create(d);//calling the create func, which returns the new dependency's ID (identifing running number)
-            int newID = s_dalDependency!.Create(d);//calling the create func, which returns the new task's ID (identifing runnung number)
-            Console.WriteLine("the new dependency is: " + s_dalDependency.Read(newID));
+            s_dal!.Dependency.Create(d);//calling the create func, which returns the new dependency's ID (identifing running number)
+            int newID = s_dal!.Dependency.Create(d);//calling the create func, which returns the new task's ID (identifing runnung number)
+            Console.WriteLine("the new dependency is: " + s_dal!.Dependency.Read(newID));
         }
         /// <summary>
         /// print dependency with input id
@@ -571,11 +568,11 @@
             Console.WriteLine("Enter the ID of the dependency: ");
             string? temp = Console.ReadLine();
             int t_Id = int.Parse(temp!);//converting to int
-            Dependency d = s_dalDependency!.Read(t_Id)!;//importing the right dependency
+            Dependency d = s_dal!.Dependency.Read(t_Id)!;//importing the right dependency
             if (d != null)
             {
-                Task dependent = s_dalTask!.Read(d.DependentTask)!;//find the dependent task
-                Task dependsOn = s_dalTask!.Read(d.DependsOnTask)!;//find the task the is depended on
+                Task dependent = s_dal!.Task.Read(d.DependentTask)!;//find the dependent task
+                Task dependsOn = s_dal!.Task.Read(d.DependsOnTask)!;//find the task the is depended on
                 //print id of dependency,descriptions of dependent an depends ov task
                 Console.WriteLine("Dependency { Id = "+d.Id+", DependentTask = "+dependent.Description+", DependsOnTask = "+dependsOn.Description +"}");
             }
@@ -586,11 +583,11 @@
         /// </summary>
         private static void readAllDependencies()
         {
-            List<Dependency> dependencies = s_dalDependency!.ReadAll();//import list
+            List<Dependency> dependencies = s_dal!.Dependency.ReadAll();//import list
             foreach (Dependency d in dependencies)
             {
-                Task dependent = s_dalTask!.Read(d.DependentTask)!;//find the dependent task
-                Task dependsOn = s_dalTask!.Read(d.DependsOnTask)!;//find the task the is depended on
+                Task dependent = s_dal!.Task.Read(d.DependentTask)!;//find the dependent task
+                Task dependsOn = s_dal!.Task.Read(d.DependsOnTask)!;//find the task the is depended on
                 //print id of dependency,descriptions of dependent an depends ov task
                 Console.WriteLine("Dependency { Id = " + d.Id + ", DependentTask = " + dependent.Description + ", DependsOnTask = " + dependsOn.Description + "}");
             }
@@ -623,10 +620,10 @@
 
             //create the dependency with the updated values we got
             Dependency p = new(t.Id, t_Dependent, t_DependsOn);
-            s_dalDependency!.Update(p);//call for the update func
+            s_dal!.Dependency.Update(p);//call for the update func
             //print the dependency after updating
-            Task dependent = s_dalTask!.Read(p.DependentTask)!;
-            Task dependsOn = s_dalTask!.Read(p.DependsOnTask)!;
+            Task dependent = s_dal!.Task.Read(p.DependentTask)!;
+            Task dependsOn = s_dal!.Task.Read(p.DependsOnTask)!;
             Console.WriteLine("Dependency { Id = " + p.Id + ", DependentTask = " + dependent.Description + ", DependsOnTask = " + dependsOn.Description + "}");
         }
         /// <summary>
@@ -639,7 +636,7 @@
             int t_Id = int.Parse(temp!);//convert from string to int
             try ///delete can throw exceptions
             {
-                s_dalDependency!.Delete(t_Id);//delete using interface function
+                s_dal!.Dependency.Delete(t_Id);//delete using interface function
             }
             catch (Exception ex) { Console.WriteLine(ex); }
         }
