@@ -20,7 +20,7 @@ internal class TaskImplementation : ITask //derived from this interface
     {
         //check if it exists in the DataSource
         if (!DataSource.Tasks.Exists(p => p.Id == id))
-            throw new Exception($"Task with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Task with ID={id} does Not exist");
         else
         {
             Task temp = DataSource.Tasks.Find(p => p.Id == id)!;//find the task according to the ID
@@ -48,7 +48,7 @@ internal class TaskImplementation : ITask //derived from this interface
     {
         //check if it exists in the DataSource
         if (!DataSource.Tasks.Exists(p=>p!.Id==item.Id))
-            throw new Exception($"Task with ID={item.Id} does Not exist");
+            throw new DalDoesNotExistException($"Task with ID={item.Id} does Not exist");
         else
         {
             Task temp = DataSource.Tasks.Find(p => p!.Id == item.Id)!;

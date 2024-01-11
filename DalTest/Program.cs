@@ -55,7 +55,7 @@
                     }
                 } while (choice != 0); //until the user wants to stop
             }
-            catch (Exception e) { Console.WriteLine(e); }
+            catch (Exception e) { Console.WriteLine(e); }//cant know which exception is thrown 
         }
 
         /// <summary>
@@ -71,8 +71,7 @@
             int.TryParse(s_choice, out choice);
             do
             {
-                try
-                {
+               
                     //according to the user's choice - call the right function
                     switch (choice)
                     {
@@ -101,19 +100,18 @@
                                     updateTask(t);
                                 }
                             }
-                            catch (Exception e) { Console.WriteLine(e); }
+                            catch (DalDoesNotExistException e) { Console.WriteLine(e); }
                             break;
                         case 6:
+                        try
+                        {
                             deleteTask();
-                            break;
+                        }catch(DalDoesNotExistException e) { Console.WriteLine(e); }
+                        break;
                         default:
                             break;
                     }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+               
                 if (choice != 1) //handling the first iteration - if the first choice is 1, no need to get another choice
                 {
                     Console.WriteLine("enter your choice:\n1-exit\n2-create\n3-read\n4-read all\n5-update\n6-delete\n");
@@ -132,15 +130,17 @@
             int.TryParse(s_choice, out choice);
             do
             {
-                try
-                {
+                
                     //according to the user's choice - call the right function
                     switch (choice)
                     {
                         case 1:
                             break;
                         case 2:
+                        try
+                        {
                             addEngineer();
+                        }catch(DalAlreadyExistsException e) { Console.WriteLine(e); }
                             break;
                         case 3:
                             readEngineer();
@@ -163,16 +163,19 @@
                                     updateEngineer(t);
                                 }
                             }
-                            catch (Exception e) { Console.WriteLine(e); }
+                            catch (DalDoesNotExistException e) { Console.WriteLine(e); }
                             break;
                         case 6:
+                        try
+                        {
                             deleteEngineer();
-                            break;
+                        }catch (DalDoesNotExistException e) { Console.WriteLine(e); }
+                        break;
                         default:
                             break;
                     }
-                }
-                catch (Exception e) { Console.WriteLine(e); }
+                
+              
                 if (choice != 1)//handling the first iteration - if the first choice is 1, no need to get another choice
                 {
                     Console.WriteLine("enter your choice:\n1-exit\n2-create\n3-read\n4-read all\n5-update\n6-delete\n");
@@ -190,8 +193,7 @@
             int.TryParse(s_choice, out choice);
             do
             {
-                try
-                {
+                
                     switch (choice)
                     {
                         //according to the user's choice - call the right function
@@ -220,19 +222,20 @@
                                     updateDependency(t);
                                 }
                             }
-                            catch (Exception e) { Console.WriteLine(e); }
+                            catch (DalDoesNotExistException e) { Console.WriteLine(e); }
                             break;
                         case 6:
+                        try
+                        {
                             deleteDependency();
-                            break;
+                        }
+                        catch (DalDoesNotExistException e) { Console.WriteLine(e); }
+
+                        break;
                         default:
                             break;
                     }
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                }
+             
                 if (choice != 1)//handling the first iteration - if the first choice is 1, no need to get another choice
                 {
                     Console.WriteLine("enter your choice:\n1-exit\n2-create\n3-read\n4-read all\n5-update\n6-delete\n");
@@ -418,17 +421,13 @@
             Console.WriteLine("Enter the ID of the task to delete: ");
             string? temp = Console.ReadLine();
             int t_Id = int.Parse(temp!);//converting string to int
-            try
-            {
-                s_dal!.Task.Delete(t_Id);//calling delete function from interface
-            }
-            catch (Exception ex) { Console.WriteLine(ex); }//throe exception
+            s_dal!.Task.Delete(t_Id);//calling delete function from interface
         }
 
-        /// <summary>
-        /// adds an engineer
-        /// </summary>
-        private static void addEngineer()
+            /// <summary>
+            /// adds an engineer
+            /// </summary>
+            private static void addEngineer()
         {
             string? temp; //help variable using the ReadLine func
 
@@ -531,11 +530,8 @@
             Console.WriteLine("Enter the ID of the engineer to delete: ");
             string? temp = Console.ReadLine();
             int t_Id = int.Parse(temp!);//convert to int
-            try
-            {
-                s_dal!.Engineer.Delete(t_Id);//delete using interface function
-            }
-            catch (Exception ex) { Console.WriteLine(ex); }
+            s_dal!.Engineer.Delete(t_Id);//delete using interface function
+
         }
 
 
@@ -634,11 +630,8 @@
             Console.WriteLine("Enter the ID of the dependency to delete: ");
             string? temp = Console.ReadLine();
             int t_Id = int.Parse(temp!);//convert from string to int
-            try ///delete can throw exceptions
-            {
-                s_dal!.Dependency.Delete(t_Id);//delete using interface function
-            }
-            catch (Exception ex) { Console.WriteLine(ex); }
+            s_dal!.Dependency.Delete(t_Id);//delete using interface function
+
         }
     }
 }

@@ -11,7 +11,7 @@ internal class EngineerImplementation : IEngineer //derived from this interface
     {
         //check if it exists in the DataSource - if so, no need to add another one
         if (DataSource.Engineers.Exists(p=>p.Id==item.Id)) 
-            throw new Exception($"Engineer with ID={item.Id} already exists");
+            throw new DalAlreadyExistsException($"Engineer with ID={item.Id} already exists");
         DataSource.Engineers.Add(item);
         return item.Id;
     }
@@ -21,7 +21,7 @@ internal class EngineerImplementation : IEngineer //derived from this interface
     {
         //check if it exists in the DataSource
         if (!DataSource.Engineers.Exists(p => p.Id == id))
-            throw new Exception($"Engineer with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Engineer with ID={id} does Not exist");
         else
         {
             Engineer temp = DataSource.Engineers.Find(p => p.Id == id);// find the engineer according to the ID
@@ -49,7 +49,7 @@ internal class EngineerImplementation : IEngineer //derived from this interface
     {
         //check if it exists in the DataSource
         if (!DataSource.Engineers.Exists(p => p.Id == item.Id))
-            throw new Exception($"Engineer with ID={item.Id} does Not exist");
+            throw new DalDoesNotExistException($"Engineer with ID={item.Id} does Not exist");
         else
         {
             Engineer temp = DataSource.Engineers.Find(p => p.Id == item.Id);

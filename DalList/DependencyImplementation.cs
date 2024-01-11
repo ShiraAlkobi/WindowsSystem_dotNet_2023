@@ -21,7 +21,7 @@ internal class DependencyImplementation : IDependency //derived from this interf
     {
         //check if it exists in the DataSource
         if (!DataSource.Dependencys.Exists(p => p.Id == id))
-            throw new Exception($"Dependency with ID={id} does Not exist");
+            throw new DalDoesNotExistException($"Dependency with ID={id} does Not exist");
         else
         {
             Dependency temp = DataSource.Dependencys.Find(p => p.Id == id); //find the dependency of this ID
@@ -49,7 +49,7 @@ internal class DependencyImplementation : IDependency //derived from this interf
     {
         //check if it exists in the DataSource
         if (!DataSource.Dependencys.Exists(p => p.Id == item.Id))
-            throw new Exception($"Dependency with ID ={ item.Id } does Not exist");
+            throw new DalDoesNotExistException($"Dependency with ID ={ item.Id } does Not exist");
         else
         {
             Dependency temp = DataSource.Dependencys.Find(p => p.Id == item.Id);
