@@ -323,7 +323,7 @@
         /// </summary>
         private static void readAllTasks()
         {
-            List<Task> tasks = s_dal!.Task.ReadAll();//import list of tasks
+            List<Task> tasks = s_dal!.Task.ReadAll().ToList<Task>();//import list of tasks
             foreach (Task t in tasks)//for each task in the list
             {
                 Console.WriteLine(t);//print tasks details
@@ -336,8 +336,8 @@
         private static void updateTask(Task t)
         {
             string? temp, t_alias; //temp values for inserting in the task to update
-            DateTime t_ScheduledDate, t_StartDate, t_DeadlineDate, t_CompleteDate;
-            TimeSpan t_RequiredEffortTime;
+            DateTime? t_ScheduledDate = null, t_StartDate = null, t_DeadlineDate = null, t_CompleteDate = null;
+            TimeSpan? t_RequiredEffortTime = null;
             
             //getting the values from the user, then checking if they're null - no need to update, the temp variable will be the same as the one from the original object
             //else - insert in the temp variable
@@ -356,45 +356,62 @@
             if (temp == "" || temp == null)
                 t_ScheduledDate = t.ScheduledDate;
             else
-                DateTime.TryParse(temp!, out t_ScheduledDate);
+                if (DateTime.TryParse(temp!, out var result))
+            {
+                t_ScheduledDate = result;
+            }
 
             Console.WriteLine("\n Start Date: ");
             temp = Console.ReadLine();
             if (temp == "" || temp == null)
                 t_StartDate = t.StartDate;
             else
-                DateTime.TryParse(temp!, out t_StartDate);
+                if(DateTime.TryParse(temp!, out var result))
+            {
+                t_StartDate = result;
+            }
+
 
             Console.WriteLine("\n Required effort time: ");
             temp = Console.ReadLine();
             if (temp == "" || temp == null)
                 t_RequiredEffortTime = t.RequiredEffortTime;
             else
-                TimeSpan.TryParse(temp!, out t_RequiredEffortTime);
+                if(TimeSpan.TryParse(temp!, out var result))
+            {
+                t_RequiredEffortTime = result;
+            }
 
             Console.WriteLine("\n Deadline Date: ");
             temp = Console.ReadLine();
             if (temp == "" || temp == null)
                 t_DeadlineDate = t.DeadlineDate;
             else
-                DateTime.TryParse(temp!, out t_DeadlineDate);
+                if (DateTime.TryParse(temp!, out var result))
+            {
+                t_DeadlineDate = result;
+            }
 
             Console.WriteLine("\n Complete Date: ");
             temp = Console.ReadLine();
             if (temp == "" || temp == null)
                 t_CompleteDate = t.CompleteDate;
             else
-                DateTime.TryParse(temp!, out t_CompleteDate);
+                if(DateTime.TryParse(temp!, out var result))
+            {
+                t_CompleteDate = result;
+            }
 
             Console.WriteLine("\n Deliverables: ");
-            string t_Deliverables = Console.ReadLine()!;
+            string? t_Deliverables = Console.ReadLine()!;
             if (t_Deliverables == "" || t_Deliverables == null)
                 t_Deliverables = t.Deliverables;
 
             Console.WriteLine("\n Remarks: ");
-            string t_Remarks = Console.ReadLine()!;
+            string? t_Remarks = Console.ReadLine()!;
             if (t_Remarks == "" || t_Remarks == null)
                 t_Remarks = t.Remarks;
+
             int t_EngineerID;
             Console.WriteLine("\n Engineer ID: ");
             temp = Console.ReadLine();
@@ -473,7 +490,7 @@
         /// </summary>
         private static void readAllEngineers()
         {
-            List<Engineer> engineers = s_dal!.Engineer.ReadAll();//import list
+            var engineers = s_dal!.Engineer.ReadAll();//import new list (IEnumerable type)
             foreach (Engineer e in engineers)//for each engineer int the list
             {
                 Console.WriteLine(e);//print
@@ -486,7 +503,7 @@
         private static void updateEngineer(Engineer t)
         {
             string? temp, t_Email, t_Name;//temp values for inserting in the engineer to update
-            double? t_Cost = 0;
+            double t_Cost = 0;
             int t_Id;
             t_Id = t.Id;
 
@@ -512,11 +529,13 @@
 
             Console.WriteLine("Level:\n0 - Beginner\n1 - AdvancedBeginner\n2 - Intermediate\n3 - Advanced\n4 - Expert\n");
             temp = Console.ReadLine();
-            DO.EngineerExperience? t_Level = null;
+            DO.EngineerExperience t_Level = 0;
+
             if(Enum.TryParse(temp,out EngineerExperience help2))
                 t_Level= help2;
             if (temp == "" || temp == null)
                 t_Level = t.Level;
+
             //create the engineer with the updated values we got
             Engineer p = new(t_Id, t_Email, t_Cost, t_Name, t_Level);
             s_dal!.Engineer.Update(p);//call for the update func
@@ -579,7 +598,7 @@
         /// </summary>
         private static void readAllDependencies()
         {
-            List<Dependency> dependencies = s_dal!.Dependency.ReadAll();//import list
+            var dependencies = s_dal!.Dependency.ReadAll();//import new list (IEnumerable type)
             foreach (Dependency d in dependencies)
             {
                 Task dependent = s_dal!.Task.Read(d.DependentTask)!;//find the dependent task

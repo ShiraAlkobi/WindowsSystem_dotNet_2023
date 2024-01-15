@@ -1,7 +1,6 @@
 ﻿namespace DalTest;
 using DalApi;
 using DO;
-using DalList;
 using System;
 using System.Security.Cryptography;
 /// <summary>
@@ -60,14 +59,20 @@ public static class Initialization
     /// </summary>
     private static void createEngineers()
     {
+        //6 names for the engineers
+        string[] names =
+        { "ProjectManager","Architect","InteriorDesigner","ConstructionCrew","Electrician","Plumber" };
         Engineer t_Engineer = new Engineer();//create new engineer
-        for (int i = 1; i <= 6; i++)
+        for (int i = 0; i < 6; i++)
         {
             int t_Id;
             do
                 t_Id = s_rand.Next(100000000, 999999999);//random id
-            while (s_dal!.Engineer.Read(t_Id) != null);//if the random id already exists,draw another one
-            t_Engineer = new Engineer(t_Id, null, null, null, null);//initialize the engineer with the id
+            while (s_dal!.Engineer.Read(t_Id) != null);//if the random id already exists, draw another one
+            string t_Email = $"{names[i]}@jct.com"; //create an email according to the engineer's name
+            double t_Cost = s_rand.Next(50,400); //create a random hourly wage
+            DO.EngineerExperience t_Level = EngineerExperience.Beginner; 
+            t_Engineer = new Engineer(t_Id, t_Email, t_Cost, names[i],t_Level);//initialize the engineer with the id
             s_dal!.Engineer.Create(t_Engineer);//push to list
         }
     }
@@ -76,7 +81,7 @@ public static class Initialization
     /// </summary>
     private static void CreateDependencies()
     {
-        List<Task> TaskList = s_dal!.Task.ReadAll();//import the task list
+        var TaskList = s_dal!.Task.ReadAll().ToList<Task>();//import new list (IEnumerable type)
         if (TaskList != null)//if the list is not empty
         {
             Dependency d;

@@ -1,5 +1,6 @@
 ﻿namespace Dal;
 
+using System.Linq;
 using System.Collections.Generic;
 using DalApi;
 using DO;
@@ -32,16 +33,18 @@ internal class EngineerImplementation : IEngineer //derived from this interface
     ///getting one engineer's ID and returning its engineer (as object)
     public Engineer? Read(int id)
     {
-        //check if it exists in the DataSource
-        if (DataSource.Engineers.Exists(p => p.Id == id))
-            return DataSource.Engineers.Find(p => p.Id == id);
-        else return null; //if doesn't exist
+        //check if it exists in the DataSource using the linq function and the gotten id
+        //if found the right engineer will return it, else rturns null
+        return DataSource.Engineers.FirstOrDefault(p => p.Id == id);
     }
 
-    ///returning a new list which is a copy of the Engineers DataSource
-    public List<Engineer> ReadAll()
+    ///returning a reduced list - only the items that are true in the filter function
+    public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter)
     {
-        return new List <Engineer>(DataSource.Engineers);   
+        if (filter == null) //in this case, return the whole list/collection
+            return DataSource.Engineers.Select(item => item);
+        //otherwise, return the collection of the engineers which are true for the filter function
+        else return DataSource.Engineers.Where(filter!);
     }
 
     ///Gets an engineer and updates it in the DataSource (finds it according to similar ID)
@@ -56,5 +59,11 @@ internal class EngineerImplementation : IEngineer //derived from this interface
             DataSource.Engineers.Remove(temp);//remove the old object from the DataSource
             DataSource.Engineers.Add(item);//add the new object - the updated
         }
+    }
+
+    ///Gets a parameter and returns the first object to meet filter (delegate)
+    public Engineer? Read(Func<Engineer, bool> filter)
+    {
+        return DataSource.Engineers.FirstOrDefault(filter!);
     }
 }

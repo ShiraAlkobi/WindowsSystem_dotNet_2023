@@ -11,10 +11,10 @@ public record Engineer
 (
     int Id,
     string? Email,
-    double? Cost,
+    double Cost,
     string? Name,
-    DO.EngineerExperience? Level
+    DO.EngineerExperience Level
 )
 {
-    public Engineer() : this(0,null,null,null,0) { } ///empty ctor
+    public Engineer() : this(0,null,0,null,0) { } ///empty ctor
 }
