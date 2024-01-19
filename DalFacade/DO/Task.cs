@@ -21,21 +21,20 @@ public record Task
     int Id,
     string? Alias,  
     string? Description,
-    bool? IsMilestone,
-    DateTime? CreatedAtDate,
-    DateTime ScheduledDate,
-    DateTime StartDate,
-    TimeSpan RequiredEffortTime,
-    DateTime DeadlineDate,
-    DateTime CompleteDate,
-    string Deliverables,
-    string Remarks,
+    bool IsMilestone,
+    DateTime CreatedAtDate,
+    DateTime? ScheduledDate,
+    DateTime? StartDate,
+    TimeSpan? RequiredEffortTime,
+    DateTime? DeadlineDate,
+    DateTime? CompleteDate,
+    string? Deliverables,
+    string? Remarks,
     int EngineerId,
     DO.EngineerExperience Complexity
-
 )
 {
-    public Task() : this (0,null,null,null,null,default(DateTime), default(DateTime), default(TimeSpan), default(DateTime), default(DateTime),"","",0, 0) {}
+    public Task() : this (0,null,null,false,default(DateTime),null,null,null,null,null,null,null,0, default) {}
     ///empty ctor
 }
 
