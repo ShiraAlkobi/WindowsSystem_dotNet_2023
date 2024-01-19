@@ -29,4 +29,11 @@ public class DalDeletionImpossible : Exception
     /// <param name="message"></param>
     public DalDeletionImpossible(string? message) : base(message) { }
 }
-public class DalXMLFileLoadCreateException : Exception;
+public class DalXMLFileLoadCreateException : Exception
+{
+    /// <summary>
+    /// in case of trying to delete an object but its forbidden
+    /// </summary>
+    /// <param name="message"></param>
+    public DalXMLFileLoadCreateException(string? message) : base(message) { }
+}
