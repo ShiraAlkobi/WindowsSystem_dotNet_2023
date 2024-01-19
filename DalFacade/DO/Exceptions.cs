@@ -29,3 +29,4 @@ public class DalDeletionImpossible : Exception
     /// <param name="message"></param>
     public DalDeletionImpossible(string? message) : base(message) { }
 }
+public class DalXMLFileLoadCreateException : Exception;
