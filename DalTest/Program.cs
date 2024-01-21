@@ -1,5 +1,6 @@
 ﻿namespace DalTest  
 {
+    using System.Runtime.InteropServices;
     using System.Threading.Channels;
     using Dal;
     using DalApi;
