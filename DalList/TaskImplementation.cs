@@ -4,13 +4,13 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using DalApi;
 using DO;
-//CRUD functions for the engineer entity
-internal class TaskImplementation : ITask //derived from this interface
+///CRUD functions for the engineer entity
+internal class TaskImplementation : ITask ///derived from this interface
 {
     ///getting an task's object and adding it to the DataSounce
     public int Create(Task item)
     { 
-        int newID = DataSource.Config.NextTaskId; //identifing
+        int newID = DataSource.Config.NextTaskId; ///identifing
         Task copy = item with { Id = newID };
         DataSource.Tasks.Add(copy);
         return newID;

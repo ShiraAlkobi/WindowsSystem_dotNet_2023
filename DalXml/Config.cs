@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace Dal;
-
+/// <summary>
+/// this class is in charge of the auto id for the Task and Dependency entities
+/// </summary>
 internal static class Config
 {
     static string s_data_config_xml = "data-config";

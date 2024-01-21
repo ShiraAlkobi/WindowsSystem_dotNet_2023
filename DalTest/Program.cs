@@ -19,17 +19,17 @@
         /// <param name="args"></param>
         private static void Main(string[] args)
         {
-            try //to catch any exceptions
+            try ///to catch any exceptions
             {
                                   
                 int choice;
                 string? s_choice;
                 Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n4-Initialize\n");
-                s_choice = Console.ReadLine(); //getting the user's choice
+                s_choice = Console.ReadLine(); ///getting the user's choice
                 int.TryParse(s_choice, out choice); 
                 do
                 {
-                    //move to the wanted entity's menu - in each one you can use the CRUD funcs
+                    ///move to the wanted entity's menu - in each one you can use the CRUD funcs
                     switch (choice)
                     {
                         case 1:
@@ -84,12 +84,12 @@
                             break;
                         case 0:
                             break;
-                        default: //wrong choice
+                        default: ///wrong choice
                             Console.WriteLine("try again\n");
                             break;
                     }
-                    //because we are in do-while loop the first iteration will always happen, even if the choice=0 (exit)
-                    //so we want to prevent another input if the first choice is 0
+                    ///because we are in do-while loop the first iteration will always happen, even if the choice=0 (exit)
+                    ///so we want to prevent another input if the first choice is 0
                     if (choice != 0) 
                     {
                         Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n4-Initialization\n");
@@ -115,7 +115,7 @@
             do
             {
                
-                    //according to the user's choice - call the right function
+                    ///according to the user's choice - call the right function
                     switch (choice)
                     {
                         case 1:
@@ -130,18 +130,13 @@
                             readAllTasks();
                             break;
                         case 5: 
-                            //update - getting the ID, then finding its object and then sending it to the update func
+                            ///update - getting the ID, then finding its object and then sending it to the update func
                             Console.WriteLine("enter task Id to update: \n");
                             string? temp = Console.ReadLine();
                             int t_id = int.Parse(temp!);
                             try
                             {
-                                Task? t = s_dal!.Task.Read(t_id);
-                                if (t != null)//preventing dealing with null in the update
-                                {
-                                    Console.WriteLine(t); //print before updating
-                                    updateTask(t);
-                                }
+                                    updateTask(t_id);
                             }
                             catch (DalDoesNotExistException e) { Console.WriteLine(e); }
                             break;
@@ -155,7 +150,7 @@
                             break;
                     }
                
-                if (choice != 1) //handling the first iteration - if the first choice is 1, no need to get another choice
+                if (choice != 1) ///handling the first iteration - if the first choice is 1, no need to get another choice
                 {
                     Console.WriteLine("enter your choice:\n1-exit\n2-create\n3-read\n4-read all\n5-update\n6-delete\n");
                     s_choice = Console.ReadLine();
@@ -174,7 +169,7 @@
             do
             {
                 
-                    //according to the user's choice - call the right function
+                    ///according to the user's choice - call the right function
                     switch (choice)
                     {
                         case 1:
@@ -192,19 +187,14 @@
                             readAllEngineers();
                             break;
                         case 5:
-                            //update - getting the ID, then finding its object and then sending it to the update func 
+                            ///update - getting the ID, then finding its object and then sending it to the update func 
                             Console.WriteLine("enter engineer Id to update: \n");
                             string? temp = Console.ReadLine();
                             int t_id;
                             int.TryParse(temp!,out t_id);
                             try
                             {
-                                Engineer? t = s_dal!.Engineer.Read(t_id);
-                                if (t != null) //preventing dealing with null in the update
-                                {
-                                    Console.WriteLine(t); //print before updating
-                                    updateEngineer(t);
-                                }
+                                updateEngineer(t_id);
                             }
                             catch (DalDoesNotExistException e) { Console.WriteLine(e); }
                             break;
@@ -219,7 +209,7 @@
                     }
                 
               
-                if (choice != 1)//handling the first iteration - if the first choice is 1, no need to get another choice
+                if (choice != 1)///handling the first iteration - if the first choice is 1, no need to get another choice
                 {
                     Console.WriteLine("enter your choice:\n1-exit\n2-create\n3-read\n4-read all\n5-update\n6-delete\n");
                     s_choice = Console.ReadLine();
@@ -239,7 +229,7 @@
                 
                     switch (choice)
                     {
-                        //according to the user's choice - call the right function
+                        ///according to the user's choice - call the right function
                         case 1:
                             break;
                         case 2:
@@ -252,18 +242,13 @@
                             readAllDependencies();
                             break;
                         case 5:
-                            //update - getting the ID, then finding its object and then sending it to the update func
+                            ///update - getting the ID, then finding its object and then sending it to the update func
                             Console.WriteLine("enter task Id to update: \n");
                             string? temp = Console.ReadLine();
                             int t_id = int.Parse(temp!);
                             try
-                            {
-                                Dependency? t = s_dal!.Dependency.Read(t_id);
-                                if (t != null)//preventing dealing with null in the update
-                                {
-                                    Console.WriteLine(t); //print before updating
-                                    updateDependency(t);
-                                }
+                            { 
+                                updateDependency(t_id);
                             }
                             catch (DalDoesNotExistException e) { Console.WriteLine(e); }
                             break;
@@ -279,7 +264,7 @@
                             break;
                     }
              
-                if (choice != 1)//handling the first iteration - if the first choice is 1, no need to get another choice
+                if (choice != 1)///handling the first iteration - if the first choice is 1, no need to get another choice
                 {
                     Console.WriteLine("enter your choice:\n1-exit\n2-create\n3-read\n4-read all\n5-update\n6-delete\n");
                     s_choice = Console.ReadLine();
@@ -297,9 +282,9 @@
         ///</summary>
         private static void addTask()
         {
-            string? temp; //help variable using the ReadLine func
+            string? temp; ///help variable using the ReadLine func
 
-            //getting the task's values from the user and inserting them into temporary variables
+            ///getting the task's values from the user and inserting them into temporary variables
             Console.WriteLine("enter the task details:\n Alias: ");
             string? t_Alias = Console.ReadLine();
 
@@ -352,12 +337,12 @@
         private static void readTask()
         {
             Console.WriteLine("Enter the ID of the task: ");
-            string? temp = Console.ReadLine();//read the id
-            int t_Id = int.Parse(temp!);//convert from string to int
-            Task t = s_dal!.Task.Read(t_Id)!;//use read function of task interface to import the right task
-            if (t != null)//if the task exists
+            string? temp = Console.ReadLine();///read the id
+            int t_Id = int.Parse(temp!);///convert from string to int
+            Task t = s_dal!.Task.Read(t_Id)!;///use read function of task interface to import the right task
+            if (t != null)///if the task exists
             {
-                Console.WriteLine(t);//print
+                Console.WriteLine(t);///print
             }
             else { Console.WriteLine("ID was not found"); }
         }
@@ -366,24 +351,30 @@
         /// </summary>
         private static void readAllTasks()
         {
-            List<Task> tasks = s_dal!.Task.ReadAll().ToList<Task>();//import list of tasks
-            foreach (Task t in tasks)//for each task in the list
+            List<Task> tasks = s_dal!.Task.ReadAll().ToList<Task>();///import list of tasks
+            foreach (Task t in tasks)///for each task in the list
             {
-                Console.WriteLine(t);//print tasks details
+                Console.WriteLine(t);///print tasks details
             }
         }
         /// <summary>
         /// update a task (gotten as a parameter
         /// </summary>
         /// <param name="t"></param>
-        private static void updateTask(Task t)
+        private static void updateTask(int t_id)
         {
-            string? temp, t_alias; //temp values for inserting in the task to update
+            Task? t = s_dal!.Task.Read(t_id);
+            if (t == null)
+            {
+                throw new DalDoesNotExistException($"Task with ID={t_id} does Not exist");
+            }
+            Console.WriteLine(t);
+            string? temp, t_alias; ///temp values for inserting in the task to update
             DateTime? t_ScheduledDate = null, t_StartDate = null, t_DeadlineDate = null, t_CompleteDate = null;
             TimeSpan? t_RequiredEffortTime = null;
             
-            //getting the values from the user, then checking if they're null - no need to update, the temp variable will be the same as the one from the original object
-            //else - insert in the temp variable
+            ///getting the values from the user, then checking if they're null - no need to update, the temp variable will be the same as the one from the original object
+            ///else - insert in the temp variable
             Console.WriteLine("enter the task values:\n Alias: ");
             t_alias = Console.ReadLine();
             if (t_alias == "" || t_alias == null)
@@ -467,11 +458,11 @@
             DO.EngineerExperience t_Complexity = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), temp);
             if (temp == "" || temp == null)
                 t_Complexity = t.Complexity;
-            //create the task with the updated values we got
+            ///create the task with the updated values we got
             Task p = new(t.Id, t_alias, t_Description, false, DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
                 t_DeadlineDate, t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
-            s_dal!.Task.Update(p); //call for the update func
-            Console.WriteLine(p); //print the task after updating
+            s_dal!.Task.Update(p); ///call for the update func
+            Console.WriteLine(p); ///print the task after updating
         }
         /// <summary>
         /// deleting task from the list
@@ -480,8 +471,8 @@
         {
             Console.WriteLine("Enter the ID of the task to delete: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);//converting string to int
-            s_dal!.Task.Delete(t_Id);//calling delete function from interface
+            int t_Id = int.Parse(temp!);///converting string to int
+            s_dal!.Task.Delete(t_Id);///calling delete function from interface
         }
 
             /// <summary>
@@ -489,9 +480,9 @@
             /// </summary>
             private static void addEngineer()
         {
-            string? temp; //help variable using the ReadLine func
+            string? temp; ///help variable using the ReadLine func
 
-            //getting the engineer's values from the user and inserting them into temporary variables
+            ///getting the engineer's values from the user and inserting them into temporary variables
             Console.WriteLine("enter the engineer details:\n Engineer ID: ");
             temp = Console.ReadLine();
             int t_ID = int.Parse(temp!);
@@ -509,9 +500,9 @@
             Console.WriteLine("\n Level:\n0 - Beginner\n1 - AdvancedBeginner\n2 - Intermediate\n3 - Advanced\n4 - Expert\n");
             temp = Console.ReadLine();
             DO.EngineerExperience t_Level = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), temp);
-            //creating the engineer to add, with the gotten values
+            ///creating the engineer to add, with the gotten values
             Engineer e = new(t_ID, t_Email, t_Cost, t_Name, t_Level);
-            s_dal!.Engineer.Create(e);//calling the create func
+            s_dal!.Engineer.Create(e);///calling the create func
         }
         /// <summary>
         /// prints the engineer with the input id
@@ -519,12 +510,12 @@
         private static void readEngineer()
         {
             Console.WriteLine("Enter the ID of the engineer: ");
-            string? temp = Console.ReadLine();//reading to nullable string
-            int t_Id = int.Parse(temp!);//converting to int
-            Engineer e = s_dal!.Engineer.Read(t_Id)!;//using read function of interface to import the right engineer
+            string? temp = Console.ReadLine();///reading to nullable string
+            int t_Id = int.Parse(temp!);///converting to int
+            Engineer e = s_dal!.Engineer.Read(t_Id)!;///using read function of interface to import the right engineer
             if (e != null)
             {
-                Console.WriteLine(e);//print details
+                Console.WriteLine(e);///print details
             }
             else { Console.WriteLine("ID was not found"); }
         }
@@ -533,25 +524,31 @@
         /// </summary>
         private static void readAllEngineers()
         {
-            var engineers = s_dal!.Engineer.ReadAll();//import new list (IEnumerable type)
-            foreach (Engineer e in engineers)//for each engineer int the list
+            var engineers = s_dal!.Engineer.ReadAll();///import new list (IEnumerable type)
+            foreach (Engineer e in engineers)///for each engineer int the list
             {
-                Console.WriteLine(e);//print
+                Console.WriteLine(e);///print
             }
         }
         /// <summary>
         /// updates an engineer (gotten as parameter)
         /// </summary>
         /// <param name="t"></param>
-        private static void updateEngineer(Engineer t)
+        private static void updateEngineer(int t_id)
         {
-            string? temp, t_Email, t_Name;//temp values for inserting in the engineer to update
+            Engineer? t = s_dal!.Engineer.Read(t_id);
+            if (t == null)
+            {
+                throw new DalDoesNotExistException($"Engineer with ID={t_id} does Not exist");
+            }
+            Console.WriteLine(t);
+            string? temp, t_Email, t_Name;///temp values for inserting in the engineer to update
             double t_Cost = 0;
             int t_Id;
             t_Id = t.Id;
 
-            //getting the values from the user, then checking if they're null - no need to update, the temp variable will be the same as the one from the original object
-            //else - insert in the temp variable
+            ///getting the values from the user, then checking if they're null - no need to update, the temp variable will be the same as the one from the original object
+            ///else - insert in the temp variable
             Console.WriteLine("\n Email: ");
             t_Email = Console.ReadLine();
             if (t_Email == "" || t_Email == null)
@@ -579,10 +576,10 @@
             if (temp == "" || temp == null)
                 t_Level = t.Level;
 
-            //create the engineer with the updated values we got
+            ///create the engineer with the updated values we got
             Engineer p = new(t_Id, t_Email, t_Cost, t_Name, t_Level);
-            s_dal!.Engineer.Update(p);//call for the update func
-            Console.WriteLine(p);//print the engineer after updating
+            s_dal!.Engineer.Update(p);///call for the update func
+            Console.WriteLine(p);///print the engineer after updating
         }
         /// <summary>
         /// delete engineer from list
@@ -591,8 +588,8 @@
         {
             Console.WriteLine("Enter the ID of the engineer to delete: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);//convert to int
-            s_dal!.Engineer.Delete(t_Id);//delete using interface function
+            int t_Id = int.Parse(temp!);///convert to int
+            s_dal!.Engineer.Delete(t_Id);///delete using interface function
 
         }
 
@@ -602,9 +599,9 @@
         /// </summary>
         private static void addDependency()
         {
-            string? temp;//help variable using the ReadLine func
+            string? temp;///help variable using the ReadLine func
 
-            //getting the dependency's values from the user and inserting them into temporary variables
+            ///getting the dependency's values from the user and inserting them into temporary variables
             Console.WriteLine("enter the dependency details:\n The ID of dependent task: ");
             temp = Console.ReadLine();
             int t_Dependent = int.Parse(temp!);
@@ -612,10 +609,10 @@
             Console.WriteLine("\n Depends on (ID): ");
             temp = Console.ReadLine();
             int t_DependsOn = int.Parse(temp!);
-            //creating the dependency to add, with the gotten values
+            ///creating the dependency to add, with the gotten values
             Dependency d = new(0, t_Dependent, t_DependsOn);
-            s_dal!.Dependency.Create(d);//calling the create func, which returns the new dependency's ID (identifing running number)
-            int newID = s_dal!.Dependency.Create(d);//calling the create func, which returns the new task's ID (identifing runnung number)
+            s_dal!.Dependency.Create(d);///calling the create func, which returns the new dependency's ID (identifing running number)
+            int newID = s_dal!.Dependency.Create(d);///calling the create func, which returns the new task's ID (identifing runnung number)
             Console.WriteLine("the new dependency is: " + s_dal!.Dependency.Read(newID));
         }
         /// <summary>
@@ -625,13 +622,13 @@
         {
             Console.WriteLine("Enter the ID of the dependency: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);//converting to int
-            Dependency d = s_dal!.Dependency.Read(t_Id)!;//importing the right dependency
+            int t_Id = int.Parse(temp!);///converting to int
+            Dependency d = s_dal!.Dependency.Read(t_Id)!;///importing the right dependency
             if (d != null)
             {
-                Task dependent = s_dal!.Task.Read(d.DependentTask)!;//find the dependent task
-                Task dependsOn = s_dal!.Task.Read(d.DependsOnTask)!;//find the task the is depended on
-                //print id of dependency,descriptions of dependent an depends ov task
+                Task dependent = s_dal!.Task.Read(d.DependentTask)!;///find the dependent task
+                Task dependsOn = s_dal!.Task.Read(d.DependsOnTask)!;///find the task the is depended on
+                ///print id of dependency,descriptions of dependent an depends ov task
                 Console.WriteLine("Dependency { Id = "+d.Id+", DependentTask = "+dependent.Description+", DependsOnTask = "+dependsOn.Description +"}");
             }
             else { Console.WriteLine("ID was not found"); }
@@ -641,12 +638,12 @@
         /// </summary>
         private static void readAllDependencies()
         {
-            var dependencies = s_dal!.Dependency.ReadAll();//import new list (IEnumerable type)
+            var dependencies = s_dal!.Dependency.ReadAll();///import new list (IEnumerable type)
             foreach (Dependency d in dependencies)
             {
-                Task dependent = s_dal!.Task.Read(d.DependentTask)!;//find the dependent task
-                Task dependsOn = s_dal!.Task.Read(d.DependsOnTask)!;//find the task the is depended on
-                //print id of dependency,descriptions of dependent an depends ov task
+                Task dependent = s_dal!.Task.Read(d.DependentTask)!;///find the dependent task
+                Task dependsOn = s_dal!.Task.Read(d.DependsOnTask)!;///find the task the is depended on
+                ///print id of dependency,descriptions of dependent an depends ov task
                 Console.WriteLine("Dependency { Id = " + d.Id + ", DependentTask = " + dependent.Description + ", DependsOnTask = " + dependsOn.Description + "}");
             }
         }
@@ -655,13 +652,19 @@
         /// updates a engineer (gotten as parameter)
         /// </summary>
         /// <param name="t"></param>
-        private static void updateDependency(Dependency t)
+        private static void updateDependency(int t_id)
         {
-            string? temp;//temp values for inserting in the dependency to update
+            Dependency? t = s_dal!.Dependency.Read(t_id);
+            if (t == null)
+            {
+                throw new DalDoesNotExistException($"Dependency with ID={t_id} does Not exist");
+            }
+            Console.WriteLine(t);
+            string? temp;///temp values for inserting in the dependency to update
             int t_Dependent=0, t_DependsOn=0;
 
-            //getting the values from the user, then checking if they're null - no need to update, the temp variable will be the same as the one from the original object
-            //else - insert in the temp variable
+            ///getting the values from the user, then checking if they're null - no need to update, the temp variable will be the same as the one from the original object
+            ///else - insert in the temp variable
             Console.WriteLine("enter the engineer values:\n The dependent task ID: ");
             temp = Console.ReadLine();
             if(int.TryParse(temp!,out var help))
@@ -676,10 +679,10 @@
             if (temp == "" || temp == null)
                 t_DependsOn = t.DependsOnTask;
 
-            //create the dependency with the updated values we got
+            ///create the dependency with the updated values we got
             Dependency p = new(t.Id, t_Dependent, t_DependsOn);
-            s_dal!.Dependency.Update(p);//call for the update func
-            //print the dependency after updating
+            s_dal!.Dependency.Update(p);///call for the update func
+            ///print the dependency after updating
             Task dependent = s_dal!.Task.Read(p.DependentTask)!;
             Task dependsOn = s_dal!.Task.Read(p.DependsOnTask)!;
             Console.WriteLine("Dependency { Id = " + p.Id + ", DependentTask = " + dependent.Description + ", DependsOnTask = " + dependsOn.Description + "}");
@@ -691,8 +694,8 @@
         {
             Console.WriteLine("Enter the ID of the dependency to delete: ");
             string? temp = Console.ReadLine();
-            int t_Id = int.Parse(temp!);//convert from string to int
-            s_dal!.Dependency.Delete(t_Id);//delete using interface function
+            int t_Id = int.Parse(temp!);///convert from string to int
+            s_dal!.Dependency.Delete(t_Id);///delete using interface function
 
         }
     }

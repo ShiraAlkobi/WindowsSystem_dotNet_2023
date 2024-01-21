@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Dal
 {
+    /// <summary>
+    /// this class connects the IDal interface to the XML implementations of the entities 
+    /// </summary>
     public class DalXml : IDal
     {
         public ITask Task => new TaskImplementation();
