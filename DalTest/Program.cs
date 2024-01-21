@@ -10,7 +10,8 @@
     internal class Program
     {
         /// creating interface type object of IDal so we can use the entities` methods
-        static readonly IDal s_dal = new DalList(); 
+        ///static readonly IDal s_dal = new DalList();
+        static readonly IDal s_dal = new DalXml(); 
         /// <summary>
         /// Main function
         /// </summary>
@@ -19,10 +20,10 @@
         {
             try //to catch any exceptions
             {
-                Initialization.Do(s_dal); //initializing each entity's data source
+                                  
                 int choice;
                 string? s_choice;
-                Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n");
+                Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n4-Initialize\n");
                 s_choice = Console.ReadLine(); //getting the user's choice
                 int.TryParse(s_choice, out choice); 
                 do
@@ -38,6 +39,46 @@
                             break;
                         case 3:
                             DependencyMenu();
+                            break;
+                        case 4:
+                            ///by working with XML files, we don't need to initialize our entities' data in every run
+                            ///therefore, in the beginning of every run, we ask the user if to initialize all of the data 
+                            ///initializing means deleteing all of the entities' objects from the XML files
+
+                            Console.Write("Would you like to create Initial data? (Y/N)");
+                            string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
+                            if (ans == "Y")
+                            {
+                                ///deleting the entities' data from every file
+                                List<Task> tasks = s_dal.Task.ReadAll()!.ToList<Task>();
+                                if (tasks.Count > 0)
+                                {
+                                    foreach (Task task in tasks)
+                                    {
+                                        s_dal.Task.Delete(task.Id);
+                                    }
+                                }
+
+                                List<Engineer> engineers = s_dal.Engineer.ReadAll()!.ToList<Engineer>();
+                                if (engineers.Count > 0)
+                                {
+                                    foreach (Engineer engineer in engineers)
+                                    {
+                                        s_dal.Engineer.Delete(engineer.Id);
+                                    }
+                                }
+
+                                List<Dependency> dependencys = s_dal.Dependency.ReadAll()!.ToList<Dependency>();
+                                if (dependencys.Count > 0)
+                                {
+                                    foreach (Dependency dependency in dependencys)
+                                    {
+                                        s_dal.Dependency.Delete(dependency.Id);
+                                    }
+                                }
+
+                                Initialization.Do(s_dal);
+                            }
                             break;
                         case 0:
                             break;
