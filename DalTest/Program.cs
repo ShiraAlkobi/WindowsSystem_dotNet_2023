@@ -47,7 +47,8 @@
 
                             Console.Write("Would you like to create Initial data? (Y/N)");
                             string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
-                            if (ans == "Y")
+                            
+                           if (ans == "Y")
                             {
                                 ///deleting the entities' data from every file
                                 List<Task> tasks = s_dal.Task.ReadAll()!.ToList<Task>();
@@ -90,7 +91,7 @@
                     //so we want to prevent another input if the first choice is 0
                     if (choice != 0) 
                     {
-                        Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n");
+                        Console.WriteLine("enter your entity choice:\n0-exit\n1-Task\n2-Engineer\n3-Dependency\n4-Initialization\n");
                         s_choice = Console.ReadLine();
                         int.TryParse(s_choice, out choice);
                     }

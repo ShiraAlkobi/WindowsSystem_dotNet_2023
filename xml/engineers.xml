@@ -1,3 +1,45 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer>
+  <Engineer>
+    <Id>557565888</Id>
+    <Email>ProjectManager@jct.com</Email>
+    <Cost>104</Cost>
+    <Name>ProjectManager</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>311831982</Id>
+    <Email>Architect@jct.com</Email>
+    <Cost>157</Cost>
+    <Name>Architect</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>968975453</Id>
+    <Email>InteriorDesigner@jct.com</Email>
+    <Cost>213</Cost>
+    <Name>InteriorDesigner</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>322848666</Id>
+    <Email>ConstructionCrew@jct.com</Email>
+    <Cost>314</Cost>
+    <Name>ConstructionCrew</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>119360038</Id>
+    <Email>Electrician@jct.com</Email>
+    <Cost>372</Cost>
+    <Name>Electrician</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>768334697</Id>
+    <Email>Plumber@jct.com</Email>
+    <Cost>206</Cost>
+    <Name>Plumber</Name>
+    <Level>Beginner</Level>
+  </Engineer>
 </ArrayOfEngineer>

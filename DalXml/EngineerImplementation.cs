@@ -14,14 +14,15 @@ internal class EngineerImplementation:IEngineer
     ///help function - gets an XElement object and converting it to engineer
     static Engineer getEngineer(XElement element)
     {
-        return new Engineer()
-        {
-            Id = element.ToIntNullable("Id") ?? throw new FormatException("Can't convert Id"),
-            Email = (string?)element.Element("Email") ?? "",
-            Cost = element.ToDoubleNullable("Cost") ?? throw new FormatException("Can't convert Cost"),
-            Name = (string?)element.Element("Name") ?? "",
-            Level = element.ToEnumNullable<EngineerExperience>("Level") ?? EngineerExperience.Beginner
-        };
+
+
+        int t_Id = element.ToIntNullable("Id") ?? throw new FormatException("Can't convert Id");
+          string? t_Email = (string?)element.Element("Email") ?? "";
+        double t_Cost = element.ToDoubleNullable("Cost") ?? throw new FormatException("Can't convert Cost");
+        string? t_Name = (string?)element.Element("Name") ?? "";
+        EngineerExperience t_Level = element.ToEnumNullable<EngineerExperience>("Level") ?? EngineerExperience.Beginner;
+        Engineer e = new(t_Id, t_Email, t_Cost, t_Name, t_Level);
+        return e;
     }
 
     /// <summary>
@@ -64,14 +65,13 @@ internal class EngineerImplementation:IEngineer
     public void Delete(int id)
     {
         ///Loading the collection of engineers from the file
-        IEnumerable<XElement> engineers = XMLTools.LoadListFromXMLElement(s_engineer_xml).Elements();
+        XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineer_xml);
         ///search for the right enginner by id
-        XElement? engineer_Elem = engineers.FirstOrDefault(p => (int?)p.Element("Id") == id);
+        XElement? engineer_Elem = engineerRoot.Elements().FirstOrDefault(p => (int?)p.Element("Id") == id);
         if (engineer_Elem != null)///if found
         {
             ///remove and update the file
             engineer_Elem.Remove();
-            XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineer_xml);
             XMLTools.SaveListToXMLElement(engineerRoot, s_engineer_xml);
             return;
         }///if the engineer doesn't exist in the file, can't delete it
@@ -112,7 +112,10 @@ internal class EngineerImplementation:IEngineer
     public IEnumerable<Engineer?> ReadAll(Func<Engineer, bool>? filter = null)
     {
         /// if the filter is null, return all engineers
-        if (filter == null) { return XMLTools.LoadListFromXMLElement(s_engineer_xml).Elements().Select(s => getEngineer(s)); }
+        if (filter == null)
+        { 
+            return XMLTools.LoadListFromXMLElement(s_engineer_xml).Elements().Select(s => getEngineer(s));
+        }
         return XMLTools.LoadListFromXMLElement(s_engineer_xml).Elements().Select(s => getEngineer(s)).Where(filter);
     }
 
@@ -124,8 +127,8 @@ internal class EngineerImplementation:IEngineer
     public void Update(Engineer item)
     {
         ///load and search
-        IEnumerable<XElement> engineers = XMLTools.LoadListFromXMLElement(s_engineer_xml).Elements();
-        XElement? engineer_Elem = engineers.FirstOrDefault(p => (int?)p.Element("Id") == item.Id);
+        XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineer_xml);
+        XElement? engineer_Elem = engineerRoot.Elements().FirstOrDefault(p => (int?)p.Element("Id") == item.Id);
         if (engineer_Elem != null) /// if found
         {
             ///updating the values in the object
@@ -135,7 +138,7 @@ internal class EngineerImplementation:IEngineer
             engineer_Elem.Element("Level").Value = item.Level.ToString();
 
             ///update the file
-            XElement engineerRoot = XMLTools.LoadListFromXMLElement(s_engineer_xml);
+            
             XMLTools.SaveListToXMLElement(engineerRoot, s_engineer_xml);
             return;
         }///if the engineer doesn't exist in the file, can't update it
