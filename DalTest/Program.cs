@@ -12,7 +12,8 @@
     {
         /// creating interface type object of IDal so we can use the entities` methods
         ///static readonly IDal s_dal = new DalList();
-        static readonly IDal s_dal = new DalXml(); 
+        ///static readonly IDal s_dal = new DalXml(); 
+        static readonly IDal s_dal = Factory.Get;
         /// <summary>
         /// Main function
         /// </summary>
@@ -79,7 +80,7 @@
                                     }
                                 }
 
-                                Initialization.Do(s_dal);
+                                Initialization.Do();
                             }
                             break;
                         case 0:

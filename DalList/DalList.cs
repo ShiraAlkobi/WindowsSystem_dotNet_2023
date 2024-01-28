@@ -6,8 +6,10 @@ using DalApi;
 /// from IDal interface. for each entity(property in IDal) we call the implementations function
 /// and initialize interface type accordingly.
 /// </summary>
-sealed public class DalList : IDal
+sealed internal class DalList : IDal
 {
+    public static IDal Instance { get; } = new DalList();
+    private DalList() { }
     public ITask Task => new TaskImplementation();
 
     public IEngineer Engineer => new EngineerImplementation();
