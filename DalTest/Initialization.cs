@@ -123,9 +123,10 @@ public static class Initialization
     /// <param name="dalEngineer"></param>
     /// <param name="dalDependency"></param>
     /// <exception cref="NullReferenceException"></exception>
-    public static void Do(IDal dal)
+    public static void Do()
     {
-        s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
+        //s_dal = dal ?? throw new NullReferenceException("DAL object can not be null!"); //stage 2
+        s_dal = Factory.Get;
         createTasks();
         createEngineers();
         CreateDependencies();

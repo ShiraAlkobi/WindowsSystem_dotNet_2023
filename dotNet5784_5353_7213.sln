@@ -16,15 +16,20 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalList", "DalList\DalList.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalTest", "DalTest\DalTest.csproj", "{8F753C61-7C99-43AB-B54A-C0092ACF829D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DalXml", "DalXml\DalXml.csproj", "{62EF39B3-69CE-4B04-A089-DB597F3D0082}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DalXml", "DalXml\DalXml.csproj", "{62EF39B3-69CE-4B04-A089-DB597F3D0082}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "xml", "xml", "{AB097028-B02A-4EB1-B578-6A272B5ECC18}"
 	ProjectSection(SolutionItems) = preProject
+		xml\dal-config.xml = xml\dal-config.xml
 		xml\data-config.xml = xml\data-config.xml
 		xml\dependencys.xml = xml\dependencys.xml
 		xml\engineers.xml = xml\engineers.xml
 		xml\tasks.xml = xml\tasks.xml
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BL", "BL\BL.csproj", "{DF984D24-54EC-415C-8532-64DF8EACA223}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlTest", "BlTest\BlTest.csproj", "{6058C961-FB81-441C-9AFC-E2DCF12CD0FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,9 +57,21 @@ Global
 		{62EF39B3-69CE-4B04-A089-DB597F3D0082}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62EF39B3-69CE-4B04-A089-DB597F3D0082}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62EF39B3-69CE-4B04-A089-DB597F3D0082}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF984D24-54EC-415C-8532-64DF8EACA223}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF984D24-54EC-415C-8532-64DF8EACA223}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF984D24-54EC-415C-8532-64DF8EACA223}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF984D24-54EC-415C-8532-64DF8EACA223}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6058C961-FB81-441C-9AFC-E2DCF12CD0FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6058C961-FB81-441C-9AFC-E2DCF12CD0FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6058C961-FB81-441C-9AFC-E2DCF12CD0FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6058C961-FB81-441C-9AFC-E2DCF12CD0FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF984D24-54EC-415C-8532-64DF8EACA223} = {09EC409F-AFC3-4936-9CE1-DCA5408B5819}
+		{6058C961-FB81-441C-9AFC-E2DCF12CD0FD} = {09EC409F-AFC3-4936-9CE1-DCA5408B5819}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E9401738-6126-4238-9B57-53FC9C0C44F3}
