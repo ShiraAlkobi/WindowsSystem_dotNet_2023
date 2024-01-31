@@ -5,7 +5,7 @@ public class Task
     public int Id {  get; init; }
     public string? Alias {  get; set; }
     public string? Description {  get; set; }
-    public BO.MilestoneInTask? Milestone { get; set; }
+    //public BO.MilestoneInTask? Milestone { get; set; }
     public List<BO.TaskInList>? Dependencies {  get; set; }
     public BO.Status Status { get; set; }
     public DateTime CreatedAtDate {  get; init; }

@@ -10,7 +10,7 @@ public class Engineer
     public double Cost { get; set; }
     public string? Name { get; set; }
     public BO.EngineerExperience Level { get; set; }
-    BO.TaskInEngineer? Task {  get; set; }
+    public BO.TaskInEngineer? Task {  get; set; }
 
     public override string ToString() => Tools.ToStringProperty(this);
 }
