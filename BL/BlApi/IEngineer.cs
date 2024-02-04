@@ -29,7 +29,7 @@ public interface IEngineer
     /// </summary>
     /// <param name="id">id of engineer to return</param>
     /// <returns></returns>
-    public BO.Engineer? Read(int id);
+    public BO.Engineer Read(int id);
 
     /// <summary>
     /// delete engineer with param id
