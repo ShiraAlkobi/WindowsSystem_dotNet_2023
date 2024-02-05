@@ -30,7 +30,10 @@ internal class EngineerImplementation : BlApi.IEngineer
     public int Create(BO.Engineer t)
     {
         ///Check for correct input
-        new EmailAddressAttribute().IsValid(t.Email);
+        try
+        {
+            new EmailAddressAttribute().IsValid(t.Email);
+        }catch (Exception ex) { throw new BO.BlInputCheckException("email not valid\n"); }
         if ( t.Id < 0 || t.Name == "" || t.Cost < 0)
         {
             throw new BO.BlInputCheckException("wrong input\n");

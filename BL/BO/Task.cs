@@ -18,6 +18,6 @@ public class Task
     public string? Deliverables {  get; set; }
     public string? Remarks {  get; set; }
     public BO.EngineerInTask? Engineer { get; set; }
-    public DO.EngineerExperience Complexity {  get; set; }
+    public BO.EngineerExperience Complexity {  get; set; }
     public override string ToString() => Tools.ToStringProperty(this);
 }

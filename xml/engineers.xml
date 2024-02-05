@@ -1,44 +1,86 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ArrayOfEngineer>
   <Engineer>
-    <Id>557565888</Id>
+    <Id>714258562</Id>
     <Email>ProjectManager@jct.com</Email>
-    <Cost>104</Cost>
+    <Cost>279</Cost>
     <Name>ProjectManager</Name>
     <Level>Beginner</Level>
   </Engineer>
   <Engineer>
-    <Id>311831982</Id>
+    <Id>654959756</Id>
     <Email>Architect@jct.com</Email>
-    <Cost>157</Cost>
+    <Cost>331</Cost>
     <Name>Architect</Name>
     <Level>Beginner</Level>
   </Engineer>
   <Engineer>
-    <Id>968975453</Id>
+    <Id>881832888</Id>
     <Email>InteriorDesigner@jct.com</Email>
-    <Cost>213</Cost>
+    <Cost>392</Cost>
     <Name>InteriorDesigner</Name>
     <Level>Beginner</Level>
   </Engineer>
   <Engineer>
-    <Id>322848666</Id>
+    <Id>447767448</Id>
     <Email>ConstructionCrew@jct.com</Email>
-    <Cost>314</Cost>
+    <Cost>250</Cost>
     <Name>ConstructionCrew</Name>
     <Level>Beginner</Level>
   </Engineer>
   <Engineer>
-    <Id>119360038</Id>
+    <Id>516517420</Id>
     <Email>Electrician@jct.com</Email>
-    <Cost>372</Cost>
+    <Cost>320</Cost>
     <Name>Electrician</Name>
     <Level>Beginner</Level>
   </Engineer>
   <Engineer>
-    <Id>768334697</Id>
+    <Id>386792482</Id>
     <Email>Plumber@jct.com</Email>
-    <Cost>206</Cost>
+    <Cost>151</Cost>
+    <Name>Plumber</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>577826421</Id>
+    <Email>ProjectManager@jct.com</Email>
+    <Cost>394</Cost>
+    <Name>ProjectManager</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>754943153</Id>
+    <Email>Architect@jct.com</Email>
+    <Cost>170</Cost>
+    <Name>Architect</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>378195355</Id>
+    <Email>InteriorDesigner@jct.com</Email>
+    <Cost>262</Cost>
+    <Name>InteriorDesigner</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>459712650</Id>
+    <Email>ConstructionCrew@jct.com</Email>
+    <Cost>244</Cost>
+    <Name>ConstructionCrew</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>965740415</Id>
+    <Email>Electrician@jct.com</Email>
+    <Cost>143</Cost>
+    <Name>Electrician</Name>
+    <Level>Beginner</Level>
+  </Engineer>
+  <Engineer>
+    <Id>300002842</Id>
+    <Email>Plumber@jct.com</Email>
+    <Cost>395</Cost>
     <Name>Plumber</Name>
     <Level>Beginner</Level>
   </Engineer>

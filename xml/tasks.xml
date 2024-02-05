@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ArrayOfTask xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <Task>
-    <Id>61</Id>
+    <Id>0</Id>
     <Alias>TaskName1</Alias>
     <Description>Define Renovation Goals and Budget</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -15,11 +15,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>62</Id>
+    <Id>1</Id>
     <Alias>TaskName2</Alias>
     <Description>Hire Architect and Interior Designer</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -29,11 +29,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>63</Id>
+    <Id>2</Id>
     <Alias>TaskName3</Alias>
     <Description>Obtain Necessary Permits</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -43,11 +43,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>64</Id>
+    <Id>3</Id>
     <Alias>TaskName4</Alias>
     <Description>Demolition and Site Preparation</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -57,11 +57,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>65</Id>
+    <Id>4</Id>
     <Alias>TaskName5</Alias>
     <Description>Structural Changes (e.g., Walls, Ceilings)</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -71,11 +71,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>66</Id>
+    <Id>5</Id>
     <Alias>TaskName6</Alias>
     <Description>Plumbing and Electrical Work</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -85,11 +85,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>67</Id>
+    <Id>6</Id>
     <Alias>TaskName7</Alias>
     <Description>Flooring Installation</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -99,11 +99,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>68</Id>
+    <Id>7</Id>
     <Alias>TaskName8</Alias>
     <Description>Kitchen Remodeling</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -113,11 +113,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>69</Id>
+    <Id>8</Id>
     <Alias>TaskName9</Alias>
     <Description>Bathroom Remodeling</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -127,11 +127,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>70</Id>
+    <Id>9</Id>
     <Alias>TaskName10</Alias>
     <Description>Painting and Wall Finishing</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -141,11 +141,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>71</Id>
+    <Id>10</Id>
     <Alias>TaskName11</Alias>
     <Description>Window and Door Replacement</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -155,11 +155,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>72</Id>
+    <Id>11</Id>
     <Alias>TaskName12</Alias>
     <Description>Roof Repair or Replacement</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -169,11 +169,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>73</Id>
+    <Id>12</Id>
     <Alias>TaskName13</Alias>
     <Description>Install HVAC Systems</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -183,11 +183,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>74</Id>
+    <Id>13</Id>
     <Alias>TaskName14</Alias>
     <Description>Lighting Installation</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -197,11 +197,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>75</Id>
+    <Id>14</Id>
     <Alias>TaskName15</Alias>
     <Description>Insulation Installation</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -211,11 +211,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>76</Id>
+    <Id>15</Id>
     <Alias>TaskName16</Alias>
     <Description>Cabinetry Installation</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -225,11 +225,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>77</Id>
+    <Id>16</Id>
     <Alias>TaskName17</Alias>
     <Description>Fixture and Appliance Installation</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -239,11 +239,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>78</Id>
+    <Id>17</Id>
     <Alias>TaskName18</Alias>
     <Description>Landscaping and Outdoor Improvements</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -253,11 +253,11 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>79</Id>
+    <Id>18</Id>
     <Alias>TaskName19</Alias>
     <Description>Final Inspection</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />
@@ -267,11 +267,557 @@
     <Complexity>Beginner</Complexity>
   </Task>
   <Task>
-    <Id>80</Id>
+    <Id>19</Id>
     <Alias>TaskName20</Alias>
     <Description>Cleanup and Interior Decorating</Description>
     <IsMilestone>false</IsMilestone>
-    <CreatedAtDate>2024-01-21T00:00:00+02:00</CreatedAtDate>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>20</Id>
+    <Alias>TaskName1</Alias>
+    <Description>Define Renovation Goals and Budget</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>21</Id>
+    <Alias>TaskName2</Alias>
+    <Description>Hire Architect and Interior Designer</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>22</Id>
+    <Alias>TaskName3</Alias>
+    <Description>Obtain Necessary Permits</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>23</Id>
+    <Alias>TaskName4</Alias>
+    <Description>Demolition and Site Preparation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>24</Id>
+    <Alias>TaskName5</Alias>
+    <Description>Structural Changes (e.g., Walls, Ceilings)</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>25</Id>
+    <Alias>TaskName6</Alias>
+    <Description>Plumbing and Electrical Work</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>26</Id>
+    <Alias>TaskName7</Alias>
+    <Description>Flooring Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>27</Id>
+    <Alias>TaskName8</Alias>
+    <Description>Kitchen Remodeling</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>28</Id>
+    <Alias>TaskName9</Alias>
+    <Description>Bathroom Remodeling</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>29</Id>
+    <Alias>TaskName10</Alias>
+    <Description>Painting and Wall Finishing</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>30</Id>
+    <Alias>TaskName11</Alias>
+    <Description>Window and Door Replacement</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>31</Id>
+    <Alias>TaskName12</Alias>
+    <Description>Roof Repair or Replacement</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>32</Id>
+    <Alias>TaskName13</Alias>
+    <Description>Install HVAC Systems</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>33</Id>
+    <Alias>TaskName14</Alias>
+    <Description>Lighting Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>34</Id>
+    <Alias>TaskName15</Alias>
+    <Description>Insulation Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>35</Id>
+    <Alias>TaskName16</Alias>
+    <Description>Cabinetry Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>36</Id>
+    <Alias>TaskName17</Alias>
+    <Description>Fixture and Appliance Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>37</Id>
+    <Alias>TaskName18</Alias>
+    <Description>Landscaping and Outdoor Improvements</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>38</Id>
+    <Alias>TaskName19</Alias>
+    <Description>Final Inspection</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>39</Id>
+    <Alias>TaskName20</Alias>
+    <Description>Cleanup and Interior Decorating</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>40</Id>
+    <Alias>TaskName1</Alias>
+    <Description>Define Renovation Goals and Budget</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>41</Id>
+    <Alias>TaskName2</Alias>
+    <Description>Hire Architect and Interior Designer</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>42</Id>
+    <Alias>TaskName3</Alias>
+    <Description>Obtain Necessary Permits</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>43</Id>
+    <Alias>TaskName4</Alias>
+    <Description>Demolition and Site Preparation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>44</Id>
+    <Alias>TaskName5</Alias>
+    <Description>Structural Changes (e.g., Walls, Ceilings)</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>45</Id>
+    <Alias>TaskName6</Alias>
+    <Description>Plumbing and Electrical Work</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>46</Id>
+    <Alias>TaskName7</Alias>
+    <Description>Flooring Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>47</Id>
+    <Alias>TaskName8</Alias>
+    <Description>Kitchen Remodeling</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>48</Id>
+    <Alias>TaskName9</Alias>
+    <Description>Bathroom Remodeling</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>49</Id>
+    <Alias>TaskName10</Alias>
+    <Description>Painting and Wall Finishing</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>50</Id>
+    <Alias>TaskName11</Alias>
+    <Description>Window and Door Replacement</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>51</Id>
+    <Alias>TaskName12</Alias>
+    <Description>Roof Repair or Replacement</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>52</Id>
+    <Alias>TaskName13</Alias>
+    <Description>Install HVAC Systems</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>53</Id>
+    <Alias>TaskName14</Alias>
+    <Description>Lighting Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>54</Id>
+    <Alias>TaskName15</Alias>
+    <Description>Insulation Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>55</Id>
+    <Alias>TaskName16</Alias>
+    <Description>Cabinetry Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>56</Id>
+    <Alias>TaskName17</Alias>
+    <Description>Fixture and Appliance Installation</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>57</Id>
+    <Alias>TaskName18</Alias>
+    <Description>Landscaping and Outdoor Improvements</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
+    <ScheduledDate xsi:nil="true" />
+    <StartDate xsi:nil="true" />
+    <RequiredEffortTime xsi:nil="true" />
+    <DeadlineDate xsi:nil="true" />
+    <CompleteDate xsi:nil="true" />
+    <EngineerId>0</EngineerId>
+    <Complexity>Beginner</Complexity>
+  </Task>
+  <Task>
+    <Id>58</Id>
+    <Alias>TaskName19</Alias>
+    <Description>Final Inspection</Description>
+    <IsMilestone>false</IsMilestone>
+    <CreatedAtDate>2024-02-05T00:00:00+02:00</CreatedAtDate>
     <ScheduledDate xsi:nil="true" />
     <StartDate xsi:nil="true" />
     <RequiredEffortTime xsi:nil="true" />

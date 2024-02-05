@@ -22,7 +22,7 @@ public interface ITask
     /// </summary>
     /// <param name="filter">filter to apply</param>
     /// <returns></returns>
-    public IEnumerable<BO.Task> ReadAll(Func<BO.Task,bool>? filter=null);
+    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task,bool>? filter=null);
 
     /// <summary>
     /// return task with param id

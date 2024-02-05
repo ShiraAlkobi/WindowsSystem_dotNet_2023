@@ -20,7 +20,7 @@ internal class TaskImplementation : ITask
                 .ForEach(dependency => _dal.Dependency.Create(dependency));
 
             DO.Task t_task = new(0, t.Alias, t.Description, false, t.CreatedAtDate, t.ScheduledDate, t.StartDate,
-                                 t.RequiredEffortTime, t.DeadlineDate, t.CompleteDate, t.Deliverables, t.Remarks, t.Engineer.Id, t.Complexity);
+                                 t.RequiredEffortTime, t.DeadlineDate, t.CompleteDate, t.Deliverables, t.Remarks, t.Engineer.Id, (DO.EngineerExperience)t.Complexity);
 
             return _dal.Task.Create(t_task);
         }
@@ -91,7 +91,7 @@ internal class TaskImplementation : ITask
             Deliverables = t.Deliverables,
             Remarks = t.Remarks,
             Engineer = t_engineer,
-            Complexity = t.Complexity
+            Complexity = (BO.EngineerExperience)t.Complexity
         };
     }
 
@@ -101,11 +101,21 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="filter"></param>
     /// <returns></returns>
-   public IEnumerable<BO.Task> ReadAll(Func<BO.Task, bool> filter = null) =>
-         ///ReadAll function return an IEnumreable of DO objects
-         ///so convertion is needed in order to use filter on the object
-         _dal.Task.ReadAll().Select(task => doToBoTask(task))
-            .Where(task => filter is null ? true : filter(task));
+    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool> filter = null)
+    {
+        ///ReadAll function return an IEnumreable of DO objects
+        ///so convertion is needed in order to use filter on the object
+        return _dal.Task.ReadAll().Select(task => doToBoTask(task))
+           .Where(task => filter is null ? true : filter(task))
+           .Select(item => new BO.TaskInList()
+           {
+               Id = item.Id,
+               Alias = item.Alias,
+               Description = item.Description,
+               Status = item.Status
+           });          
+                                                                      
+    }
 
 
     public void Update(BO.Task t)
@@ -130,7 +140,7 @@ internal class TaskImplementation : ITask
                 Deliverables = t.Deliverables,
                 Remarks = t.Remarks,
                 EngineerId = t.Engineer.Id,
-                Complexity = t.Complexity
+                Complexity = (DO.EngineerExperience)t.Complexity
             };
 
             _dal.Task.Update(t_task);
@@ -172,7 +182,7 @@ internal class TaskImplementation : ITask
                 Deliverables = t.Deliverables,
                 Remarks = t.Remarks,
                 EngineerId = t.Engineer.Id,
-                Complexity = t.Complexity
+                Complexity = (DO.EngineerExperience)t.Complexity
             };
 
             _dal.Task.Update(t_task);
@@ -217,6 +227,8 @@ internal class TaskImplementation : ITask
 
     private BO.EngineerInTask? getEngineer(DO.Task t)
     {
-        return new BO.EngineerInTask() { Id = t.EngineerId, Name = _dal.Engineer.Read(t.EngineerId).Name };
+        if(t.EngineerId==0)
+            return null;
+        return new BO.EngineerInTask() { Id = t.EngineerId, Name = _dal.Engineer.Read(t.EngineerId)!.Name};
     }
 }

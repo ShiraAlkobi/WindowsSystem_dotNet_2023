@@ -89,7 +89,7 @@ public static class Initialization
             //loop that will create the dependencies between the
             //first task-Define Renovation Goals and Budget to the others
             //cant start any of the other tasks without completing the first one
-            for (int i = 0; i <19; i++)
+            for (int i = 1; i <19; i++)
             {
                 t1 = TaskList[i];
                 d = new Dependency(0, t1.Id, TaskList[0].Id);
@@ -132,7 +132,37 @@ public static class Initialization
         CreateDependencies();
     }
 
+    public static void emptyData()
+    {
+        s_dal = Factory.Get;
+        ///deleting the entities' data from every file
+        List<Task> tasks = s_dal!.Task.ReadAll()!.ToList<Task>();
+        if (tasks.Count > 0)
+        {
+            foreach (Task task in tasks)
+            {
+                s_dal.Task.Delete(task.Id);
+            }
+        }
 
+        List<Engineer> engineers = s_dal.Engineer.ReadAll()!.ToList<Engineer>();
+        if (engineers.Count > 0)
+        {
+            foreach (Engineer engineer in engineers)
+            {
+                s_dal.Engineer.Delete(engineer.Id);
+            }
+        }
+
+        List<Dependency> dependencys = s_dal.Dependency.ReadAll()!.ToList<Dependency>();
+        if (dependencys.Count > 0)
+        {
+            foreach (Dependency dependency in dependencys)
+            {
+                s_dal.Dependency.Delete(dependency.Id);
+            }
+        }
+    }
 
 
 
