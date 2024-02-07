@@ -2,7 +2,7 @@
 
 using System.Net.NetworkInformation;
 using BlApi;
-
+using BO;
 
 internal class TaskImplementation : ITask
 {
@@ -59,7 +59,7 @@ internal class TaskImplementation : ITask
     ///else, throw an exception for not founding the object
     _dal.Task.Read(id) is DO.Task doTask ? doToBoTask(doTask) :
     throw new BO.BlDoesNotExistException($"Task with ID={id} does Not exist");
-    
+
 
     /// <summary>
     /// help function - converts a DO task to BO one
@@ -113,8 +113,8 @@ internal class TaskImplementation : ITask
                Alias = item.Alias,
                Description = item.Description,
                Status = item.Status
-           });          
-                                                                      
+           });
+
     }
 
 
@@ -125,7 +125,7 @@ internal class TaskImplementation : ITask
 
         try
         {
-            UpdateScedualedDate(t.Id, t.ScheduledDate);
+            
             DO.Task t_task = new()
             {
                 Id = t.Id,
@@ -220,15 +220,20 @@ internal class TaskImplementation : ITask
 
     private DateTime? getForecastDate(DO.Task t)
     {
-        return (t.ScheduledDate) >= (t.StartDate) ?
-                t.ScheduledDate + t.RequiredEffortTime :
-                t.StartDate + t.RequiredEffortTime;
+        return t.ScheduledDate + t.RequiredEffortTime;
+                
     }
 
     private BO.EngineerInTask? getEngineer(DO.Task t)
     {
-        if(t.EngineerId==0)
+        if (t.EngineerId == 0)
             return null;
-        return new BO.EngineerInTask() { Id = t.EngineerId, Name = _dal.Engineer.Read(t.EngineerId)!.Name};
+        return new BO.EngineerInTask() { Id = t.EngineerId, Name = _dal.Engineer.Read(t.EngineerId)!.Name };
+    }
+    public IEnumerable<IGrouping<BO.Status, BO.TaskInList>> GroupByStatus()
+    {
+        return from item in ReadAll()
+               group item by item.Status into groups
+               select groups;
     }
 }

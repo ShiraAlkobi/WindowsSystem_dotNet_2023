@@ -7,5 +7,14 @@ public interface IBl
 {
     public ITask Task { get;} 
     public IEngineer Engineer { get; }
+    
 
+    public void setStatus();
+
+    public void changeStatus();
+
+    public void setStartAndEndDates(DateTime start, DateTime end);
+    public DateTime? getStartDate();
+    public DateTime? getEndDate();
+    public BO.ProjectStatus getProjectStatus();
 }

@@ -8,3 +8,8 @@ public enum EngineerExperience
     Advanced,
     Expert
 }
+public enum ProjectStatus
+{
+    PlanStage,
+    ExecutionStage
+}

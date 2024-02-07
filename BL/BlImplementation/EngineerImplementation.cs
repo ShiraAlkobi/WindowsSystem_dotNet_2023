@@ -63,7 +63,7 @@ internal class EngineerImplementation : BlApi.IEngineer
             if (Read(id)!.Task == null) 
                 _dal.Engineer.Delete(id);
             else /// if there's a task assigned to the engineer - can't delete, throw an exception
-                throw new BO.BlCanNotDelete($"can`t delete engineer with ID={id}");
+                throw new BO.BlCanNotDelete($"can`t delete engineer with ID={id} because they`re assigned to a task\n");
         } ///catch any exception that can be thrown from the delete function
         catch(DO.DalDoesNotExistException e) { throw new BO.BlDoesNotExistException($"Engineer with ID={id} doesn`t exist"); }
     }
@@ -157,4 +157,12 @@ internal class EngineerImplementation : BlApi.IEngineer
         catch (DO.DalDoesNotExistException e) 
         { throw new BO.BlDoesNotExistException($"Engineer with ID={t.Id} doesn`t exist"); }
     }
+
+    public IEnumerable<BO.Engineer> SortByName()
+    {
+        return from item in ReadAll()
+               orderby item.Name
+               select item;
+    }
+
 }

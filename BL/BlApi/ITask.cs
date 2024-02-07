@@ -42,4 +42,5 @@ public interface ITask
     /// <param name="date">new start date</param>
     public void UpdateScedualedDate(int id, DateTime? date);
 
+    public IEnumerable<IGrouping<BO.Status,BO.TaskInList>> GroupByStatus();
 }

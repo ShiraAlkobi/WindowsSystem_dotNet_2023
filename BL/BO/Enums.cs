@@ -15,6 +15,11 @@ public enum Status
     Scheduled,
     OnTrack,
     Done
-    //InJeopardy - will decide later
+    //TODO:InJeopardy - will decide later
 }
 
+public enum ProjectStatus
+{
+    PlanStage,
+    ExecutionStage
+}

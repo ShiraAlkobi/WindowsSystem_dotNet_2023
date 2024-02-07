@@ -22,5 +22,11 @@ internal static class DataSource
         internal const int startDependencyId = 0;///the lowest possible value for a dependency's id 
         private static int nextDependencyId = startDependencyId;///will get the last value
         internal static int NextDependencyId { get => nextDependencyId++; }///will update the value
+        
+        internal static DateTime? projectStartDate=null;
+        internal static DateTime? projectEndDate=null;
+        internal static DO.ProjectStatus projectStatus=DO.ProjectStatus.PlanStage;
+
+        
     }
 }
