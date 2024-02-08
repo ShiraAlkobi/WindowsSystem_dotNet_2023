@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BO;
 
+/// <summary>
+/// in this file we define the class TaskInEngineer - an object to represent the task assigned to engineer
+/// </summary>
 public class TaskInEngineer
 {
     public int Id {  get; init; }
