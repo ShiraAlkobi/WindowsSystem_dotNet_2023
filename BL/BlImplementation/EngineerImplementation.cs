@@ -31,10 +31,21 @@ internal class EngineerImplementation : BlApi.IEngineer
     public int Create(BO.Engineer t)
     {
         ///Check for correct input
-       
-        if ( t.Id < 0 || t.Name == "" || t.Cost < 0||!(new EmailAddressAttribute().IsValid(t.Email)))
+        if ( t.Id < 0) 
         {
-            throw new BO.BlInputCheckException("wrong input\n");
+            throw new BO.BlInputCheckException("Id can't be negative\n");
+        }
+        if (t.Name == "")
+        {
+            throw new BO.BlInputCheckException("must insert name\n");
+        }
+        if (t.Cost < 0)
+        {
+            throw new BO.BlInputCheckException("cost can't be negative\n");
+        }
+        if (!(new EmailAddressAttribute().IsValid(t.Email)))
+        {
+            throw new BO.BlInputCheckException("email is not valid\n");
         }
         ///creates the DO engineer using the right values from the gotten object
         DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)(int)t.Level);
@@ -115,28 +126,44 @@ internal class EngineerImplementation : BlApi.IEngineer
          _dal.Engineer.ReadAll().Select(engineer => doToBoEngineer(engineer))
             .Where(engineer => filter is null ? true : filter(engineer));
  
-
+    /// <summary>
+    /// this function updates details of engineer
+    /// </summary>
+    /// <param name="t">engineer to update</param>
+    /// <exception cref="BO.BlInputCheckException"></exception>
+    /// <exception cref="BO.BlCanNotUpdate"></exception>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Update(Engineer t)
     {
         
-        if (t.Id < 0 || t.Name == "" || t.Cost < 0||!(new EmailAddressAttribute().IsValid(t.Email)))
+        ///input check:
+        if (t.Name == "")
         {
-            throw new BO.BlInputCheckException("wrong input\n");
+            throw new BO.BlInputCheckException("must insert name\n");
         }
+        if (t.Cost < 0)
+        {
+            throw new BO.BlInputCheckException("cost can't be negative\n");
+        }
+        if (!(new EmailAddressAttribute().IsValid(t.Email)))
+        {
+            throw new BO.BlInputCheckException("email is not valid\n");
+        }
+
         try
         {
             
-            if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)
-                throw new BO.BlCanNotUpdate($"can`t update engineer");
-            if (t.Task is not null)
+            if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)//can only upgrade level of engineer
+                throw new BO.BlCanNotUpdate($"can only upgrade level of engineer\n");
+            if (t.Task is not null)//if the user assigned a task to the engineer
             {
-                DO.Task? t_task = _dal.Task.Read(t.Task.Id);
-                if ((int)t.Level < (int)t_task.Complexity)
+                DO.Task? t_task = _dal.Task.Read(t.Task.Id);//read the task to be assigned
+                if ((int)t.Level <(int)t_task.Complexity)//can only assign engineer with enough experience for the comlexity of the task
                     throw new BO.BlCanNotUpdate($"can`t assign engineer with not enough experience");
            
                 if (t_task.EngineerId > 0)//if there is already an engineer assigned to the task
                     throw new BO.BlCanNotUpdate($"can`t update engineer because there is already an engineer assigned to the task");
-
+                // going through the dependencies and checking if there is a previous task  that is not yet completed
                 DO.Task? p = (from item in _dal.Dependency.ReadAll()
                               where item.DependentTask == t_task.Id
                               let temp = _dal.Task.Read(item.DependsOnTask)
@@ -148,14 +175,17 @@ internal class EngineerImplementation : BlApi.IEngineer
 
 
             }
-            DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)t.Level);
-            _dal.Engineer.Update(t_engineer);
+            DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)t.Level);//creating new object with updated fields
+            _dal.Engineer.Update(t_engineer);//calling dal function to update the data base
             
         }
-        catch (DO.DalDoesNotExistException e)
+        catch (DO.DalDoesNotExistException e)//for if the read function throws an exception
         { throw new BO.BlDoesNotExistException($"Engineer with ID={t.Id} doesn`t exist"); }
     }
-
+    /// <summary>
+    /// function that sorts the engineer bt name
+    /// </summary>
+    /// <returns></returns>
     public IEnumerable<BO.Engineer> SortByName()
     {
         return from item in ReadAll()

@@ -4,7 +4,7 @@
 public class BlInputCheckException : Exception
 {
     /// <summary>
-    /// wrong input
+    /// wrong input exception
     /// </summary>
     /// <param name="message"></param>
     public BlInputCheckException(string? message) : base(message) { }
@@ -12,6 +12,10 @@ public class BlInputCheckException : Exception
   [Serializable]
 public class BlDoesNotExistException : Exception
 {
+    /// <summary>
+    /// exception for when trying to operate on an object but it doesnt exsist
+    /// </summary>
+    /// <param name="message"></param>
 	public BlDoesNotExistException(string? message) : base(message) { }
 	public BlDoesNotExistException(string message, Exception innerException)
         		: base(message, innerException) { }
@@ -40,7 +44,7 @@ public class BlDeletionImpossible : Exception
 public class BlXMLFileLoadCreateException : Exception
 {
     /// <summary>
-    /// in case of trying to delete an object but its forbidden
+    /// failed to load data from xml
     /// </summary>
     /// <param name="message"></param>
     public BlXMLFileLoadCreateException(string? message) : base(message) { }

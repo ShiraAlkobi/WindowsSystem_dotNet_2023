@@ -4,42 +4,60 @@ using System.Net.NetworkInformation;
 using System;
 using BlApi;
 using BO;
-
+/// <summary>
+/// this class implement the task interface
+/// </summary>
 internal class TaskImplementation : ITask
 {
-    private DalApi.IDal _dal = DalApi.Factory.Get;
+    private DalApi.IDal _dal = DalApi.Factory.Get;//creating an appearance to connect bl to dal
+    /// <summary>
+    /// function to create a new task
+    /// </summary>
+    /// <param name="t"> task to add</param>
+    /// <returns>id of task</returns>
+    /// <exception cref="BO.BlInputCheckException"></exception>
+    /// <exception cref="BO.BlAlreadyExistsException"></exception>
     public int Create(BO.Task t)
     {
-        if (t.Id < 0 || string.IsNullOrEmpty(t.Alias))
-            throw new BO.BlInputCheckException("wrong input\n");
+        if (t.Id < 0 )
+            throw new BO.BlInputCheckException("Id can't be negative\n");
+        if(string.IsNullOrEmpty(t.Alias))
+            throw new BO.BlInputCheckException("must insert alias\n");
 
         try
         {
+            //going through the list of dependencies of the task t and creating new dependecien in the database
             t.Dependencies?
                 .Select(item => new DO.Dependency(0, t.Id, item.Id))
                 .ToList()
                 .ForEach(dependency => _dal.Dependency.Create(dependency));
 
+            //create the task
             DO.Task t_task = new(0, t.Alias, t.Description, false, t.CreatedAtDate, t.ScheduledDate, t.StartDate,
                                  t.RequiredEffortTime, t.DeadlineDate, t.CompleteDate, t.Deliverables, t.Remarks, 0, (DO.EngineerExperience)t.Complexity);
-
+            //call dal fuction to save in data base
             return _dal.Task.Create(t_task);
         }
-        catch (DO.DalAlreadyExistsException)
+        catch (DO.DalAlreadyExistsException)//if the task id already exists
         {
             throw new BO.BlAlreadyExistsException($"Task with ID={t.Id} already exists");
         }
     }
 
-
+    /// <summary>
+    /// deleting a task
+    /// </summary>
+    /// <param name="id">id of task to delete</param>
+    /// <exception cref="BO.BlCanNotDelete"></exception>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Delete(int id)
     {
         try
         {
-            BO.Task t_task = Read(id);
-            if (_dal.Dependency.ReadAll().Any(item => item.DependsOnTask == id))
+            BO.Task t_task = Read(id);//get the task to be deleted
+            if (_dal.Dependency.ReadAll().Any(item => item.DependsOnTask == id))//if theres any task that depends on this task
             {
-                throw new BO.BlCanNotDelete($"can't delete task with ID={id}");
+                throw new BO.BlCanNotDelete($"can't delete task with ID={id}");//can't delete it
             }
             _dal.Task.Delete(id);
         }
@@ -98,7 +116,7 @@ internal class TaskImplementation : ITask
     }
 
     /// <summary>
-    /// returns a collection of tasks that answer to the filter sent
+    /// returns a collection of taskinlist that answer to the filter sent
     /// if filter is null,return all of the tasks
     /// </summary>
     /// <param name="filter"></param>
@@ -109,7 +127,7 @@ internal class TaskImplementation : ITask
         ///so convertion is needed in order to use filter on the object
         return _dal.Task.ReadAll().Select(task => doToBoTask(task))
            .Where(task => filter is null ? true : filter(task))
-           .Select(item => new BO.TaskInList()
+           .Select(item => new BO.TaskInList()//readall returns list of tasks so need to convert to taskinlist
            {
                Id = item.Id,
                Alias = item.Alias,
@@ -119,15 +137,23 @@ internal class TaskImplementation : ITask
 
     }
 
-
+    /// <summary>
+    /// updates the task
+    /// </summary>
+    /// <param name="t">task to update</param>
+    /// <exception cref="BO.BlInputCheckException"></exception>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void Update(BO.Task t)
     {
-        if (t.Id < 0 || t.Alias == "" || t.Alias == null)
-            throw new BO.BlInputCheckException("wrong input\n");
+        //input check
+        if (t.Id < 0)
+            throw new BO.BlInputCheckException("Id can't be negative\n");
+        if (string.IsNullOrEmpty(t.Alias))
+            throw new BO.BlInputCheckException("must insert alias\n");
 
         try
         {
-           
+         ///create new task of DO type  
             DO.Task t_task = new()
             {
                 Id = t.Id,
@@ -145,47 +171,58 @@ internal class TaskImplementation : ITask
                 Complexity = (DO.EngineerExperience)t.Complexity
             };
 
-            _dal.Task.Update(t_task);
+            _dal.Task.Update(t_task);//call dal function to save in database
             
         }
-        catch (DO.DalDoesNotExistException)
+        catch (DO.DalDoesNotExistException)//if the task doesnt exist, update will throw an exception
         { throw new BO.BlDoesNotExistException($"Task with ID={t.Id} does Not exist"); }
         
     }
-
+    /// <summary>
+    /// recursive function for updating schedual dates for the tasks
+    /// an automatic initialization- finding the schedual date based on the dependencies list of each task
+    /// </summary>
+    /// <param name="id">id of task to update</param>
+    /// <param name="date">start date of project, if a task doesnt have any previous tasks,its schedual date 
+    /// will be start+3 days</param>
+    /// <exception cref="BO.BlDoesNotExistException"></exception>
     public void UpdateScedualedDate(int id, DateTime date)
     {
         DateTime? t_date;
-        BO.Task t = Read(id);
-        if (t.ScheduledDate is not null) return;
+        BO.Task t = Read(id);//get the task to update(no try needed because the task is from the list of tasks so it exsists)
+        if (t.ScheduledDate is not null) return;//if the task already has a schedual date,return
         else
         {
+            /// if a task doesnt have any previous tasks, its schedual date
+            /// will be start+3
             if (t.Dependencies.Count==0)
                 t_date = date.AddDays(3);
             else
             {
-                List<BO.TaskInList?> temp = (from item in t.Dependencies
-                                             where item.Status < BO.Status.Scheduled
+                List<BO.TaskInList?> temp = (from item in t.Dependencies//finding all the tasks that this task depends on
+                                             where item.Status < BO.Status.Schedualed
                                              select item).ToList();
 
-
+                //if the task is dependent on any task,call the function on these tasks because they need to be updated first
                 if (temp.Count>0)
                     foreach (TaskInList item in temp)
                     {
                         UpdateScedualedDate(item.Id, date);
                     }
+                
+                //this happens after all tasks in dependencies list of the curreent task has n=been initialized
                 DateTime? help;
-                t_date = getForecastDate(_dal.Task.Read(t.Dependencies.First().Id));
-                foreach (var item in t.Dependencies)
+                t_date = getForecastDate(_dal.Task.Read(t.Dependencies.First().Id));//the forcast date of first dependency
+                foreach (var item in t.Dependencies)//go through list of dependencies and finding the max of forecast date
                 {
                     help = getForecastDate(_dal.Task.Read(item.Id));
                     if (t_date < help)
                         t_date = help;
 
                 }
-                t_date = t_date?.AddDays(1);
+                t_date = t_date?.AddDays(1);//the schedual date of current task will be the mex of forecast dated of tasks in dependency list+1
             }
-            try
+            try//creating new task
             {
                 DO.Task t_task = new()
                 {
@@ -204,52 +241,74 @@ internal class TaskImplementation : ITask
                     Complexity = (DO.EngineerExperience)t.Complexity
                 };
 
-                _dal.Task.Update(t_task);
+                _dal.Task.Update(t_task);//call dal function to update in database
             }
             catch (DO.DalDoesNotExistException)
             { throw new BO.BlDoesNotExistException($"Task with ID={t.Id} does Not exist"); }
         }
     }
 
-
+    /// <summary>
+    /// help function to get the dependencied of each task-uset by read function
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
     private List<BO.TaskInList> getDependencies(int id)
     {
 
-        return (from item in _dal.Dependency.ReadAll()
+        return (from item in _dal.Dependency.ReadAll()//going through dependency list and finding all dependencies
+                                                      //that their dependenttask field is the wanted task's id
                 where item.DependentTask == id
-                let t_task = _dal.Task.Read(item.DependsOnTask)
+                let t_task = _dal.Task.Read(item.DependsOnTask)//getting the task that the current depends on
                 let t_description = t_task.Description
                 let t_Alias = t_task.Alias
                 let t_status = getStatus(t_task)
+                //creating new taskinlist object for dependencies field of the task
                 select new BO.TaskInList() { Id = item.DependsOnTask, Description = t_description, Alias = t_Alias, Status = t_status })
                 .ToList();
     }
-
+    /// <summary>
+    /// help function to find at what stage the task is-used by read function
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
     private BO.Status getStatus(DO.Task t)
     {
-        if (t.ScheduledDate == null)
-            return BO.Status.Unscheduled;
-        if (t.StartDate == null)
-            return BO.Status.Scheduled;
-        if (t.CompleteDate == null)
+        if (t.ScheduledDate == null)//if there isnt a schedual date
+            return BO.Status.Unschedualed;
+        if (t.StartDate == null)//if there is a schedual date but not start
+            return BO.Status.Schedualed;
+        if (t.CompleteDate == null)//if there is a start date but not complete
             return BO.Status.OnTrack;
-        else return BO.Status.Done;
+        else return BO.Status.Done;//if there is a complete but not done
 
         //TODO:add jeopardy condition
     }
-
+    /// <summary>
+    /// help function to get forecast date to finish task-used by read function
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
     public DateTime? getForecastDate(DO.Task t)
     {
         return t.ScheduledDate + t.RequiredEffortTime;
                 
     }
-
+    /// <summary>
+    /// help function to get engineer for engineer field in task
+    /// </summary>
+    /// <param name="t"></param>
+    /// <returns></returns>
     private BO.EngineerInTask? getEngineer(DO.Task t)
     {
-        if (t.EngineerId == 0)
+        if (t.EngineerId == 0)//there is no engineer
             return null;
-        return new BO.EngineerInTask() { Id = t.EngineerId, Name = _dal.Engineer.Read(t.EngineerId)!.Name };
+        return new BO.EngineerInTask() { Id = t.EngineerId, Name = _dal.Engineer.Read(t.EngineerId)!.Name };//create the engineer in task by using read function
     }
+    /// <summary>
+    /// function to gruop task by their status
+    /// </summary>
+    /// <returns></returns>
     public IEnumerable<IGrouping<BO.Status, BO.TaskInList>> GroupByStatus()
     {
         return from item in ReadAll()
