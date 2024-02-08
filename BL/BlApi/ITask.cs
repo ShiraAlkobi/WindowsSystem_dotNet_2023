@@ -42,5 +42,10 @@ public interface ITask
     /// <param name="date">new start date</param>
     public void UpdateScedualedDate(int id, DateTime date);
 
+    /// <summary>
+    /// returns a collection of groups of TaskInList objects
+    /// we group the objects by their status
+    /// </summary>
+    /// <returns></returns>
     public IEnumerable<IGrouping<BO.Status,BO.TaskInList>> GroupByStatus();
 }

@@ -7,9 +7,13 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace BlImplementation;
+
 /// <summary>
-/// this class implements the Ibl interface
+/// in this file we create the class Bl which descends from the IBL interface 
+/// this class creates fields of implementions objects of all of the BL main entities 
+/// also, we define the methods that manage the project's date and status, gotten in the BL's program
 /// </summary>
+
 internal class Bl : IBl
 {
     /// <summary>
@@ -20,72 +24,84 @@ internal class Bl : IBl
     /// getting an object of enginner implementation
     /// </summary>
     public IEngineer Engineer => new EngineerImplementation();
+
     /// <summary>
-    /// creating an appearance that connects the bl layer to dal layer
+    /// an instance of the IDAL interface in order to get data from the DAL data source
     /// </summary>
     private DalApi.IDal _dal = DalApi.Factory.Get;
+
     /// <summary>
-    /// calling set status from dl level
+    /// sets the plan stage status in the data source
     /// </summary>
     public void setStatus()
     {
         _dal.setStatus();
-
     }
+
     /// <summary>
-    /// calling change status from dl level
+    /// change the project's status to execution stage in the data source
     /// </summary>
     public void changeStatus()
     {
         _dal.changeStatus();
-
     }
+
     /// <summary>
-    /// this function sets schedual dates to all tasks, and saving the start and end(after calculation) 
-    /// dates in the data base and changing the status of the project to executing stage 
-    /// ///this is a wrap function for recursive UpdateSchedualedDate in task implementation
+    /// sets the given date as the project's start date in the data source 
+    /// also, initialize the scheduled dates for each task 
+    /// finally, calculates the end date and sets it in the data source
     /// </summary>
-    /// <param name="start">the start date of the project- if a task does not depend on any task- 
-    /// it`s scheduale date will be the strat+3-see recursive function</param>
+    /// <param name="start"></param>
     public void setStartAndEndDates(DateTime start)
     {
-        DateTime? end=start;
-        DateTime? help=null;
-        foreach (var item in _dal.Task.ReadAll())//going through list of tasks
-        {
-            if (item.ScheduledDate is null)//if there isnt already a schedual date
-            {
-               Task.UpdateScedualedDate(item.Id, start);//call the function from task implementation to set date
-            }
-            
-        }
-        foreach (var item in _dal.Task.ReadAll())//going through task list after setting all dates to find the end date for the project
-        {
-            help = item.ScheduledDate + item.RequiredEffortTime;//getting the forecast date-when the task is supposed to be completed
-            end = end < help ? help : end;//finding the max of all tasks
-        }
-        _dal.setStartAndEndDates(start, end);//set the dates for the project!(not task!) in database
-        changeStatus();//changing status to from plan to execution
+        DateTime? end = start;
+        DateTime? help = null;
 
+        ///for each task, update its scheduled date according to the function in the task implementation
+        foreach (var item in _dal.Task.ReadAll())
+        {
+            ///if the date wasn't initialized, then set it
+            if (item.ScheduledDate is null)
+            {
+               Task.UpdateScedualedDate(item.Id, start);
+            }            
+        }
+
+        ///in order to calculate the end date, find the maximum out of all the tasks' complete dates
+        foreach (var item in _dal.Task.ReadAll())
+        {
+            ///the task's complete date
+            help = item.ScheduledDate + item.RequiredEffortTime;
+            ///change for the max value if needed
+            end = end < help ? help : end;
+        }
+        ///set the dates in the data source
+        _dal.setStartAndEndDates(start, end);
+
+        ///change the project's status from plan to execution stage
+        changeStatus();
     }
+
     /// <summary>
-    /// calling the function from dal level
+    /// returns the project's status from the data source
     /// </summary>
     /// <returns></returns>
     public ProjectStatus getProjectStatus()
     {
        return (BO.ProjectStatus)_dal.getProjectStatus();
     }
+
     /// <summary>
-    /// calling the function from dal level
+    /// returns the project's start date from the data source
     /// </summary>
     /// <returns></returns>
     public DateTime? getStartDate()
     {
         return _dal.getStartDate();
     }
+
     /// <summary>
-    /// calling the function from dal level
+    /// returns the project's end date from the data source
     /// </summary>
     /// <returns></returns>
     public DateTime? getEndDate()

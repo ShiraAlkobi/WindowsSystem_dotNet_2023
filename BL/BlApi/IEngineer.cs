@@ -37,5 +37,9 @@ public interface IEngineer
     /// <param name="id">id of engineer to delete</param>
     public void Delete(int id);
 
+    /// <summary>
+    /// sorts the engineers by Alphabetical order of their names
+    /// </summary>
+    /// <returns></returns>
     public IEnumerable<BO.Engineer> SortByName();
 }

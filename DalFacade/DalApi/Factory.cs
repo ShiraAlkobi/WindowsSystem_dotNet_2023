@@ -2,6 +2,11 @@
 using static DalApi.Config;
 using System.Reflection;
 
+/// <summary>
+/// in this class we create a 'Factory for creating objects'
+/// by using this pattern we can ensure that only one instance of the dataSource will be created and not several 
+/// this factory is for the DAL level
+/// </summary>
 public static class Factory
 {
     public static IDal Get
