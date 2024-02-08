@@ -12,7 +12,7 @@ public interface IDal
     DateTime? ProjectEndDate { get; set; }
     DO.ProjectStatus ProjectStatus { get; set; }
 
-    public void setStartAndEndDates(DateTime start, DateTime end);
+    public void setStartAndEndDates(DateTime start, DateTime? end);
     public void changeStatus();
     public void setStatus();
     public DateTime? getStartDate();

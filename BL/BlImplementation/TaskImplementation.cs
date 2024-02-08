@@ -1,6 +1,7 @@
 ﻿namespace BlImplementation;
 
 using System.Net.NetworkInformation;
+using System;
 using BlApi;
 using BO;
 
@@ -20,7 +21,7 @@ internal class TaskImplementation : ITask
                 .ForEach(dependency => _dal.Dependency.Create(dependency));
 
             DO.Task t_task = new(0, t.Alias, t.Description, false, t.CreatedAtDate, t.ScheduledDate, t.StartDate,
-                                 t.RequiredEffortTime, t.DeadlineDate, t.CompleteDate, t.Deliverables, t.Remarks, t.Engineer.Id, (DO.EngineerExperience)t.Complexity);
+                                 t.RequiredEffortTime, t.DeadlineDate, t.CompleteDate, t.Deliverables, t.Remarks, 0, (DO.EngineerExperience)t.Complexity);
 
             return _dal.Task.Create(t_task);
         }
@@ -89,6 +90,7 @@ internal class TaskImplementation : ITask
             DeadlineDate = t.DeadlineDate,
             CompleteDate = t.CompleteDate,
             Deliverables = t.Deliverables,
+            Dependencies = t_dependecies,
             Remarks = t.Remarks,
             Engineer = t_engineer,
             Complexity = (BO.EngineerExperience)t.Complexity
@@ -125,7 +127,7 @@ internal class TaskImplementation : ITask
 
         try
         {
-            
+           
             DO.Task t_task = new()
             {
                 Id = t.Id,
@@ -139,56 +141,74 @@ internal class TaskImplementation : ITask
                 CompleteDate = t.CompleteDate,
                 Deliverables = t.Deliverables,
                 Remarks = t.Remarks,
-                EngineerId = t.Engineer.Id,
+                EngineerId =( t.Engineer is null)?0:t.Engineer.Id,
                 Complexity = (DO.EngineerExperience)t.Complexity
             };
 
             _dal.Task.Update(t_task);
-
+            
         }
         catch (DO.DalDoesNotExistException)
         { throw new BO.BlDoesNotExistException($"Task with ID={t.Id} does Not exist"); }
+        
     }
 
-    public void UpdateScedualedDate(int id, DateTime? date)
+    public void UpdateScedualedDate(int id, DateTime date)
     {
+        DateTime? t_date;
         BO.Task t = Read(id);
-        BO.TaskInList? temp = (from item in t.Dependencies
-                               where item.Status < BO.Status.Scheduled
-                               select item).FirstOrDefault();
-        if (temp == default(BO.TaskInList))
-            throw new BO.BlCanNotUpdate($"can`t update task");
-
-        temp = (from item in t.Dependencies
-                let e = _dal.Task.Read(item.Id)
-                where getForecastDate(e) > date
-                select item).FirstOrDefault();
-        if (temp == default(BO.TaskInList))
-            throw new BO.BlCanNotUpdate($"can`t update task");
-
-        try
+        if (t.ScheduledDate is not null) return;
+        else
         {
-            DO.Task t_task = new()
+            if (t.Dependencies.Count==0)
+                t_date = date.AddDays(3);
+            else
             {
-                Id = t.Id,
-                Alias = t.Alias,
-                Description = t.Description,
-                CreatedAtDate = t.CreatedAtDate,
-                ScheduledDate = date,
-                StartDate = t.StartDate,
-                RequiredEffortTime = t.RequiredEffortTime,
-                DeadlineDate = t.DeadlineDate,
-                CompleteDate = t.CompleteDate,
-                Deliverables = t.Deliverables,
-                Remarks = t.Remarks,
-                EngineerId = t.Engineer.Id,
-                Complexity = (DO.EngineerExperience)t.Complexity
-            };
+                List<BO.TaskInList?> temp = (from item in t.Dependencies
+                                             where item.Status < BO.Status.Scheduled
+                                             select item).ToList();
 
-            _dal.Task.Update(t_task);
+
+                if (temp.Count>0)
+                    foreach (TaskInList item in temp)
+                    {
+                        UpdateScedualedDate(item.Id, date);
+                    }
+                DateTime? help;
+                t_date = getForecastDate(_dal.Task.Read(t.Dependencies.First().Id));
+                foreach (var item in t.Dependencies)
+                {
+                    help = getForecastDate(_dal.Task.Read(item.Id));
+                    if (t_date < help)
+                        t_date = help;
+
+                }
+                t_date = t_date?.AddDays(1);
+            }
+            try
+            {
+                DO.Task t_task = new()
+                {
+                    Id = t.Id,
+                    Alias = t.Alias,
+                    Description = t.Description,
+                    CreatedAtDate = t.CreatedAtDate,
+                    ScheduledDate = t_date,
+                    StartDate = t.StartDate,
+                    RequiredEffortTime = t.RequiredEffortTime,
+                    DeadlineDate = t.DeadlineDate,
+                    CompleteDate = t.CompleteDate,
+                    Deliverables = t.Deliverables,
+                    Remarks = t.Remarks,
+                    EngineerId = t.Engineer is not null ? t.Engineer.Id : 0,
+                    Complexity = (DO.EngineerExperience)t.Complexity
+                };
+
+                _dal.Task.Update(t_task);
+            }
+            catch (DO.DalDoesNotExistException)
+            { throw new BO.BlDoesNotExistException($"Task with ID={t.Id} does Not exist"); }
         }
-        catch (DO.DalDoesNotExistException)
-        { throw new BO.BlDoesNotExistException($"Task with ID={t.Id} does Not exist"); }
     }
 
 
@@ -201,7 +221,7 @@ internal class TaskImplementation : ITask
                 let t_description = t_task.Description
                 let t_Alias = t_task.Alias
                 let t_status = getStatus(t_task)
-                select new BO.TaskInList() { Id = item.DependentTask, Description = t_description, Alias = t_Alias, Status = t_status })
+                select new BO.TaskInList() { Id = item.DependsOnTask, Description = t_description, Alias = t_Alias, Status = t_status })
                 .ToList();
     }
 
@@ -218,7 +238,7 @@ internal class TaskImplementation : ITask
         //TODO:add jeopardy condition
     }
 
-    private DateTime? getForecastDate(DO.Task t)
+    public DateTime? getForecastDate(DO.Task t)
     {
         return t.ScheduledDate + t.RequiredEffortTime;
                 

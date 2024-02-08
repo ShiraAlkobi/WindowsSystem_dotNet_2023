@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Runtime.Serialization;
+using System.Security.Cryptography;
 
 /// <summary>
 /// in this file we implement all of the BL head entity Engineer's functions 
@@ -30,11 +31,8 @@ internal class EngineerImplementation : BlApi.IEngineer
     public int Create(BO.Engineer t)
     {
         ///Check for correct input
-        try
-        {
-            new EmailAddressAttribute().IsValid(t.Email);
-        }catch (Exception ex) { throw new BO.BlInputCheckException("email not valid\n"); }
-        if ( t.Id < 0 || t.Name == "" || t.Cost < 0)
+       
+        if ( t.Id < 0 || t.Name == "" || t.Cost < 0||!(new EmailAddressAttribute().IsValid(t.Email)))
         {
             throw new BO.BlInputCheckException("wrong input\n");
         }
@@ -120,41 +118,41 @@ internal class EngineerImplementation : BlApi.IEngineer
 
     public void Update(Engineer t)
     {
-        new EmailAddressAttribute().IsValid(t.Email);
-        if (t.Id < 0 || t.Name == "" || t.Cost < 0)
+        
+        if (t.Id < 0 || t.Name == "" || t.Cost < 0||!(new EmailAddressAttribute().IsValid(t.Email)))
         {
             throw new BO.BlInputCheckException("wrong input\n");
         }
         try
         {
+            
             if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)
                 throw new BO.BlCanNotUpdate($"can`t update engineer");
-
-            if ((int)t.Level < (int)_dal.Task.Read(t.Task.Id).Complexity)
-                throw new BO.BlCanNotUpdate($"can`t update engineer");
-
-            DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)t.Level);
-            
-            DO.Task? t_task = null;
-           
-            t_task = _dal.Task.Read(t.Task.Id);
-
-            if (t_task == null) 
+            if (t.Task is not null)
             {
-                throw new BO.BlDoesNotExistException($"Task with ID={t.Task.Id} does Not exist");
+                DO.Task? t_task = _dal.Task.Read(t.Task.Id);
+                if ((int)t.Level < (int)t_task.Complexity)
+                    throw new BO.BlCanNotUpdate($"can`t assign engineer with not enough experience");
+           
+                if (t_task.EngineerId > 0)//if there is already an engineer assigned to the task
+                    throw new BO.BlCanNotUpdate($"can`t update engineer because there is already an engineer assigned to the task");
+
+                DO.Task? p = (from item in _dal.Dependency.ReadAll()
+                              where item.DependentTask == t_task.Id
+                              let temp = _dal.Task.Read(item.DependsOnTask)
+                              where (temp.CompleteDate is null)
+                              select temp).FirstOrDefault();
+
+                if (p is not null)
+                    throw new BO.BlCanNotUpdate("the previous tasks are still in progress");
+
+
             }
-            if (t_task.EngineerId > 0)
-                throw new BO.BlCanNotUpdate($"can`t update engineer");
-
-            //TODO:how to use the read function of the task implementation
-            //if (Task.Read(t.Task.Id)
-            
-
-            DO.Task updatedTask = t_task with { EngineerId = t.Id };
-            _dal.Task.Update(updatedTask);
+            DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)t.Level);
             _dal.Engineer.Update(t_engineer);
+            
         }
-        catch (DO.DalDoesNotExistException e) 
+        catch (DO.DalDoesNotExistException e)
         { throw new BO.BlDoesNotExistException($"Engineer with ID={t.Id} doesn`t exist"); }
     }
 

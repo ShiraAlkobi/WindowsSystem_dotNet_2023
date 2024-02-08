@@ -14,10 +14,6 @@ internal class Program
     private static void Main(string[] args)
     {
         s_bl.setStatus();
-        s_bl.changeStatus();
-        DateTime dateTime = DateTime.Now;
-        DateTime dateTime1 = DateTime.Now; 
-        s_bl.setStartAndEndDates(dateTime, dateTime1);
         Console.Write("Would you like to create Initial data? (Y/N)");
         string? ans = Console.ReadLine() ?? throw new FormatException("Wrong input");
         if (ans == "Y")
@@ -45,9 +41,11 @@ internal class Program
                         EngineerMenu();
                         break;
                     case 3:
-                        setStartAndEndDates();
-                        setTasksSchedualDates();
-                        setProjectStatus();
+                        try
+                        {
+                            setStartAndEndDates();
+                        }
+                        catch (BlDoesNotExistException e) { Console.WriteLine(e); }
                         break;
                     case 0:
                         break;
@@ -69,15 +67,7 @@ internal class Program
 
     }
 
-    private static void setProjectStatus()
-    {
-        throw new NotImplementedException();
-    }
-
-    private static void setTasksSchedualDates()
-    {
-        
-    }
+    
 
     private static void setStartAndEndDates()
     {
@@ -85,10 +75,11 @@ internal class Program
         Console.WriteLine("enter start date for the project:\n");
         temp= Console.ReadLine();
         DateTime.TryParse(temp, out var start);
-        Console.WriteLine("enter end date for the project:\n");
-        temp = Console.ReadLine();
-        DateTime.TryParse(temp, out var end);
-        s_bl.setStartAndEndDates(start, end);
+        Console.WriteLine("setting schedualed dates for each task...\n");
+        s_bl.setStartAndEndDates(start);
+        Console.WriteLine("end date for the project:"+s_bl.getEndDate());
+        Console.WriteLine("\nthe tasks with schedualed dates:\n");
+        readAllTasks();
     }
 
     private static void TaskMenu()
@@ -261,31 +252,32 @@ internal class Program
         Console.WriteLine("enter the task details:\n Alias: ");
         string? t_Alias = Console.ReadLine();
 
-        Console.WriteLine("\n Description: ");
+        Console.WriteLine("\nDescription: ");
         string? t_Description = Console.ReadLine();
         BO.Task? dependsOnTask = null;
 
         int t;
-        List<BO.TaskInList>? t_Dependencies = null;
+        List<BO.TaskInList>? t_Dependencies=new();
         do
         {
-            Console.WriteLine($"\n Enter Id of the task that {t_Alias} depends on:\n");
+            Console.WriteLine($"\nEnter Id of the task that {t_Alias} depends on:\n");
             temp = Console.ReadLine();
             int.TryParse(temp, out t);
             dependsOnTask = s_bl.Task.Read(t);
-            t_Dependencies!.Add(new TaskInList { Id = t, Description = dependsOnTask!.Description, Alias = dependsOnTask.Alias, Status = dependsOnTask.Status });
+            BO.TaskInList taskInList = new() { Id = t, Description = dependsOnTask!.Description, Alias = dependsOnTask.Alias, Status = dependsOnTask.Status };
+            t_Dependencies.Add(taskInList);
             Console.WriteLine("would you like to add another one?\n");
             temp = Console.ReadLine();
         } while (temp == "Y");
 
-        Console.WriteLine("\n Required effort time: ");
+        Console.WriteLine("\nRequired effort time: ");
         temp = Console.ReadLine();
         TimeSpan t_RequiredEffortTime = TimeSpan.Parse(temp!);
 
-        Console.WriteLine("\n Deliverables: ");
+        Console.WriteLine("\nDeliverables: ");
         string t_Deliverables = Console.ReadLine()!;
 
-        Console.WriteLine("\n Remarks: ");
+        Console.WriteLine("\nRemarks: ");
         string t_Remarks = Console.ReadLine()!;
 
 
@@ -343,7 +335,7 @@ internal class Program
 
         Console.WriteLine(t);
         string? temp, t_Alias; ///temp values for inserting in the task to update
-        DateTime? t_ScheduledDate = null, t_StartDate = null, t_DeadlineDate = null, t_CompleteDate = null;
+        DateTime?  t_StartDate = null, t_DeadlineDate = null, t_CompleteDate = null;
         TimeSpan? t_RequiredEffortTime = null;
 
         ///getting the values from the user, then checking if they're null - no need to update, the temp variable will be the same as the one from the original object
@@ -424,7 +416,7 @@ internal class Program
         string? t_Remarks = Console.ReadLine()!;
         if (t_Remarks == "" || t_Remarks == null)
             t_Remarks = t.Remarks;
-        BO.EngineerInTask? t_Engineer = null;
+        BO.EngineerInTask t_Engineer;
         if (s_bl.getProjectStatus() == BO.ProjectStatus.ExecutionStage)
         {
             Console.WriteLine("\n Engineer ID: ");
@@ -441,17 +433,17 @@ internal class Program
         BO.EngineerExperience t_Complexity = (BO.EngineerExperience)Enum.Parse(typeof(BO.EngineerExperience), temp);
         if (temp == "" || temp == null)
             t_Complexity = t.Complexity;
-
+        
         ///create the task with the updated values we got
         BO.Task task = new()
         {
-            Id = 0,
+            Id = t.Id,
             Alias = t_Alias,
             Description = t_Description,
             Dependencies = null,
             Status = BO.Status.Unscheduled,//TODO:מה ההגיון לעדכן את זה אם גם ככה לא שומרים?
             CreatedAtDate = DateTime.Today,
-            ScheduledDate = t_ScheduledDate,
+            ScheduledDate = t.ScheduledDate,
             StartDate = t_StartDate,
             ForecastDate = null,
             RequiredEffortTime = t_RequiredEffortTime,
@@ -474,9 +466,6 @@ internal class Program
         int t_Id = int.Parse(temp!);///converting string to int
         s_bl!.Task.Delete(t_Id);///calling delete function from interface 
     }
-
-   
-
     private static void groupTasks()
     {
         IEnumerable<IGrouping<BO.Status, BO.TaskInList>> grouped = s_bl.Task.GroupByStatus();
@@ -629,14 +618,6 @@ internal class Program
         int t_Id = int.Parse(temp!);///convert to int
         s_bl!.Engineer.Delete(t_Id);///delete using interface function
     }
-
-    
-
-    
-
-    
-
-    
     private static void sortEngineers()
     {
         foreach(var item in s_bl.Engineer.SortByName())

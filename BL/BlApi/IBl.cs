@@ -13,7 +13,7 @@ public interface IBl
 
     public void changeStatus();
 
-    public void setStartAndEndDates(DateTime start, DateTime end);
+    public void setStartAndEndDates(DateTime start);
     public DateTime? getStartDate();
     public DateTime? getEndDate();
     public BO.ProjectStatus getProjectStatus();

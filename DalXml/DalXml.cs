@@ -28,7 +28,7 @@ namespace Dal
         public DateTime? ProjectEndDate { get; set; }
         public ProjectStatus ProjectStatus { get; set; }
 
-        public void setStartAndEndDates(DateTime start, DateTime end)
+        public void setStartAndEndDates(DateTime start, DateTime? end)
         {
             XElement root = XMLTools.LoadListFromXMLElement("data-config");
             if(root.Element("ProjectStartDate") is null)
@@ -62,6 +62,8 @@ namespace Dal
                 XElement t_pStatus = new XElement("ProjectStatus", DO.ProjectStatus.PlanStage);
                 root.Add(t_pStatus);
             }
+            else
+                root.Element("ProjectStatus")?.SetValue((DO.ProjectStatus.PlanStage).ToString());
             XMLTools.SaveListToXMLElement(root, "data-config");
         }
 

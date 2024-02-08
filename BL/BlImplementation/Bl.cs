@@ -24,9 +24,26 @@ internal class Bl : IBl
 
     }
 
-    public void setStartAndEndDates(DateTime start, DateTime end)
+    public void setStartAndEndDates(DateTime start)
     {
+        DateTime? end=start;
+        DateTime? help=null;
+        foreach (var item in _dal.Task.ReadAll())
+        {
+            if (item.ScheduledDate is null)
+            {
+               Task.UpdateScedualedDate(item.Id, start);
+            }
+            
+        }
+        foreach (var item in _dal.Task.ReadAll())
+        {
+            help = item.ScheduledDate + item.RequiredEffortTime;
+            end = end < help ? help : end;
+        }
         _dal.setStartAndEndDates(start, end);
+        changeStatus();
+
     }
 
     public ProjectStatus getProjectStatus()

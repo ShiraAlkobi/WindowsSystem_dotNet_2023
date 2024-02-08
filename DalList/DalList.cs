@@ -24,7 +24,7 @@ sealed internal class DalList : IDal
     public DateTime? ProjectEndDate { get; set; }
     public ProjectStatus ProjectStatus { get; set; }
 
-    public void setStartAndEndDates(DateTime start, DateTime end)
+    public void setStartAndEndDates(DateTime start, DateTime? end)
     {
         DataSource.Config.projectStartDate=start;
         DataSource.Config.projectEndDate=end;
