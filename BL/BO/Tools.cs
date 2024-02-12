@@ -33,7 +33,7 @@ public static class Tools
                 ///if the property is an IEnumerable (excluding string), print all of its elements
                 if (value is IEnumerable<object> enumerableValue && !(value is string))
                 {
-                    result += $"{value.GetType().Name} values: \n";
+                    result += $"{property.Name} values: \n";
                     result += "[";
 
                     foreach (var item in enumerableValue)
@@ -52,7 +52,7 @@ public static class Tools
                 else
                 {
                     ///not an IEnumerable type, simply add the value to the result string
-                    result += $"{value.GetType().Name} : {value}\n";
+                    result += $"{property.Name} : {value}\n";
                 }
                 result += "\n";
             }
