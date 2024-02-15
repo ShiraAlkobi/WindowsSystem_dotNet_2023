@@ -21,31 +21,31 @@ namespace PL.Engineer
     public partial class AddUpdateEngineer : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
+        //Using a DependencyProperty as the backing store for CurrentEngineer.This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentEngineerProperty =
+            DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(AddUpdateEngineer), new PropertyMetadata(null));
         public BO.Engineer CurrentEngineer
         {
             get { return (BO.Engineer)GetValue(CurrentEngineerProperty); }
             set { SetValue(CurrentEngineerProperty, value); }
         }
 
-        //Using a DependencyProperty as the backing store for CurrentEngineer.This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentEngineerProperty =
-            DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(AddUpdateEngineer), new PropertyMetadata(0));
 
         public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;
 
         public AddUpdateEngineer(int id = 0)
         {
             InitializeComponent();
-            BO.Engineer t_engineer;
             if (id == 0)
             {
-                t_engineer = new BO.Engineer();
+                CurrentEngineer = new BO.Engineer();
             }
             else
             {
                 try
                 {
-                    t_engineer = s_bl.Engineer.Read(id);
+                    CurrentEngineer = s_bl.Engineer.Read(id);
                 }
                 catch (BO.BlDoesNotExistException e)
                 {

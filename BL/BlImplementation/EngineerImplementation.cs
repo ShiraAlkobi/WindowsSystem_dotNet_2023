@@ -31,11 +31,11 @@ internal class EngineerImplementation : BlApi.IEngineer
     public int Create(BO.Engineer t)
     {
         ///Check for correct input
-        if ( t.Id < 0) 
+        if ( t.Id <= 0) 
         {
-            throw new BO.BlInputCheckException("Id can't be negative\n");
+            throw new BO.BlInputCheckException("Id can't be negative or zero\n");
         }
-        if (t.Name == "")
+        if (t.Name == null||t.Name=="")
         {
             throw new BO.BlInputCheckException("must insert name\n");
         }
@@ -46,6 +46,14 @@ internal class EngineerImplementation : BlApi.IEngineer
         if (!(new EmailAddressAttribute().IsValid(t.Email)))
         {
             throw new BO.BlInputCheckException("email is not valid\n");
+        }
+        if (t.Email==null)
+        {
+            throw new BO.BlInputCheckException("must insert email\n");
+        }
+        if(t.Level==BO.EngineerExperience.All)
+        {
+            throw new BO.BlInputCheckException("please choose an experience level\n");
         }
         ///creates the DO engineer using the right values from the gotten object
         DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)(int)t.Level);

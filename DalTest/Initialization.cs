@@ -72,7 +72,7 @@ public static class Initialization
             while (s_dal!.Engineer.Read(t_Id) != null);//if the random id already exists, draw another one
             string t_Email = $"{names[i]}@jct.com"; //create an email according to the engineer's name
             double t_Cost = s_rand.Next(50,400); //create a random hourly wage
-            DO.EngineerExperience t_Level = (DO.EngineerExperience)s_rand.Next(0, 5);
+            DO.EngineerExperience t_Level = (DO.EngineerExperience)s_rand.Next(1, 5);
             t_Engineer = new Engineer(t_Id, t_Email, t_Cost, names[i],t_Level);//initialize the engineer with the id
             s_dal!.Engineer.Create(t_Engineer);//push to list
         }

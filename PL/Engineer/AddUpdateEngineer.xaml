@@ -6,41 +6,96 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-        Title="AddUpdateEngineer" Height="400" Width="300">
+        Title="AddUpdateEngineer" Height="450" Width="350">
 
+    <!-- Window background color -->
+    <Window.Background>
+        <SolidColorBrush Color="#FFF4E8D8"/>
+    </Window.Background>
 
+    <!-- Grid with grid lines for debugging -->
     <Grid ShowGridLines="True">
-        <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.Column="0" Margin="10,50,0,0" Width="100" >
-            <Label Content="Id:" Margin="30,10,0,10"/>
-            <Label Content="Name:" Margin="30,10,0,10"/>
-            <Label Content="Email:" Margin="30,10,0,10"/>
-            <Label Content="Cost:" Margin="30,10,0,10"/>
-            <Label Content="Level:" Margin="30,10,0,10"/>
-            <Label Content="Task:" Margin="30,10,0,10"/>
+        <!-- Left StackPanel with labels -->
+        <StackPanel HorizontalAlignment="Left" Grid.Column="0" Margin="10,25,0,25" Width="150" >
+            <!-- Apply font properties to labels -->
+            <Label Content="Id:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Name:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Email:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Cost:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Level:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
+            <Label Content="Task:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Right" Grid.Column="0" Margin="0,50,20,54" Width="190" >
-            <TextBox Margin="0,15,10,10"
-                 Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-            <TextBox Margin="0,15,10,10"
-                 Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-            IsEnabled="{Binding Id, Mode=TwoWay,Converter={StaticResource intToIsEnabledConverter}}"/>
-            <TextBox Margin="0,20,10,10"
+        <!-- Right StackPanel with TextBoxes, ComboBox, and margins adjusted -->
+        <StackPanel HorizontalAlignment="right" Margin="0,36,50,79" Width="156" >
+            <TextBox Margin="0,5,0,10"
+                 Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource intToIsEnabledConverter}}"/>
+            <TextBox Margin="0,11,0,10"
+                 Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+            <TextBox Margin="0,8,0,10"
                  Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-            <TextBox Margin="0,20,10,10"
+            <TextBox Margin="0,12,0,10"
                  Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
-            <ComboBox Margin="0,15,10,10"
+            <ComboBox Margin="0,10,0,10"
                   ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
-                    SelectedValue="{Binding InYear, Mode=TwoWay, NotifyOnValidationError=true, 
+                    SelectedValue="{Binding Level, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}"       />
-            <TextBox Margin="0,15,10,10"
+            <TextBox Margin="0,8,0,10"
                  Text="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-            IsEnabled="{Binding Id,Mode=TwoWay,Converter={StaticResource taskToIsEnabledConverter}}"/>
+            IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource taskToIsEnabledConverter}}"/>
         </StackPanel>
-        <Button Content="Add Engineer" Margin="100,330,100,17"
-            Visibility="{Binding Id,Mode=TwoWay,Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddEngineer_Click"></Button>
-        <Button Content="Update Engineer" Margin="100,330,100,17"
-        Visibility="{Binding Id,Mode=TwoWay,Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateEngineer_Click"></Button>
 
+        <!-- Add Engineer Button -->
+        <Button Content="Add Engineer" Margin="10,330,10,34"
+            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddEngineer_Click">
+            <!-- Apply font properties to button -->
+            <Button.FontFamily>
+                <FontFamily>Segoe UI</FontFamily>
+            </Button.FontFamily>
+            <Button.FontSize>16</Button.FontSize>
+            <Button.FontWeight>Bold</Button.FontWeight>
+            <!-- Apply the happy button style to the Button -->
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#FF76C7C0"/>
+                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF62A29D"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <!-- Update Engineer Button -->
+        <Button Content="Update Engineer" Margin="10,330,10,34"
+            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateEngineer_Click">
+            <!-- Apply font properties to button -->
+            <Button.FontFamily>
+                <FontFamily>Segoe UI</FontFamily>
+            </Button.FontFamily>
+            <Button.FontSize>16</Button.FontSize>
+            <Button.FontWeight>Bold</Button.FontWeight>
+            <!-- Apply the happy button style to the Button -->
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#FF76C7C0"/>
+                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF62A29D"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
     </Grid>
 </Window>

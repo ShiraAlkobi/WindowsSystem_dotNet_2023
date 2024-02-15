@@ -43,4 +43,12 @@ public interface IBl
     /// </summary>
     /// <returns></returns>
     public BO.ProjectStatus getProjectStatus();
+    /// <summary>
+    /// initialize the database
+    /// </summary>
+    public void InitializeDB() => DalTest.Initialization.Do();
+    /// <summary>
+    /// reset database
+    /// </summary>
+    public void ResetDB() => DalTest.Initialization.emptyData();
 }

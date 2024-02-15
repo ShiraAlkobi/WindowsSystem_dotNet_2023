@@ -6,11 +6,49 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        <!--press button to show engineers-->
-        <Button Content="Handle Engineers" HorizontalAlignment="Left" Margin="81,30,0,0" VerticalAlignment="Top" Height="49" Width="164" Click="btn_EngineerList_Click"/>
-        <!--press button to initialize data-->
-        <Button Content="Initialize Data" HorizontalAlignment="Left" Margin="81,114,0,0" VerticalAlignment="Top" Height="49" Width="164" Click="btn_Initialization_Click"/>
 
+    <!-- Window background color -->
+    <Window.Background>
+        <SolidColorBrush Color="#FFDEF2D8"/>
+    </Window.Background>
+
+    <Grid>
+        <!-- Button style for happy and vibrant look -->
+        <Grid.Resources>
+            <Style x:Key="HappyButtonStyle" TargetType="Button">
+                <Setter Property="Margin" Value="10"/>
+                <Setter Property="Padding" Value="15"/>
+                <Setter Property="FontSize" Value="18"/>
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Background" Value="#FF76C7C0"/>
+                <Setter Property="BorderBrush" Value="#FF62A29D"/>
+                <Setter Property="BorderThickness" Value="3"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="VerticalAlignment" Value="Top"/>
+                <Setter Property="Height" Value="147"/>
+                <Setter Property="Width" Value="242"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+                <!-- Hover effect -->
+                <Style.Triggers>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter Property="Background" Value="#FF62A29D"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Resources>
+
+        <!-- Button to show engineers -->
+        <Button Content="Handle Engineers" Style="{StaticResource HappyButtonStyle}" Click="btn_EngineerList_Click" Margin="99,136,0,0"/>
+        <!-- Button to initialize data -->
+        <Button Content="Initialize Data" Style="{StaticResource HappyButtonStyle}" Click="btn_Initialization_Click" Margin="441,136,0,0"/>
     </Grid>
 </Window>
+

@@ -7,34 +7,79 @@
         mc:Ignorable="d"
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-    <!--Extrnal Grid-->
+
+    <!-- Window background color -->
+    <Window.Background>
+        <SolidColorBrush Color="#FFF4E8D8"/>
+    </Window.Background>
+
+    <!-- External Grid -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <!--Internal, Upper Grid-->
+
+        <!-- Internal, Upper Grid -->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <!--show filtering criteria-->
-            <Label Grid.Column="0" Content="Label" HorizontalAlignment="Left" Margin="167,-25,0,0" VerticalAlignment="Top"/>
-            <!--filtering options-->
-            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch"  VerticalAlignment="Stretch" 
+
+            <!-- Show filtering criteria -->
+            <Label Content="Select Experience:" FontSize="20" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Width="200"/>
+
+            <!-- Filtering options -->
+            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5"
                       ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"
-                      SelectedValue="{Binding Path=Experience,Mode=TwoWay}" SelectionChanged="cbExperienceSelector_SelectionChanged"/>
+                      SelectedValue="{Binding Path=Experience, Mode=TwoWay}" SelectionChanged="cbExperienceSelector_SelectionChanged">
+                <!-- Apply the happy button style to the ComboBox -->
+                <ComboBox.Style>
+                    <Style TargetType="ComboBox">
+                        <Setter Property="Foreground" Value="black"/>
+                        <Setter Property="Background" Value="#FF76C7C0"/>
+                        <Setter Property="BorderBrush" Value="#FF62A29D"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF62A29D"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
         </Grid>
-        <ListView Margin="5" Grid.Row="1" ItemsSource="{Binding EngineerList}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn/>
-                </GridView>
-            </ListView.View>           
+
+        <!-- ListView -->
+        <ListView Margin="5,5,5,100" Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="UpdateEngineerWindow_DoubleClick">
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="100" Width="1000" Click="AddEngineerWindow_Click"/>
+
+        <!-- Button to Add Engineer -->
+        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="280" Margin="0,498,0,10" Click="AddEngineerWindow_Click">
+            <!-- Apply the happy button style to the Button -->
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#FF76C7C0"/>
+                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="FontSize" Value="16"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF62A29D"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
 
     </Grid>
 </Window>
+

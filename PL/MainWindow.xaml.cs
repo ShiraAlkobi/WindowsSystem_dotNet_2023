@@ -8,6 +8,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using BlApi;
 using PL.Engineer;
 
 namespace PL
@@ -33,8 +34,8 @@ namespace PL
            MessageBoxResult result= MessageBox.Show("Are you sure you want to initialize data? ","",MessageBoxButton.YesNo,MessageBoxImage.Question); 
             if (result == MessageBoxResult.Yes)
             {
-                DalTest.Initialization.emptyData();
-                DalTest.Initialization.Do();
+                Factory.Get().ResetDB();
+                Factory.Get().InitializeDB();
                 MessageBox.Show("Data initialized!");
             }
             

@@ -46,8 +46,17 @@ namespace PL.Engineer
 
         private void AddEngineerWindow_Click(object sender, RoutedEventArgs e)
         {
-            EngineerListWindow engineerListWindow = new();
-            engineerListWindow.ShowDialog();
+            AddUpdateEngineer addUpdateEngineer=new AddUpdateEngineer();
+            addUpdateEngineer.ShowDialog();
+            EngineerList = s_bl?.Engineer.ReadAll()!;
+        }
+
+        private void UpdateEngineerWindow_DoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BO.Engineer? engineer= (sender as ListView)?.SelectedItem as BO.Engineer;
+            AddUpdateEngineer addUpdateEngineer = new AddUpdateEngineer(engineer.Id);
+            addUpdateEngineer.ShowDialog();
+            EngineerList = s_bl?.Engineer.ReadAll()!;
         }
     }
 }
