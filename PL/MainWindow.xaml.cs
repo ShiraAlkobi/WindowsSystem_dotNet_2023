@@ -23,12 +23,21 @@ namespace PL
         {
             InitializeComponent();            
         }
-
+        /// <summary>
+        /// by clicking on "handle engineer" button, a new window will appear with the engineers details
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_EngineerList_Click(object sender, RoutedEventArgs e)
         {
-            new EngineerListWindow().Show();
+            new EngineerListWindow().Show();//create new window and show
         }
-
+        /// <summary>
+        /// by clicking on "initialize date" button, this function will show a messege box asking 
+        /// if the user is sure he wants to initailize, if he clicls yes, the data will be reset and initialized.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Initialization_Click(object sender, RoutedEventArgs e)
         {
            MessageBoxResult result= MessageBox.Show("Are you sure you want to initialize data? ","",MessageBoxButton.YesNo,MessageBoxImage.Question); 

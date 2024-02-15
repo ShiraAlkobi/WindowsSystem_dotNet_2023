@@ -31,11 +31,11 @@
             <!-- Show filtering criteria -->
             <Label Content="Select Experience:" FontSize="20" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Width="200"/>
 
-            <!-- Filtering options -->
+            <!-- Filtering options , changing list of engineers according to expereince chosen-->
             <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5"
                       ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"
                       SelectedValue="{Binding Path=Experience, Mode=TwoWay}" SelectionChanged="cbExperienceSelector_SelectionChanged">
-                <!-- Apply the happy button style to the ComboBox -->
+                <!-- Apply the button style to the ComboBox -->
                 <ComboBox.Style>
                     <Style TargetType="ComboBox">
                         <Setter Property="Foreground" Value="black"/>
@@ -56,13 +56,13 @@
             </ComboBox>
         </Grid>
 
-        <!-- ListView -->
+        <!-- ListView ,if clicked o engineer, an update window will open-->
         <ListView Margin="5,5,5,100" Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="UpdateEngineerWindow_DoubleClick">
         </ListView>
 
         <!-- Button to Add Engineer -->
         <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="280" Margin="0,498,0,10" Click="AddEngineerWindow_Click">
-            <!-- Apply the happy button style to the Button -->
+            <!-- Apply the  button style to the Button -->
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Foreground" Value="White"/>

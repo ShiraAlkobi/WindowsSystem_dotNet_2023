@@ -13,9 +13,9 @@
     </Window.Background>
 
     <Grid>
-        <!-- Button style for happy and vibrant look -->
+        <!-- changing style of the window -->
         <Grid.Resources>
-            <Style x:Key="HappyButtonStyle" TargetType="Button">
+            <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="Margin" Value="10"/>
                 <Setter Property="Padding" Value="15"/>
                 <Setter Property="FontSize" Value="18"/>
@@ -45,10 +45,10 @@
             </Style>
         </Grid.Resources>
 
-        <!-- Button to show engineers -->
-        <Button Content="Handle Engineers" Style="{StaticResource HappyButtonStyle}" Click="btn_EngineerList_Click" Margin="99,136,0,0"/>
-        <!-- Button to initialize data -->
-        <Button Content="Initialize Data" Style="{StaticResource HappyButtonStyle}" Click="btn_Initialization_Click" Margin="441,136,0,0"/>
+        <!-- Button to show engineers using template created in grid resources ,clicking on the button will open engineer list window-->
+        <Button Content="Handle Engineers" Style="{StaticResource ButtonStyle}" Click="btn_EngineerList_Click" Margin="99,136,0,0"/>
+        <!-- Button to initialize data using template created in grid resources, clicling on the button will initialize date-->
+        <Button Content="Initialize Data" Style="{StaticResource ButtonStyle}" Click="btn_Initialization_Click" Margin="441,136,0,0"/>
     </Grid>
 </Window>
 
