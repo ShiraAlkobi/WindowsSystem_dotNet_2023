@@ -57,11 +57,11 @@ namespace PL.Engineer
             else
             {
                 try
-                { 
+                {
                     ///read the right engineer according to the given id
                     CurrentEngineer = s_bl.Engineer.Read(id);
                 }///if an exception was thrown from the read function, catch it and show a message box which explains the exception
-                catch (BO.BlDoesNotExistException e)  
+                catch (BO.BlDoesNotExistException e)
                 {
                     MessageBox.Show($"Engineer with id: {id} does not exist", "Input Error!",
                                                         MessageBoxButton.OK, MessageBoxImage.Error);
@@ -130,5 +130,6 @@ namespace PL.Engineer
             catch (BO.BlCanNotUpdate ex) { MessageBox.Show(ex.Message); }
 
         }
+
     }
 }

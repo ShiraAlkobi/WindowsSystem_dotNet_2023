@@ -66,7 +66,7 @@ public class TaskToIsEnabledConverter : IValueConverter
 /// <summary>
 /// converts id to visibility attribute of the button for updating an engineer 
 /// </summary>
-public class intToVisibilityConverterUpdate : IValueConverter
+public class IntToVisibilityConverterUpdate : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
@@ -91,7 +91,7 @@ public class intToVisibilityConverterUpdate : IValueConverter
 /// <summary>
 /// converts id to visibility attribute of the button for adding an engineer 
 /// </summary>
-public class intToVisibilityConverterAdd : IValueConverter
+public class IntToVisibilityConverterAdd : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
