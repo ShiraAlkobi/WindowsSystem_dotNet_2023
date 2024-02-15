@@ -8,17 +8,25 @@ using System.Windows.Data;
 using System.Windows;
 
 namespace PL;
+/// <summary>
+/// this file contains all of the convert classes used in the XAML files
+/// </summary>
 
-
+/// <summary>
+/// converts from int to IsEnabled attribute
+/// we can make the Engineer id's textBox close for changes when updating
+/// </summary>
 public class IntToIsEnabledConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         int intValue = (int)value;
+        ///if the id is 0 - we add an engineer, and the id can be inserted
         if (intValue == 0)
         {
             return true;
         }
+        ///if the id is not 0 - we update an engineer, and the id can't be inserted
         else
         {
             return false;
@@ -29,15 +37,22 @@ public class IntToIsEnabledConverter : IValueConverter
         throw new NotImplementedException();
     }
 }
+
+/// <summary>
+/// converts from Task id (int) to IsEnabled attribute
+/// we can make the Engineer Task's textBox close for changes when adding
+/// </summary>
 public class TaskToIsEnabledConverter : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         int intValue = (int)value;
+        ///if the id is 0 - we add an engineer, and the task can't be inserted
         if (intValue == 0)
         {
             return false;
         }
+        ///if the id is not 0 - we update an engineer, and the task can be inserted
         else
         {
             return true;
@@ -48,11 +63,15 @@ public class TaskToIsEnabledConverter : IValueConverter
         throw new NotImplementedException();
     }
 }
-public class IntToVisibilityConverterUpdate : IValueConverter
+/// <summary>
+/// converts id to visibility attribute of the button for updating an engineer 
+/// </summary>
+public class intToVisibilityConverterUpdate : IValueConverter
 {
     public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
         int intValue = (int)value;
+        ///if the id is 0 - we want to add, so the update button needs to be hidden
         if (intValue == 0)
         {
             return Visibility.Collapsed;
@@ -62,30 +81,35 @@ public class IntToVisibilityConverterUpdate : IValueConverter
             return Visibility.Visible;
         }
     }
+
     public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
 }
 
-    public class IntToVisibilityConverterAdd : IValueConverter
+/// <summary>
+/// converts id to visibility attribute of the button for adding an engineer 
+/// </summary>
+public class intToVisibilityConverterAdd : IValueConverter
+{
+    public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        int intValue = (int)value;
+        ///if the id is 0 - we want to add, so the add button needs to be visible
+        if (intValue == 0)
         {
-            int intValue = (int)value;
-            if (intValue == 0)
-            {
-                return Visibility.Visible;
-            }
-            else
-            {
-                return Visibility.Collapsed;
-            }
+            return Visibility.Visible;
         }
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        else
         {
-            throw new NotImplementedException();
+            return Visibility.Collapsed;
         }
     }
+    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    {
+        throw new NotImplementedException();
+    }
+}
 
 

@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 
 namespace PL;
+
+/// <summary>
+/// converts the enum EngineerExperience values into a collection - IEnumerable
+/// </summary>
 internal class EngineerExperienceCollection : IEnumerable
 {
     static readonly IEnumerable<BO.EngineerExperience> s_enums =

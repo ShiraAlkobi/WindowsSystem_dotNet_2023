@@ -13,11 +13,11 @@
         <SolidColorBrush Color="#FFF4E8D8"/>
     </Window.Background>
 
-    <!-- Grid with grid lines for debugging -->
+    <!-- Grid with grid lines-->
     <Grid ShowGridLines="True">
         <!-- Left StackPanel with labels -->
         <StackPanel HorizontalAlignment="Left" Grid.Column="0" Margin="10,25,0,25" Width="150" >
-            <!-- Apply font properties to labels -->
+            <!--a label for each property of the engineer, also has a font and size -->
             <Label Content="Id:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
             <Label Content="Name:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
             <Label Content="Email:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
@@ -27,6 +27,9 @@
         </StackPanel>
 
         <!-- Right StackPanel with TextBoxes, ComboBox, and margins adjusted -->
+        <!--using binding according to each value of the engineer properties-->
+        <!--the comboBox is the enum of the engineer experience-->
+        <!--The task and id fields depends on the id - the isEnabled attribute is binding according to the id-->
         <StackPanel HorizontalAlignment="right" Margin="0,36,50,79" Width="156" >
             <TextBox Margin="0,5,0,10"
                  Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
@@ -55,7 +58,7 @@
             </Button.FontFamily>
             <Button.FontSize>16</Button.FontSize>
             <Button.FontWeight>Bold</Button.FontWeight>
-            <!-- Apply the happy button style to the Button -->
+            <!-- Apply the button style to the Button -->
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Foreground" Value="White"/>
@@ -81,7 +84,7 @@
             </Button.FontFamily>
             <Button.FontSize>16</Button.FontSize>
             <Button.FontWeight>Bold</Button.FontWeight>
-            <!-- Apply the happy button style to the Button -->
+            <!-- Apply the button style to the Button -->
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Foreground" Value="White"/>
