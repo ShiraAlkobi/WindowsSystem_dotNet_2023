@@ -5,5 +5,12 @@
              StartupUri="MainWindow.xaml">
 	<Application.Resources>
         <local:EngineerExperienceCollection x:Key="EngineerExperienceCollectionKey"/>
+        <local:IntToIsEnabledConverter x:Key="intToIsEnabledConverter"/>
+        <local:TaskToIsEnabledConverter x:Key="taskToIsEnabledConverter"/>
+        <local:IntToVisibilityConverterUpdate x:Key="intToVisibilityConverterUpdate"/>
+        <local:IntToVisibilityConverterAdd x:Key="intToVisibilityConverterAdd"/>
     </Application.Resources>
+    
+        
+    
 </Application>

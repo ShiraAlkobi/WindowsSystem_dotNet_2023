@@ -34,7 +34,7 @@
                 </GridView>
             </ListView.View>           
         </ListView>
-        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="100" Width="1000"/>
+        <Button Content="Add" Grid.Row="2" HorizontalAlignment="Center" Height="100" Width="1000" Click="AddEngineerWindow_Click"/>
 
     </Grid>
 </Window>

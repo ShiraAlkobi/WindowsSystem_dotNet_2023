@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         DataContext="{Binding CurrentEngineer, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
         Title="AddUpdateEngineer" Height="400" Width="300">
-    
+
+
     <Grid ShowGridLines="True">
         <StackPanel VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.Column="0" Margin="10,50,0,0" Width="100" >
             <Label Content="Id:" Margin="30,10,0,10"/>
@@ -18,24 +19,28 @@
             <Label Content="Task:" Margin="30,10,0,10"/>
         </StackPanel>
 
-        <StackPanel HorizontalAlignment="Right" Grid.Column="0" Margin="0,50,20,0" Width="190" >
+        <StackPanel HorizontalAlignment="Right" Grid.Column="0" Margin="0,50,20,54" Width="190" >
             <TextBox Margin="0,15,10,10"
-             Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                 Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
             <TextBox Margin="0,15,10,10"
-             Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                 Text="{Binding Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+            IsEnabled="{Binding Id, Mode=TwoWay,Converter={StaticResource intToIsEnabledConverter}}"/>
             <TextBox Margin="0,20,10,10"
-             Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                 Text="{Binding Email, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
             <TextBox Margin="0,20,10,10"
-             Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                 Text="{Binding Cost, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
             <ComboBox Margin="0,15,10,10"
-              ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
-                SelectedValue="{Binding InYear, Mode=TwoWay, NotifyOnValidationError=true, 
-                    ValidatesOnExceptions=true}"       />
+                  ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
+                    SelectedValue="{Binding InYear, Mode=TwoWay, NotifyOnValidationError=true, 
+                        ValidatesOnExceptions=true}"       />
             <TextBox Margin="0,15,10,10"
-             Text="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                 Text="{Binding Task, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+            IsEnabled="{Binding Id,Mode=TwoWay,Converter={StaticResource taskToIsEnabledConverter}}"/>
         </StackPanel>
-        <Button Content="Add Engineer" Margin="100,335,100,12" Visibility="Visible"></Button>
-        <Button Content="Update Engineer" Margin="100,335,100,12" Visibility="Hidden"></Button>
-                
+        <Button Content="Add Engineer" Margin="100,330,100,17"
+            Visibility="{Binding Id,Mode=TwoWay,Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddEngineer_Click"></Button>
+        <Button Content="Update Engineer" Margin="100,330,100,17"
+        Visibility="{Binding Id,Mode=TwoWay,Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateEngineer_Click"></Button>
+
     </Grid>
 </Window>
