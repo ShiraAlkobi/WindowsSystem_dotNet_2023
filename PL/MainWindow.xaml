@@ -46,9 +46,12 @@
         </Grid.Resources>
 
         <!-- Button to show engineers using template created in grid resources ,clicking on the button will open engineer list window-->
-        <Button Content="Handle Engineers" Style="{StaticResource ButtonStyle}" Click="btn_EngineerList_Click" Margin="99,136,0,0"/>
+        <Button Content="Handle Tasks" Style="{StaticResource ButtonStyle}" Click="btn_TaskList_Click" Margin="153,87,0,0" Height="104" Width="200"/>
         <!-- Button to initialize data using template created in grid resources, clicling on the button will initialize date-->
-        <Button Content="Initialize Data" Style="{StaticResource ButtonStyle}" Click="btn_Initialization_Click" Margin="441,136,0,0"/>
+        <Button Content="Initialize Data" Style="{StaticResource ButtonStyle}" Click="btn_Initialization_Click" Margin="563,274,0,0" Height="104" Width="200" RenderTransformOrigin="0.997,0.128"/>
+        <Button Content="Reset Data" Style="{StaticResource ButtonStyle}" Click="btn_Reset_Click" Height="104" Width="200" Margin="0,274,0,0" HorizontalAlignment="Center"/>
+        <Button Content="Handle Engineers" Style="{StaticResource ButtonStyle}" Click="btn_EngineerList_Click" Margin="445,87,0,0" Height="104" Width="200"/>
+        <Button Content="Gantt Chart" Style="{StaticResource ButtonStyle}" Click="btn_GanttChart_Click" Margin="34,274,0,0" Height="104" Width="200"/>
     </Grid>
 </Window>
 

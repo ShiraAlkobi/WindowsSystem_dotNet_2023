@@ -49,5 +49,26 @@ namespace PL
             }
             
         }
+
+        private void btn_Reset_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to reset data? ", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                Factory.Get().ResetDB();
+                MessageBox.Show("Data reset!");
+            }
+        }
+
+        private void btn_GanttChart_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+
+        private void btn_TaskList_Click(object sender, RoutedEventArgs e)
+        {
+            new TaskListWindow().Show();//create new window and show
+        }
     }
 }

@@ -46,4 +46,9 @@ public interface IDal
     /// </summary>
     /// <returns></returns>
     public DO.ProjectStatus getProjectStatus();
+    /// <summary>
+    /// function to call resetId of chosen implementation of the factory
+    /// </summary>
+    public void ResetId();
+
 }

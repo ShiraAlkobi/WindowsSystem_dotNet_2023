@@ -1,0 +1,141 @@
+﻿<Window x:Class="PL.AddUpdateTask"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PL"
+        mc:Ignorable="d"
+        DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
+        Title="AddUpdateTask" Height="630" Width="350">
+
+    <!-- Window background color -->
+    <Window.Background>
+        <SolidColorBrush Color="#FFD4EDE6"/>
+    </Window.Background>
+
+    <!-- Grid with grid lines-->
+    <Grid ShowGridLines="True">
+        <!-- Left StackPanel with labels -->
+        <StackPanel HorizontalAlignment="Left" Grid.Column="0" Margin="10,25,0,89" Width="129" >
+            <!--a label for each property of the engineer, also has a font and size -->
+            <Label Content="Id:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" />
+            <Label Content="Alias:" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" />
+            <Label Content="Description:" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" />
+            <Label Content="Status:" Margin="0,30,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Created:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Schedualed to start:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Started:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Required effort time:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Forecast to end:" Margin="0,8,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Completed:" Margin="0,4,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Deliverables:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Remarks:" Margin="0,20,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Assigned engineer:" Margin="0,15,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Complexity:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+
+        </StackPanel>
+
+        <!-- Right StackPanel with TextBoxes, ComboBox, and margins adjusted -->
+        <!--using binding according to each value of the engineer properties-->
+        <!--the comboBox is the enum of the engineer experience-->
+        <!--The task and id fields depends on the id - the isEnabled attribute is binding according to the id-->
+        <StackPanel HorizontalAlignment="Right" Margin="0,25,10,80" Width="170" >
+            <TextBox Margin="0,11,0,10"
+                 Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                    IsEnabled="False"/>
+            <TextBox
+                 Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+            <TextBox Margin="0,8,0,10"
+                 Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="50" Width="169"/>
+            <ComboBox
+                 ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" 
+                  SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+            <TextBox Margin="0,11,0,10"
+                 Text="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Height="20"
+                  IsEnabled="False" />
+            <TextBox
+                 Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                   IsEnabled="False" />
+            <TextBox Margin="0,12,0,10"
+                  Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+            <TextBox Margin="0,4,0,10"
+                  Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ProjectStatusToBoolConverterKey}}"/>
+            <TextBox Margin="0,4,0,10"
+                  Text="{Binding ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     IsEnabled="False"/>
+            <TextBox Margin="0,4,0,10"
+                    Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource intToIsEnabledConverter}}"/>
+            <TextBox Margin="0,4,0,10" Height="30"
+                Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+            <TextBox Margin="0,4,0,10" Height="30"
+                Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+            <ComboBox
+                SelectedValue="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+            <ComboBox Margin="0,10,0,10" 
+                     ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
+                Text="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+        </StackPanel>
+
+        <!-- Add Engineer Button -->
+        <Button Content="Add Engineer" Margin="10,516,10,10"
+            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform ScaleY="1"/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+            <!-- Apply font properties to button -->
+            <Button.FontFamily>
+                <FontFamily>Segoe UI</FontFamily>
+            </Button.FontFamily>
+            <Button.FontSize>16</Button.FontSize>
+            <Button.FontWeight>Bold</Button.FontWeight>
+            <!-- Apply the button style to the Button -->
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#FF76C7C0"/>
+                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF62A29D"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+
+        <!-- Update Engineer Button -->
+        <Button Content="Update Engineer" Margin="10,516,10,10"
+            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateTask_Click">
+            <!-- Apply font properties to button -->
+            <Button.FontFamily>
+                <FontFamily>Segoe UI</FontFamily>
+            </Button.FontFamily>
+            <Button.FontSize>16</Button.FontSize>
+            <Button.FontWeight>Bold</Button.FontWeight>
+            <!-- Apply the button style to the Button -->
+            <Button.Style>
+                <Style TargetType="Button">
+                    <Setter Property="Foreground" Value="White"/>
+                    <Setter Property="Background" Value="#FF76C7C0"/>
+                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
+                    <Setter Property="BorderThickness" Value="2"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Background" Value="#FF62A29D"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </Button.Style>
+        </Button>
+    </Grid>
+</Window>

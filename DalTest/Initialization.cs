@@ -48,7 +48,7 @@ public static class Initialization
             TimeSpan t_requiredEffortTime = TimeSpan.FromDays(s_rand.Next(30, 50));
             string t_Alias = $"TaskName{i + 1}";//id
             string t_Description = taskDescriptions[i];//what is the task (using the array)
-            DateTime t_CreatedAtDate = DateTime.Today;//initialize the creation date of the task to today
+            DateTime t_CreatedAtDate = DateTime.Now;//initialize the creation date of the task to today
             //creating new task wuth the correct fields
             Task t_Task = new Task(0, t_Alias, t_Description, false, t_CreatedAtDate, default, default, t_requiredEffortTime, default, default, null, null, 0, 0);
             s_dal!.Task.Create(t_Task);//push it to list
@@ -145,7 +145,7 @@ public static class Initialization
                 s_dal.Task.Delete(task.Id);
             }
         }
-
+        
         List<Engineer> engineers = s_dal.Engineer.ReadAll()!.ToList<Engineer>();
         if (engineers.Count > 0)
         {
@@ -163,6 +163,7 @@ public static class Initialization
                 s_dal.Dependency.Delete(dependency.Id);
             }
         }
+        s_dal.ResetId();
     }
 
 

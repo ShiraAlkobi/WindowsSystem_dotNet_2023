@@ -253,7 +253,7 @@ internal class TaskImplementation : ITask
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
-    private List<BO.TaskInList> getDependencies(int id)
+    public List<BO.TaskInList> getDependencies(int id)
     {
 
         return (from item in _dal.Dependency.ReadAll()//going through dependency list and finding all dependencies

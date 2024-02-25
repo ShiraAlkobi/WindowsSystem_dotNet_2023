@@ -27,6 +27,13 @@ static class XMLTools
     #endregion
 
     #region XmlConfig
+    public static void ResetId(string data_config_xml, string elemName)
+    {
+        XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);
+        root.Element(elemName)?.SetValue((1).ToString());
+        XMLTools.SaveListToXMLElement(root, data_config_xml);
+    }
+
     public static int GetAndIncreaseNextId(string data_config_xml, string elemName)
     {
         XElement root = XMLTools.LoadListFromXMLElement(data_config_xml);

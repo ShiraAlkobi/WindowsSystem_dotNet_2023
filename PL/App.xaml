@@ -2,13 +2,15 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:PL"
-             StartupUri="MainWindow.xaml">
+             StartupUri="EntryWindow.xaml">
 	<Application.Resources>
         <local:EngineerExperienceCollection x:Key="EngineerExperienceCollectionKey"/>
+        <local:StatusCollection x:Key="StatusCollectionKey"/>
         <local:IntToIsEnabledConverter x:Key="intToIsEnabledConverter"/>
         <local:TaskToIsEnabledConverter x:Key="taskToIsEnabledConverter"/>
         <local:IntToVisibilityConverterUpdate x:Key="intToVisibilityConverterUpdate"/>
         <local:IntToVisibilityConverterAdd x:Key="intToVisibilityConverterAdd"/>
+        <local:ProjectStatusToBoolConverter x:Key="ProjectStatusToBoolConverterKey"/>
     </Application.Resources>
     
         

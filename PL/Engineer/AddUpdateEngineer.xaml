@@ -10,7 +10,7 @@
 
     <!-- Window background color -->
     <Window.Background>
-        <SolidColorBrush Color="#FFF4E8D8"/>
+        <SolidColorBrush Color="#FFD4EDE6"/>
     </Window.Background>
 
     <!-- Grid with grid lines-->

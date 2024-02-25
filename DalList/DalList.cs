@@ -80,4 +80,12 @@ sealed internal class DalList : IDal
     {
         return DataSource.Config.projectStatus;
     }
+    /// <summary>
+    /// reset id's to 1
+    /// </summary>
+    public void ResetId()
+    {
+        DataSource.Config.NextDependencyId = 1;
+        DataSource.Config.NextTaskId = 1;
+    }
 }

@@ -169,5 +169,14 @@ namespace Dal
             Enum.TryParse(temp, out s);
             return s;           
         }
+        /// <summary>
+        /// calling help function in XML.Tools
+        /// set id's to 1
+        /// </summary>
+        public void ResetId()
+        {
+            XMLTools.ResetId("data-config", "NextDependencyId");
+            XMLTools.ResetId("data-config", "NextTaskId");
+        }
     }
 }
