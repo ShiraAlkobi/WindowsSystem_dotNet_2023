@@ -11,6 +11,7 @@
         <local:IntToVisibilityConverterUpdate x:Key="intToVisibilityConverterUpdate"/>
         <local:IntToVisibilityConverterAdd x:Key="intToVisibilityConverterAdd"/>
         <local:ProjectStatusToBoolConverter x:Key="ProjectStatusToBoolConverterKey"/>
+        <local:ProjectStatusToIsEnabledConverterReverse x:Key="projectStatusToIsEnabledConverterReverseKey"/>
     </Application.Resources>
     
         

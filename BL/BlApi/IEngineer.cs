@@ -25,6 +25,16 @@ public interface IEngineer
     public IEnumerable<BO.Engineer>? ReadAll(Func<BO.Engineer, bool>? filter = null);
 
     /// <summary>
+    /// return collection of engineerInTask instances - if filter is not null- return sub list according
+    /// to filter. else - returns full list.
+    /// goes through all of the engineers, check which ones apply to the filter
+    /// then converts the chosen ones to engineerInTask - a class with only the engineer's Id and name
+    /// </summary>
+    /// <param name="filter">filter to apply</param>
+    /// <returns></returns>
+    public IEnumerable<BO.EngineerInTask>? ReadAllToTask(Func<BO.Engineer, bool>? filter = null);
+
+    /// <summary>
     /// return engineer with param id
     /// </summary>
     /// <param name="id">id of engineer to return</param>

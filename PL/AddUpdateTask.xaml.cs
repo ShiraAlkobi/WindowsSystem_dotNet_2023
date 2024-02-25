@@ -1,5 +1,6 @@
 ﻿using PL.Engineer;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +12,7 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace PL
@@ -21,9 +23,6 @@ namespace PL
     public partial class AddUpdateTask : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
-        //Using a DependencyProperty as the backing store for CurrentTask.This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentTaskProperty =
-            DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(AddUpdateTask), new PropertyMetadata(null));
 
         /// <summary>
         /// dependency property for the engineer that is being added or updated in this window
@@ -33,13 +32,51 @@ namespace PL
             get { return (BO.Task)GetValue(CurrentTaskProperty); }
             set { SetValue(CurrentTaskProperty, value); }
         }
+        ///Using a DependencyProperty as the backing store for CurrentTask.This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentTaskProperty =
+            DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(AddUpdateTask), new PropertyMetadata(null));
 
         /// <summary>
         /// a property for the experience of engineer - the level field 
         /// </summary>
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.All;
         public BO.Status Status { get; set; } = BO.Status.Unschedualed;
-        ///  public BO.ProjectStatus ProjectStatus;
+        public BO.ProjectStatus ProjectStatus { get; set; }
+
+        private string EngineerAssignedName = "None";
+        public string engineerAssignedName
+        {
+            get { return EngineerAssignedName; }
+            set
+            { 
+                EngineerAssignedName = value;
+                UpdateAssignedEngineer(EngineerAssignedName);
+            }
+        }
+
+        private void UpdateAssignedEngineer(string name)
+        {
+            if(CurrentTask is not null&& name !="None"&&!string.IsNullOrEmpty(name))
+            {
+                BO.Engineer? t_engineer= (from item in s_bl.Engineer.ReadAll()
+                                        where item.Name == name
+                                        select item).FirstOrDefault();
+                if (t_engineer is not null) 
+                {
+                    BO.EngineerInTask assignedEngineer = new() { Id = t_engineer.Id, Name = t_engineer.Name };
+                    CurrentTask.Engineer=assignedEngineer;
+                }
+            }
+        }
+
+        //public BO.ProjectStatus CurrentProjectStatus
+        //{
+        //    get { return (BO.ProjectStatus)GetValue(CurrentProjectStatusProperty); }
+        //    set { SetValue(CurrentProjectStatusProperty, value); }
+        //}
+        /////Using a DependencyProperty as the backing store for CurrentProjectStatus.This enables animation, styling, binding, etc...
+        //public static readonly DependencyProperty CurrentProjectStatusProperty =
+        //    DependencyProperty.Register("CurrentProjectStatus", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
         public DateTime today {  get; set; } =  DateTime.Today.Date;
 
         /// <summary>
@@ -51,6 +88,7 @@ namespace PL
         public AddUpdateTask(int id = 0)
         {
             InitializeComponent();
+            ProjectStatus = s_bl.getProjectStatus();
             if (id == 0)
             {
                 ///create an engineer with default values
@@ -150,7 +188,7 @@ namespace PL
             catch (BO.BlCanNotUpdate ex) { MessageBox.Show(ex.Message); }
 
         }
-
-
     }
+
+    
 }

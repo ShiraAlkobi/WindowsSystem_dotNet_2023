@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <config>
   <NextDependencyId>54</NextDependencyId>
-  <NextTaskId>22</NextTaskId>
-  <ProjectStatus>ExecutionStage</ProjectStatus>
+  <NextTaskId>25</NextTaskId>
+  <ProjectStatus>PlanStage</ProjectStatus>
   <ProjectStartDate>2/8/2024 12:00:00 AM</ProjectStartDate>
   <ProjectEndDate>7/31/2024 12:00:00 AM</ProjectEndDate>
 </config>

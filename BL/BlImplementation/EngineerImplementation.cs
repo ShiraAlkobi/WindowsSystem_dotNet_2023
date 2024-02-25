@@ -133,7 +133,15 @@ internal class EngineerImplementation : BlApi.IEngineer
         ///so convertion is needed in order to use filter on the object
          _dal.Engineer.ReadAll().Select(engineer => doToBoEngineer(engineer))
             .Where(engineer => filter is null ? true : filter(engineer));
- 
+
+    public IEnumerable<BO.EngineerInTask>? ReadAllToTask(Func<Engineer, bool>? filter = null) =>
+         ///ReadAll function return an IEnumreable of DO objects
+         ///so convertion is needed in order to use filter on the object
+         _dal.Engineer.ReadAll().Select(engineer => doToBoEngineer(engineer))
+            .Where(engineer => filter is null ? true : filter(engineer))
+        .Select(engineer=>new EngineerInTask() { Id = engineer.Id, Name = engineer.Name });
+
+
     /// <summary>
     /// this function updates details of engineer
     /// </summary>

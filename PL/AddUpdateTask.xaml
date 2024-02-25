@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
-        Title="AddUpdateTask" Height="630" Width="350">
+        Title="AddUpdateTask" Height="630" Width="500">
 
     <!-- Window background color -->
     <Window.Background>
@@ -16,7 +16,7 @@
     <!-- Grid with grid lines-->
     <Grid ShowGridLines="True">
         <!-- Left StackPanel with labels -->
-        <StackPanel HorizontalAlignment="Left" Grid.Column="0" Margin="10,25,0,89" Width="129" >
+        <StackPanel HorizontalAlignment="Left" Grid.Column="0" Margin="0,25,0,89" Width="129" >
             <!--a label for each property of the engineer, also has a font and size -->
             <Label Content="Id:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" />
             <Label Content="Alias:" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" />
@@ -31,7 +31,7 @@
             <Label Content="Deliverables:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
             <Label Content="Remarks:" Margin="0,20,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
             <Label Content="Assigned engineer:" Margin="0,15,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Complexity:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Content="Complexity:" Margin="0,7,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
 
         </StackPanel>
 
@@ -39,14 +39,15 @@
         <!--using binding according to each value of the engineer properties-->
         <!--the comboBox is the enum of the engineer experience-->
         <!--The task and id fields depends on the id - the isEnabled attribute is binding according to the id-->
-        <StackPanel HorizontalAlignment="Right" Margin="0,25,10,80" Width="170" >
+        <StackPanel HorizontalAlignment="Right" Margin="0,25,80,73" Width="170" >
             <TextBox Margin="0,11,0,10"
                  Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                     IsEnabled="False"/>
             <TextBox
                  Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
             <TextBox Margin="0,8,0,10"
-                 Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" Height="50" Width="169"/>
+                 Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" 
+                     TextWrapping="Wrap" Height="50" Width="169"/>
             <ComboBox
                  ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" 
                   SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
@@ -56,30 +57,35 @@
             <TextBox
                  Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                    IsEnabled="False" />
-            <TextBox Margin="0,12,0,10"
-                  Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+            <DatePicker Margin="0,12,0,10"
+                  Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding ProjectStatus, Mode=OneTime, Converter={StaticResource projectStatusToIsEnabledConverterReverseKey}}"/>
             <TextBox Margin="0,4,0,10"
                   Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ProjectStatusToBoolConverterKey}}"/>
             <TextBox Margin="0,4,0,10"
                   Text="{Binding ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      IsEnabled="False"/>
-            <TextBox Margin="0,4,0,10"
+            <TextBox Margin="0,0,0,10"
                     Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource intToIsEnabledConverter}}"/>
+                     IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource projectStatusToIsEnabledConverterReverseKey}}"/>
             <TextBox Margin="0,4,0,10" Height="30"
-                Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                      TextWrapping="Wrap"/>
             <TextBox Margin="0,4,0,10" Height="30"
-                Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     TextWrapping="Wrap" />
+            <ComboBox Margin="0,0,0,10"
+                ItemsSource="{Binding Engineer}" SelectedItem="{Binding engineerAssignedName, Mode=TwoWay}"
+                        Text="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
             <ComboBox
-                SelectedValue="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-            <ComboBox Margin="0,10,0,10" 
-                     ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
-                Text="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                   ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
+                    SelectedValue="{Binding Complexity, Mode=TwoWay}" Height="22"/>
+            
         </StackPanel>
 
         <!-- Add Engineer Button -->
-        <Button Content="Add Engineer" Margin="10,516,10,10"
+        <Button Content="Add Task" Margin="10,560,10,10"
             Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
@@ -113,7 +119,7 @@
         </Button>
 
         <!-- Update Engineer Button -->
-        <Button Content="Update Engineer" Margin="10,516,10,10"
+        <Button Content="Update Task" Margin="10,560,10,10"
             Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateTask_Click">
             <!-- Apply font properties to button -->
             <Button.FontFamily>

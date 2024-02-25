@@ -14,8 +14,8 @@ namespace PL
     /// </summary>
 
     /// <summary>
-    /// converts from int to IsEnabled attribute
-    /// we can make the Engineer id's textBox close for changes when updating
+    /// converts from Project's status to IsEnabled attribute
+    /// we can make the Task required effort time textBox close for changes when the status is execution stage
     /// </summary>
 
     public class ProjectStatusToBoolConverter : IValueConverter
@@ -29,9 +29,37 @@ namespace PL
             {
                 return true;
             }
+
             else
             {
                 return false;
+            }
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
+    /// <summary>
+    /// converts from Project's status to IsEnabled attribute - just like the previos convertor but the logic is different
+    /// we can make the Task start date textBox close for changes when the status is plan stage
+    /// </summary>
+    public class ProjectStatusToIsEnabledConverterReverse : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            BO.ProjectStatus projectStatus = (BO.ProjectStatus)value;
+
+            ///if the project's status is the plan stage, the date is not enabled to change
+            if (projectStatus == BO.ProjectStatus.PlanStage)
+            {
+                return false;
+            }
+            ///if the project's status is the execution stage, the date is enabled to change
+            else
+            {
+                return true;
             }
         }
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
@@ -134,5 +162,7 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    
 
 }

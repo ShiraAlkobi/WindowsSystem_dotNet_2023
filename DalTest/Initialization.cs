@@ -164,6 +164,7 @@ public static class Initialization
             }
         }
         s_dal.ResetId();
+        s_dal.setStatus();
     }
 
 
