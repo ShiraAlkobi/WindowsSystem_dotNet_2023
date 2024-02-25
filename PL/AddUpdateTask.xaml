@@ -57,7 +57,7 @@
                  Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                    IsEnabled="False" />
             <TextBox Margin="0,12,0,10"
-                  Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                  Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" TextChanged="TextBox_TextChanged"/>
             <TextBox Margin="0,4,0,10"
                   Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ProjectStatusToBoolConverterKey}}"/>
@@ -79,8 +79,8 @@
         </StackPanel>
 
         <!-- Add Engineer Button -->
-        <Button Content="Add Engineer" Margin="10,516,10,10"
-            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5">
+        <Button Content="Add Engineer" Margin="0,516,0,0" Style="{StaticResource ButtonStyle}"
+            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="Center" Width="330" Height="74">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1"/>
@@ -96,25 +96,12 @@
             <Button.FontSize>16</Button.FontSize>
             <Button.FontWeight>Bold</Button.FontWeight>
             <!-- Apply the button style to the Button -->
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="#FF76C7C0"/>
-                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                    <Setter Property="Padding" Value="10"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FF62A29D"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
+
         </Button>
 
         <!-- Update Engineer Button -->
-        <Button Content="Update Engineer" Margin="10,516,10,10"
-            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateTask_Click">
+        <Button Content="Update Engineer" Margin="0,516,0,0" Style="{StaticResource ButtonStyle}"
+            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateTask_Click" HorizontalAlignment="Center" Width="330" Height="83">
             <!-- Apply font properties to button -->
             <Button.FontFamily>
                 <FontFamily>Segoe UI</FontFamily>
@@ -122,20 +109,7 @@
             <Button.FontSize>16</Button.FontSize>
             <Button.FontWeight>Bold</Button.FontWeight>
             <!-- Apply the button style to the Button -->
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="#FF76C7C0"/>
-                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                    <Setter Property="Padding" Value="10"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FF62A29D"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
+
         </Button>
     </Grid>
 </Window>

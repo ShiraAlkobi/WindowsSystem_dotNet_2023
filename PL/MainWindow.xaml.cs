@@ -18,7 +18,7 @@ namespace PL
     /// </summary>
     public partial class MainWindow : Window
     {
-       
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
         public MainWindow()
         {
             InitializeComponent();            
@@ -69,6 +69,26 @@ namespace PL
         private void btn_TaskList_Click(object sender, RoutedEventArgs e)
         {
             new TaskListWindow().Show();//create new window and show
+        }
+
+        private void btn_setStartDate_Click(object sender, RoutedEventArgs e)
+        {
+            new SetStartDateWindow().ShowDialog();
+        }
+
+        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (sender is DatePicker datePicker)
+            {
+                DateTime? selectedDate = datePicker.SelectedDate;
+
+                if (selectedDate is not null)
+                {
+                    DateTime start = selectedDate??DateTime.MinValue;
+                    s_bl.setStartAndEndDates(start);
+                }
+            }
+
         }
     }
 }

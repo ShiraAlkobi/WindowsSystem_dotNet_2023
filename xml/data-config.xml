@@ -2,7 +2,7 @@
 <config>
   <NextDependencyId>54</NextDependencyId>
   <NextTaskId>22</NextTaskId>
-  <ProjectStatus>ExecutionStage</ProjectStatus>
-  <ProjectStartDate>2/8/2024 12:00:00 AM</ProjectStartDate>
-  <ProjectEndDate>7/31/2024 12:00:00 AM</ProjectEndDate>
+  <ProjectStatus>PlanStage</ProjectStatus>
+  <ProjectStartDate>2/21/2024 12:00:00 AM</ProjectStartDate>
+  <ProjectEndDate>8/22/2024 12:00:00 AM</ProjectEndDate>
 </config>
