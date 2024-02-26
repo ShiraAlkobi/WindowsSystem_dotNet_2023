@@ -28,6 +28,7 @@ namespace PL
             set { SetValue(TaskListProperty, value); }
         }
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.All;//experience field has defualt
+        public BO.Status Status { get; set; } = BO.Status.Unschedualed;
         /// <summary>
         /// dependency propert that gets all engineers fields to the control list
         /// </summary>
@@ -39,11 +40,11 @@ namespace PL
         ///// </summary>
         ///// <param name="sender"></param>
         ///// <param name="e"></param>
-        //private void cbExperienceSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        //{
-        //    EngineerList = (Experience == BO.EngineerExperience.All) ?
-        //        s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Experience)!;
-        //}
+        private void cbExperienceSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TaskList = (Complexity == BO.EngineerExperience.All) ?
+                s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Complexity == Complexity)!;
+        }
         public TaskListWindow()
         {
             InitializeComponent();
@@ -68,6 +69,14 @@ namespace PL
             TaskList = (Complexity == BO.EngineerExperience.All) ?
                 s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Complexity == Complexity)!;//rereading the engineerlist after updating or adding engineer
                                                                                                       //because we want the list to be updated immidiatly
+        }
+
+       
+
+        private void status_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TaskList = (Status == BO.Status.Unschedualed) ?
+               s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Status == Status)!;
         }
     }
 }

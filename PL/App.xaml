@@ -11,7 +11,34 @@
         <local:IntToVisibilityConverterUpdate x:Key="intToVisibilityConverterUpdate"/>
         <local:IntToVisibilityConverterAdd x:Key="intToVisibilityConverterAdd"/>
         <local:ProjectStatusToBoolConverter x:Key="ProjectStatusToBoolConverterKey"/>
-        <local:ProjectStatusToIsEnabledConverterReverse x:Key="projectStatusToIsEnabledConverterReverseKey"/>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="Padding" Value="15"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#FF76C7C0"/>
+            <Setter Property="BorderBrush" Value="#FF62A29D"/>
+            <Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Height" Value="147"/>
+            <Setter Property="Width" Value="242"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <!-- Hover effect -->
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#FF62A29D"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Application.Resources>
     
         

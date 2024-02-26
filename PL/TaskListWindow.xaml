@@ -16,29 +16,29 @@
     <!-- External Grid -->
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40*"/>
-            <RowDefinition Height="500*"/>
+            <RowDefinition Height="79*"/>
+            <RowDefinition Height="545*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
         <!-- Internal, Upper Grid -->
-        <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
+        <Grid Height="auto" Grid.Row="0" Width="auto">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Show filtering criteria -->
-            <Label Content="Select Experience:" FontSize="20" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Width="200"/>
+            <Label Content="filter by:" FontSize="20" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.508,0.651"/>
 
             <!-- Filtering options , changing list of engineers according to expereince chosen-->
             <!-- TODO: change filter-->
-            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5"
-                      ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}">
-                <!--SelectedValue="{Binding Path=Experience, Mode=TwoWay}" SelectionChanged="cbExperienceSelector_SelectionChanged"-->
+            <ComboBox Margin="369,24,261,0" 
+                ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" Height="41" Grid.ColumnSpan="2"
+                SelectedValue="{Binding Path=Status, Mode=TwoWay}" SelectionChanged="status_SelectionChanged">
                 <!-- Apply the button style to the ComboBox -->
                 <ComboBox.Style>
-                    <Style TargetType="ComboBox">
+                    <Style TargetType="{x:Type ComboBox}">
                         <Setter Property="Foreground" Value="black"/>
                         <Setter Property="Background" Value="#FF76C7C0"/>
                         <Setter Property="BorderBrush" Value="#FF62A29D"/>
@@ -55,14 +55,37 @@
                     </Style>
                 </ComboBox.Style>
             </ComboBox>
+            <ComboBox Margin="110,24,125,0" 
+                ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" Height="41"
+                SelectedValue="{Binding Path=Complexity, Mode=TwoWay}" SelectionChanged="cbExperienceSelector_SelectionChanged">
+                <!-- Apply the button style to the ComboBox -->
+                <ComboBox.Style>
+                    <Style TargetType="{x:Type ComboBox}">
+                        <Setter Property="Foreground" Value="black"/>
+                        <Setter Property="Background" Value="#FF76C7C0"/>
+                        <Setter Property="BorderBrush" Value="#FF62A29D"/>
+                        <Setter Property="BorderThickness" Value="2"/>
+                        <Setter Property="FontSize" Value="16"/>
+                        <Setter Property="Padding" Value="5"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="VerticalAlignment" Value="Top"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FF62A29D"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ComboBox.Style>
+            </ComboBox>
+            <Label Content="complexity" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Top" Width="188" Height="38" FontWeight="Bold"/>
+            <Label Content="status" HorizontalAlignment="Left" Margin="369,2,0,0" VerticalAlignment="Top" Width="188" Height="38" Grid.ColumnSpan="2" FontWeight="Bold"/>
         </Grid>
 
         <!-- ListView ,if clicked o engineer, an update window will open-->
-        <ListView Margin="5,5,5,100" Grid.Row="1" ItemsSource="{Binding TaskList}" MouseDoubleClick="UpdateTaskWindow_DoubleClick">
-        </ListView>
+        <ListView Margin="5,79,5,100" ItemsSource="{Binding TaskList}" MouseDoubleClick="UpdateTaskWindow_DoubleClick" Grid.RowSpan="2"/>
 
         <!-- Button to Add Engineer -->
-        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="280" Margin="0,498,0,10" Click="AddTaskWindow_Click">
+        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="280" Margin="0,464,0,20" Click="AddTaskWindow_Click">
             <!-- Apply the  button style to the Button -->
             <Button.Style>
                 <Style TargetType="Button">

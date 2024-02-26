@@ -14,7 +14,7 @@
 
     <Grid>
         <!-- changing style of the window -->
-        <Grid.Resources>
+        <!--<Grid.Resources>
             <Style x:Key="ButtonStyle" TargetType="Button">
                 <Setter Property="Margin" Value="10"/>
                 <Setter Property="Padding" Value="15"/>
@@ -36,22 +36,41 @@
                         </ControlTemplate>
                     </Setter.Value>
                 </Setter>
-                <!-- Hover effect -->
+                -->
+        <!-- Hover effect -->
+        <!--
                 <Style.Triggers>
                     <Trigger Property="IsMouseOver" Value="True">
                         <Setter Property="Background" Value="#FF62A29D"/>
                     </Trigger>
                 </Style.Triggers>
             </Style>
-        </Grid.Resources>
+        </Grid.Resources>-->
 
         <!-- Button to show engineers using template created in grid resources ,clicking on the button will open engineer list window-->
-        <Button Content="Handle Tasks" Style="{StaticResource ButtonStyle}" Click="btn_TaskList_Click" Margin="153,87,0,0" Height="104" Width="200"/>
+        <Button Content="Handle Tasks" Style="{StaticResource ButtonStyle}" Click="btn_TaskList_Click" Margin="150,132,0,0" Height="104" Width="200"/>
         <!-- Button to initialize data using template created in grid resources, clicling on the button will initialize date-->
         <Button Content="Initialize Data" Style="{StaticResource ButtonStyle}" Click="btn_Initialization_Click" Margin="563,274,0,0" Height="104" Width="200" RenderTransformOrigin="0.997,0.128"/>
         <Button Content="Reset Data" Style="{StaticResource ButtonStyle}" Click="btn_Reset_Click" Height="104" Width="200" Margin="0,274,0,0" HorizontalAlignment="Center"/>
-        <Button Content="Handle Engineers" Style="{StaticResource ButtonStyle}" Click="btn_EngineerList_Click" Margin="445,87,0,0" Height="104" Width="200"/>
+        <Button Content="Handle Engineers" Style="{StaticResource ButtonStyle}" Click="btn_EngineerList_Click" Margin="441,132,0,0" Height="104" Width="200"/>
         <Button Content="Gantt Chart" Style="{StaticResource ButtonStyle}" Click="btn_GanttChart_Click" Margin="34,274,0,0" Height="104" Width="200"/>
+        <Button Content="Set start date" Style="{StaticResource ButtonStyle}" Click="btn_setStartDate_Click" Margin="34,28,0,0" Height="56" Width="267"/>
+        <DatePicker HorizontalAlignment="Left" Margin="494,28,0,0" VerticalAlignment="Top" Width="221" Height="37" OpacityMask="Black"  SelectedDateChanged="DatePicker_SelectedDateChanged" >
+            <DatePicker.Resources>
+                <Style TargetType="DatePickerTextBox" >
+                    
+                    <Setter Property="Background" Value="Transparent"/>
+                    <Setter Property="Height" Value="30"/>
+                    <Setter Property="Width" Value="180"/>
+                    <Setter Property="TextAlignment" Value="center"/>
+                    <Setter Property="VerticalAlignment" Value="center"/>
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                </Style>
+
+            </DatePicker.Resources>
+        </DatePicker>
+
+
     </Grid>
 </Window>
 
