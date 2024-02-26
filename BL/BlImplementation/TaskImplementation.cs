@@ -200,7 +200,7 @@ internal class TaskImplementation : ITask
             else
             {
                 List<BO.TaskInList?> temp = (from item in t.Dependencies//finding all the tasks that this task depends on
-                                             where item.Status < BO.Status.Schedualed
+                                             where item.Status < BO.Status.Scheduled
                                              select item).ToList();
 
                 //if the task is dependent on any task,call the function on these tasks because they need to be updated first
@@ -275,9 +275,9 @@ internal class TaskImplementation : ITask
     private BO.Status getStatus(DO.Task t)
     {
         if (t.ScheduledDate == null)//if there isnt a schedual date
-            return BO.Status.Unschedualed;
+            return BO.Status.Unscheduled;
         if (t.StartDate == null)//if there is a schedual date but not start
-            return BO.Status.Schedualed;
+            return BO.Status.Scheduled;
         if (t.CompleteDate == null)//if there is a start date but not complete
             return BO.Status.OnTrack;
         else return BO.Status.Done;//if there is a complete but not done

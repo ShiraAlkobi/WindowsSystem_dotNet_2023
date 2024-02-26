@@ -12,8 +12,8 @@ public enum EngineerExperience
 
 public enum Status
 {
-    Unschedualed,
-    Schedualed,
+    Unscheduled,
+    Scheduled,
     OnTrack,
     Done
     //TODO:InJeopardy - will decide later

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -12,6 +13,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using BO;
 
 namespace PL.Engineer
 {
@@ -35,6 +37,43 @@ namespace PL.Engineer
             set { SetValue(CurrentEngineerProperty, value); }
         }
 
+        public IEnumerable<BO.TaskInEngineer> AllTasks
+        {
+            get { return (IEnumerable<BO.TaskInEngineer>)GetValue(AllTasksProperty); }
+            set { SetValue(AllTasksProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AllTasks.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllTasksProperty =
+            DependencyProperty.Register("AllTasks", typeof(IEnumerable<BO.TaskInEngineer>), typeof(AddUpdateEngineer), new PropertyMetadata(null));
+
+        private BO.TaskInEngineer TaskAssigned;
+        public BO.TaskInEngineer taskAssigned
+        {
+            get { return TaskAssigned; }
+            set
+            {
+                TaskAssigned = value;
+                UpdateAssignedTask(TaskAssigned);
+            }
+        }
+
+        private void UpdateAssignedTask(BO.TaskInEngineer? t)
+        {
+            if (CurrentEngineer is not null && t is not null)
+            {
+                BO.TaskInEngineer? t_engineer = (from item in AllTasks
+                                                 where item. Id == t.Id
+                                                 select item).FirstOrDefault();
+                if (t_engineer is not null)
+                {
+                    CurrentEngineer.Task = t_engineer;
+                }
+                else MessageBox.Show($"Task with id {t.Id} does not exist");
+            }
+        }
+
+
         /// <summary>
         /// a property for the experience of engineer - the level field 
         /// </summary>
@@ -49,6 +88,8 @@ namespace PL.Engineer
         public AddUpdateEngineer(int id = 0)
         {
             InitializeComponent();
+            AllTasks = (from item in s_bl.Task.ReadAll()
+                            select new BO.TaskInEngineer() { Id = item.Id, Alias = item.Alias }).ToList();
             if (id == 0)
             {
                 ///create an engineer with default values
@@ -67,6 +108,7 @@ namespace PL.Engineer
                                                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            this.DataContext = this;
         }
 
         /// <summary>
@@ -131,5 +173,17 @@ namespace PL.Engineer
 
         }
 
+        private void CheckNumInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the input is a numeric character
+            if (!IsNumeric(e.Text))
+            {
+                e.Handled = true; // Mark the event as handled, preventing the character from being added to the TextBox
+            }
+        }
+        private bool IsNumeric(string text)
+        {
+            return int.TryParse(text, out _);
+        }
     }
 }

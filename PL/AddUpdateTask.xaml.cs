@@ -3,7 +3,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Printing.IndexedProperties;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -36,47 +38,56 @@ namespace PL
         public static readonly DependencyProperty CurrentTaskProperty =
             DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(AddUpdateTask), new PropertyMetadata(null));
 
-        /// <summary>
-        /// a property for the experience of engineer - the level field 
-        /// </summary>
-        public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.All;
-        public BO.Status Status { get; set; } = BO.Status.Unschedualed;
-        public BO.ProjectStatus ProjectStatus { get; set; }
+       
+       
+      
 
-        private string EngineerAssignedName = "None";
-        public string engineerAssignedName
+
+
+        public IEnumerable<BO.EngineerInTask> AllEngineers
         {
-            get { return EngineerAssignedName; }
+            get { return (IEnumerable<BO.EngineerInTask>)GetValue(AllEngineersProperty); }
+            set { SetValue(AllEngineersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AllEngineers.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty AllEngineersProperty =
+            DependencyProperty.Register("AllEngineers", typeof(IEnumerable<BO.EngineerInTask>), typeof(AddUpdateTask), new PropertyMetadata(null));
+
+
+        private BO.EngineerInTask EngineerAssigned;
+        public BO.EngineerInTask engineerAssigned
+        {
+            get { return EngineerAssigned; }
             set
-            { 
-                EngineerAssignedName = value;
-                UpdateAssignedEngineer(EngineerAssignedName);
+            {
+                EngineerAssigned = value;
+                UpdateAssignedEngineer(EngineerAssigned);
             }
         }
 
-        private void UpdateAssignedEngineer(string name)
+        private void UpdateAssignedEngineer(BO.EngineerInTask e)
         {
-            if(CurrentTask is not null&& name !="None"&&!string.IsNullOrEmpty(name))
+            if(CurrentTask is not null&& e is not null)
             {
-                BO.Engineer? t_engineer= (from item in s_bl.Engineer.ReadAll()
-                                        where item.Name == name
-                                        select item).FirstOrDefault();
+                BO.EngineerInTask? t_engineer = (from item in AllEngineers
+                                                 where item.Name == e.Name
+                                                 select item).FirstOrDefault();
                 if (t_engineer is not null) 
                 {
-                    BO.EngineerInTask assignedEngineer = new() { Id = t_engineer.Id, Name = t_engineer.Name };
-                    CurrentTask.Engineer=assignedEngineer;
+                    CurrentTask.Engineer = t_engineer;
                 }
             }
         }
 
-        //public BO.ProjectStatus CurrentProjectStatus
-        //{
-        //    get { return (BO.ProjectStatus)GetValue(CurrentProjectStatusProperty); }
-        //    set { SetValue(CurrentProjectStatusProperty, value); }
-        //}
-        /////Using a DependencyProperty as the backing store for CurrentProjectStatus.This enables animation, styling, binding, etc...
-        //public static readonly DependencyProperty CurrentProjectStatusProperty =
-        //    DependencyProperty.Register("CurrentProjectStatus", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
+        public BO.ProjectStatus CurrentProjectStatus
+        {
+            get { return (BO.ProjectStatus)GetValue(CurrentProjectStatusProperty); }
+            set { SetValue(CurrentProjectStatusProperty, value); }
+        }
+        ///Using a DependencyProperty as the backing store for CurrentProjectStatus.This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentProjectStatusProperty =
+            DependencyProperty.Register("CurrentProjectStatus", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
         public DateTime today {  get; set; } =  DateTime.Today.Date;
 
         /// <summary>
@@ -87,12 +98,21 @@ namespace PL
         /// </param>
         public AddUpdateTask(int id = 0)
         {
-            InitializeComponent();
-            ProjectStatus = s_bl.getProjectStatus();
+            try
+            {
+                InitializeComponent();
+            }
+            catch(Exception ex) { MessageBox.Show("Can't Open Window, Error"); return; }
+            
+            
+            CurrentProjectStatus = s_bl.getProjectStatus();
+            AllEngineers = (from item in s_bl.Engineer.ReadAll()
+                            select new BO.EngineerInTask() { Id = item.Id, Name = item.Name }).ToList();
             if (id == 0)
             {
                 ///create an engineer with default values
                 CurrentTask = new BO.Task() { CreatedAtDate = DateTime.Now };
+               
             }
             else
             {
@@ -100,6 +120,7 @@ namespace PL
                 {
                     ///read the right task according to the given id
                     CurrentTask = s_bl.Task.Read(id);
+                   
                     today = CurrentTask.CreatedAtDate;
                 }///if an exception was thrown from the read function, catch it and show a message box which explains the exception
                 catch (BO.BlDoesNotExistException e)
@@ -108,6 +129,7 @@ namespace PL
                                                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            this.DataContext = this;
         }
         /// <summary>
         /// an event when clicking the add button
@@ -187,6 +209,15 @@ namespace PL
             catch (BO.BlDoesNotExistException ex) { MessageBox.Show(ex.Message); }
             catch (BO.BlCanNotUpdate ex) { MessageBox.Show(ex.Message); }
 
+        }
+
+        private void CheckNumInput(object sender, TextCompositionEventArgs e)
+        {
+            // Check if the input is a numeric character
+            if (Regex.IsMatch(e.Text, @"^\d+$"))
+            {
+                e.Handled = true; // Mark the event as handled, preventing the character from being added to the TextBox
+            }
         }
     }
 

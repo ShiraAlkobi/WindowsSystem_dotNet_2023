@@ -5,7 +5,6 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        DataContext="{Binding CurrentTask, RelativeSource={RelativeSource Self}, Mode=TwoWay}"
         Title="AddUpdateTask" Height="630" Width="500">
 
     <!-- Window background color -->
@@ -41,52 +40,52 @@
         <!--The task and id fields depends on the id - the isEnabled attribute is binding according to the id-->
         <StackPanel HorizontalAlignment="Right" Margin="0,25,80,73" Width="170" >
             <TextBox Margin="0,11,0,10"
-                 Text="{Binding Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                    IsEnabled="False"/>
+                 Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                    IsEnabled="False" />
             <TextBox
-                 Text="{Binding Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                 Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
             <TextBox Margin="0,8,0,10"
-                 Text="{Binding Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" 
+                 Text="{Binding CurrentTask.Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" 
                      TextWrapping="Wrap" Height="50" Width="169"/>
             <ComboBox
                  ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" 
-                  SelectedValue="{Binding Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
+                  SelectedValue="{Binding CurrentTask.Status, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
             <TextBox Margin="0,11,0,10"
-                 Text="{Binding CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Height="20"
+                 Text="{Binding CurrentTask.CreatedAtDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}" Height="20"
                   IsEnabled="False" />
             <TextBox
-                 Text="{Binding ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
+                 Text="{Binding CurrentTask.ScheduledDate, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"
                    IsEnabled="False" />
             <DatePicker Margin="0,12,0,10"
-                  Text="{Binding StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding ProjectStatus, Mode=OneTime, Converter={StaticResource projectStatusToIsEnabledConverterReverseKey}}"/>
+                  Text="{Binding CurrentTask.StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding CurrentProjectStatus,Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
             <TextBox Margin="0,4,0,10"
-                  Text="{Binding RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource ProjectStatusToBoolConverterKey}}"/>
+                  Text="{Binding CurrentTask.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ProjectStatusToBoolConverterKey}}"
+                     />
             <TextBox Margin="0,4,0,10"
-                  Text="{Binding ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                  Text="{Binding CurrentTask.ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      IsEnabled="False"/>
             <TextBox Margin="0,0,0,10"
-                    Text="{Binding CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource projectStatusToIsEnabledConverterReverseKey}}"/>
+                    Text="{Binding CurrentTask.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                     IsEnabled="{Binding CurrentProjectStatus,Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
             <TextBox Margin="0,4,0,10" Height="30"
-                Text="{Binding Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                Text="{Binding CurrentTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                       TextWrapping="Wrap"/>
             <TextBox Margin="0,4,0,10" Height="30"
-                Text="{Binding Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
+                Text="{Binding CurrentTask.Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      TextWrapping="Wrap" />
             <ComboBox Margin="0,0,0,10"
-                ItemsSource="{Binding Engineer}" SelectedItem="{Binding engineerAssignedName, Mode=TwoWay}"
-                        Text="{Binding Complexity, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
+                ItemsSource="{Binding AllEngineers}" SelectedItem="{Binding EngineerAssigned , Mode=TwoWay}"/>   
             <ComboBox
                    ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
-                    SelectedValue="{Binding Complexity, Mode=TwoWay}" Height="22"/>
+                    SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay}" Height="22"/>
             
         </StackPanel>
 
         <!-- Add Engineer Button -->
         <Button Content="Add Task" Margin="10,560,10,10"
-            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5">
+            Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1"/>
@@ -107,7 +106,7 @@
 
         <!-- Update Engineer Button -->
         <Button Content="Update Task" Margin="10,560,10,10"
-            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateTask_Click">
+            Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateTask_Click">
             <!-- Apply font properties to button -->
             <Button.FontFamily>
                 <FontFamily>Segoe UI</FontFamily>

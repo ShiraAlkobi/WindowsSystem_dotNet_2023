@@ -20,7 +20,7 @@ public static class Tools
         PropertyInfo[] properties = type.GetProperties();
 
         ///create the object's defining string 
-        string result = $"\n{type.Name} properties:\n";
+        string result = "";
 
         foreach (PropertyInfo property in properties)
         {
@@ -54,7 +54,7 @@ public static class Tools
                     ///not an IEnumerable type, simply add the value to the result string
                     result += $"{property.Name} : {value}\n";
                 }
-                result += "\n";
+               
             }
         }
         return result;

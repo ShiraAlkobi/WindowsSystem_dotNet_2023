@@ -28,7 +28,7 @@ namespace PL
             set { SetValue(TaskListProperty, value); }
         }
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.All;//experience field has defualt
-        public BO.Status Status { get; set; } = BO.Status.Unschedualed;
+        public BO.Status Status { get; set; } = BO.Status.Unscheduled;
         /// <summary>
         /// dependency propert that gets all engineers fields to the control list
         /// </summary>
@@ -75,7 +75,7 @@ namespace PL
 
         private void status_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            TaskList = (Status == BO.Status.Unschedualed) ?
+            TaskList = (Status == BO.Status.Unscheduled) ?
                s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Status == Status)!;
         }
     }

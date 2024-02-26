@@ -396,7 +396,7 @@ internal class Program
         string t_Remarks = Console.ReadLine()!;
 
 
-        BO.Status t_status = BO.Status.Unschedualed;
+        BO.Status t_status = BO.Status.Unscheduled;
 
         Console.WriteLine("Complexity:\n0 - Beginner\n1 - AdvancedBeginner\n2 - Intermediate\n3 - Advanced\n4 - Expert\n");
         temp = Console.ReadLine();
@@ -573,7 +573,7 @@ internal class Program
             Alias = t_Alias,
             Description = t_Description,
             Dependencies = null,
-            Status = BO.Status.Unschedualed,
+            Status = BO.Status.Unscheduled,
             CreatedAtDate = DateTime.Today,
             ScheduledDate = t.ScheduledDate,
             StartDate = t_StartDate,
@@ -610,14 +610,14 @@ internal class Program
         {
             switch (item.Key)
             {
-                case BO.Status.Unschedualed:
-                    Console.WriteLine("Unschedualed:\n");
+                case BO.Status.Unscheduled:
+                    Console.WriteLine("Unscheduled:\n");
                     foreach (var n in item)
                         Console.WriteLine(n);
                     Console.WriteLine("\n");
                     break;
-                case BO.Status.Schedualed:
-                    Console.WriteLine("Schedualed:\n");
+                case BO.Status.Scheduled:
+                    Console.WriteLine("Scheduled:\n");
                     foreach (var n in item)
                         Console.WriteLine(n);
                     Console.WriteLine("\n");
