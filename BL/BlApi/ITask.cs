@@ -22,7 +22,7 @@ public interface ITask
     /// </summary>
     /// <param name="filter">filter to apply</param>
     /// <returns></returns>
-    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task,bool>? filter=null);
+    public IEnumerable<BO.TaskInList> ReadAll(Func<BO.Task, bool>? filter=null);
 
     /// <summary>
     /// return task with param id
@@ -48,4 +48,25 @@ public interface ITask
     /// </summary>
     /// <returns></returns>
     public IEnumerable<IGrouping<BO.Status,BO.TaskInList>> GroupByStatus();
+
+    /// <summary>
+    /// help function to get the dependencies of each task-used by read function
+    /// </summary>
+    /// <param name="id"></param>
+    /// <returns></returns>
+    public List<BO.TaskInList> getDependencies(int id);
+
+    /// <summary>
+    /// Creates a new dependency according to the given id
+    /// </summary>
+    /// <param name="dependsOn"></param>
+    /// <param name="dependent"></param>
+    public void UpdateDependencies(int dependsOn, int dependent);
+
+    /// <summary>
+    /// Deletes a dependency according to the given id
+    /// </summary>
+    /// <param name="dependsOn"></param>
+    /// <param name="dependent"></param>
+    public void DeleteDependencies(int dependsOn, int dependent);
 }

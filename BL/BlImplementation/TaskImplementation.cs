@@ -249,7 +249,7 @@ internal class TaskImplementation : ITask
     }
 
     /// <summary>
-    /// help function to get the dependencied of each task-uset by read function
+    /// help function to get the dependencies of each task-used by read function
     /// </summary>
     /// <param name="id"></param>
     /// <returns></returns>
@@ -267,6 +267,7 @@ internal class TaskImplementation : ITask
                 select new BO.TaskInList() { Id = item.DependsOnTask, Description = t_description, Alias = t_Alias, Status = t_status })
                 .ToList();
     }
+
     /// <summary>
     /// help function to find at what stage the task is-used by read function
     /// </summary>
@@ -314,5 +315,34 @@ internal class TaskImplementation : ITask
         return from item in ReadAll()
                group item by item.Status into groups
                select groups;
+    }
+
+    /// <summary>
+    /// Creates a new dependency according to the given objects
+    /// </summary>
+    /// <param name="dependsOn"></param>
+    /// <param name="dependent"></param>
+    public void UpdateDependencies(int dependsOn, int dependent)
+    {
+        DO.Dependency d = new DO.Dependency() { DependentTask = dependent, DependsOnTask = dependsOn };
+        _dal.Dependency.Create(d);
+    }
+
+    /// <summary>
+    /// Deletes a dependency according to the given id
+    /// </summary>
+    /// <param name="dependsOn"></param>
+    /// <param name="dependent"></param>
+    public void DeleteDependencies(int dependsOn, int dependent)
+    {
+
+        IEnumerable<DO.Dependency>? dependencies = _dal.Dependency.ReadAll();
+        DO.Dependency? t_dependency=(from item in dependencies
+                                     where item.DependsOnTask == dependsOn && item.DependentTask == dependent
+                                     select item).FirstOrDefault();
+        if (t_dependency != null)
+        {
+            _dal.Dependency.Delete(t_dependency.Id);
+        }
     }
 }

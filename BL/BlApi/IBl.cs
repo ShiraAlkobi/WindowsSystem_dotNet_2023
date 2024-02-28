@@ -51,4 +51,14 @@ public interface IBl
     /// reset database
     /// </summary>
     public void ResetDB() => DalTest.Initialization.emptyData();
+
+    #region Clock Defining
+    public DateTime Clock { get; }
+    public void AddYear();
+    public void AddDay();
+    public void AddHour();
+    public void ResetClock();
+
+
+    #endregion
 }
