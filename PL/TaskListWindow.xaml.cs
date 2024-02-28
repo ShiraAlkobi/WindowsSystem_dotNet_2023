@@ -77,6 +77,7 @@ namespace PL
         {
             TaskList = (Status == BO.Status.Unscheduled) ?
                s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Status == Status)!;
+            
         }
     }
 }

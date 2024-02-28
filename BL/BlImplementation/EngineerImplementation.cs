@@ -39,9 +39,9 @@ internal class EngineerImplementation : BlApi.IEngineer
         {
             throw new BO.BlInputCheckException("must insert name\n");
         }
-        if (t.Cost < 0)
+        if (t.Cost <= 0)
         {
-            throw new BO.BlInputCheckException("cost can't be negative\n");
+            throw new BO.BlInputCheckException("cost can't be negative or zero\n");
         }
         if (!(new EmailAddressAttribute().IsValid(t.Email)))
         {
@@ -157,9 +157,9 @@ internal class EngineerImplementation : BlApi.IEngineer
         {
             throw new BO.BlInputCheckException("must insert name\n");
         }
-        if (t.Cost < 0)
+        if (t.Cost <= 0)
         {
-            throw new BO.BlInputCheckException("cost can't be negative\n");
+            throw new BO.BlInputCheckException("cost can't be negative or zero\n");
         }
         if (!(new EmailAddressAttribute().IsValid(t.Email)))
         {
@@ -168,36 +168,47 @@ internal class EngineerImplementation : BlApi.IEngineer
 
         try
         {
-            
+            DO.Task? t_task = _dal.Task.Read(t.Task.Id);
             if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)//can only upgrade level of engineer
-                throw new BO.BlCanNotUpdate($"can only upgrade level of engineer\n");
-            if (t.Task is not null)//if the user assigned a task to the engineer
             {
-                DO.Task? t_task = _dal.Task.Read(t.Task.Id);//read the task to be assigned
-                if ((int)t.Level <(int)t_task.Complexity)//can only assign engineer with enough experience for the comlexity of the task
-                    throw new BO.BlCanNotUpdate($"can`t assign engineer with not enough experience");
-           
-                if (t_task.EngineerId > 0)//if there is already an engineer assigned to the task
-                    throw new BO.BlCanNotUpdate($"can`t update engineer because there is already an engineer assigned to the task");
-                // going through the dependencies and checking if there is a previous task  that is not yet completed
-                DO.Task? p = (from item in _dal.Dependency.ReadAll()
-                              where item.DependentTask == t_task.Id
-                              let temp = _dal.Task.Read(item.DependsOnTask)
-                              where (temp.CompleteDate is null)
-                              select temp).FirstOrDefault();
-
-                if (p is not null)
-                    throw new BO.BlCanNotUpdate("the previous tasks are still in progress");
-
-
+                //throw 
             }
+            if ((int)t.Level < (int)t_task.Complexity)//can only assign engineer with enough experience for the comlexity of the task
+                //return false;
+            if (t.Task is not null)
+                checkAssignedTask(t.Task.Id);
+            _dal.Task.Update(t_task with { EngineerId = t.Id });
             DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)t.Level);//creating new object with updated fields
             _dal.Engineer.Update(t_engineer);//calling dal function to update the data base
-            
         }
         catch (DO.DalDoesNotExistException e)//for if the read function throws an exception
         { throw new BO.BlDoesNotExistException($"Engineer with ID={t.Id} doesn`t exist"); }
     }
+
+    public bool checkAssignedTask(int t_id)
+    {
+
+       
+            DO.Task? t_task = _dal.Task.Read(t_id);//read the task to be assigned
+           
+            if (t_task.EngineerId > 0)//if there is already an engineer assigned to the task
+                return false;
+            // going through the dependencies and checking if there is a previous task  that is not yet completed
+            DO.Task? p = (from item in _dal.Dependency.ReadAll()
+                          where item.DependentTask == t_task.Id
+                          let temp = _dal.Task.Read(item.DependsOnTask)
+                          where (temp.CompleteDate is null)
+                          select temp).FirstOrDefault();
+
+            if (p is not null)
+                return false;
+
+
+
+        
+        return true;
+    }
+
     /// <summary>
     /// function that sorts the engineer bt name
     /// </summary>

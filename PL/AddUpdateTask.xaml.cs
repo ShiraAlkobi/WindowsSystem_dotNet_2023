@@ -80,14 +80,14 @@ namespace PL
             }
         }
 
-        public BO.ProjectStatus CurrentProjectStatus
+        public BO.ProjectStatus CurrentProjectStatusTask
         {
-            get { return (BO.ProjectStatus)GetValue(CurrentProjectStatusProperty); }
-            set { SetValue(CurrentProjectStatusProperty, value); }
+            get { return (BO.ProjectStatus)GetValue(CurrentProjectStatusTaskProperty); }
+            set { SetValue(CurrentProjectStatusTaskProperty, value); }
         }
         ///Using a DependencyProperty as the backing store for CurrentProjectStatus.This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty CurrentProjectStatusProperty =
-            DependencyProperty.Register("CurrentProjectStatus", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
+        public static readonly DependencyProperty CurrentProjectStatusTaskProperty =
+            DependencyProperty.Register("CurrentProjectStatusTask", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
         public DateTime today {  get; set; } =  DateTime.Today.Date;
 
         /// <summary>
@@ -105,7 +105,7 @@ namespace PL
             catch(Exception ex) { MessageBox.Show("Can't Open Window, Error"); return; }
             
             
-            CurrentProjectStatus = s_bl.getProjectStatus();
+            CurrentProjectStatusTask = s_bl.getProjectStatus();
             AllEngineers = (from item in s_bl.Engineer.ReadAll()
                             select new BO.EngineerInTask() { Id = item.Id, Name = item.Name }).ToList();
             if (id == 0)

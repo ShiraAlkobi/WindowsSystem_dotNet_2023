@@ -32,7 +32,7 @@
         <StackPanel HorizontalAlignment="right" Margin="0,36,50,79" Width="156" >
             <TextBox Margin="0,5,0,10"
                  Text="{Binding CurrentEngineer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource intToIsEnabledConverter}}"/>
+                     IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToIsEnabledConverter}}"/>
             <TextBox Margin="0,11,0,10"
                  Text="{Binding CurrentEngineer.Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"/>
             <TextBox Margin="0,8,0,10"
@@ -44,14 +44,16 @@
                   ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
                     SelectedValue="{Binding CurrentEngineer.Level, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}"       />
+            <!--SelectedItem="{Binding TaskAssigned , Mode=TwoWay}"-->
             <ComboBox Margin="0,8,0,10"
-                 ItemsSource="{Binding AllTasks}" SelectedItem="{Binding TaskAssigned , Mode=TwoWay}"
-                    IsEnabled="{Binding Id, Mode=OneTime, Converter={StaticResource taskToIsEnabledConverter}}"/>
+                 ItemsSource="{Binding AllTasks}" 
+                    SelectedValue="{Binding CurrentEngineer.Task, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" 
+                    IsEnabled="{Binding CurrentProjectStatus, Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
         </StackPanel>
 
         <!-- Add Engineer Button -->
         <Button Content="Add Engineer" Margin="10,330,10,34"
-            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddEngineer_Click">
+            Visibility="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddEngineer_Click">
             <!-- Apply font properties to button -->
             <Button.FontFamily>
                 <FontFamily>Segoe UI</FontFamily>
@@ -77,7 +79,7 @@
 
         <!-- Update Engineer Button -->
         <Button Content="Update Engineer" Margin="10,330,10,34"
-            Visibility="{Binding Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateEngineer_Click">
+            Visibility="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateEngineer_Click">
             <!-- Apply font properties to button -->
             <Button.FontFamily>
                 <FontFamily>Segoe UI</FontFamily>

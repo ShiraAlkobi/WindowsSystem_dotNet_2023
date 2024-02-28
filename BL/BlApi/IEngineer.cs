@@ -52,4 +52,5 @@ public interface IEngineer
     /// </summary>
     /// <returns></returns>
     public IEnumerable<BO.Engineer> SortByName();
+    public bool checkAssignedTask(int t_id);
 }

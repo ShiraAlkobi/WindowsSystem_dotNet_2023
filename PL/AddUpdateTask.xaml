@@ -58,7 +58,7 @@
                    IsEnabled="False" />
             <DatePicker Margin="0,12,0,10"
                   Text="{Binding CurrentTask.StartDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding CurrentProjectStatus,Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
+                     IsEnabled="{Binding CurrentProjectStatusTask,Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
             <TextBox Margin="0,4,0,10"
                   Text="{Binding CurrentTask.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      IsEnabled="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ProjectStatusToBoolConverterKey}}"
@@ -68,7 +68,7 @@
                      IsEnabled="False"/>
             <TextBox Margin="0,0,0,10"
                     Text="{Binding CurrentTask.CompleteDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
-                     IsEnabled="{Binding CurrentProjectStatus,Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
+                     IsEnabled="{Binding CurrentProjectStatusTask,Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
             <TextBox Margin="0,4,0,10" Height="30"
                 Text="{Binding CurrentTask.Deliverables, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                       TextWrapping="Wrap"/>

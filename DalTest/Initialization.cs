@@ -76,6 +76,7 @@ public static class Initialization
             t_Engineer = new Engineer(t_Id, t_Email, t_Cost, names[i],t_Level);//initialize the engineer with the id
             s_dal!.Engineer.Create(t_Engineer);//push to list
         }
+        s_dal!.Engineer.Create(new Engineer(12345678, "Engineer@.com", 50, "engineer", EngineerExperience.Beginner));
     }
     /// <summary>
     /// this function initialize dependencies- cant start task without other done

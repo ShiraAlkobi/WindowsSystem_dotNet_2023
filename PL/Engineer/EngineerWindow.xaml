@@ -5,8 +5,70 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="450" Width="800">
+        Title="EngineerWindow" Height="480" Width="800">
     <Grid>
-        
+        <Grid Margin="0,0,552,0">
+            <Image HorizontalAlignment="Left" Height="75" Margin="79,10,0,0" VerticalAlignment="Top" Width="85"/>
+            <Label Content="Id:" HorizontalAlignment="Left" Margin="10,112,0,0" VerticalAlignment="Top" Width="82"/>
+            <Label Content="Name:" HorizontalAlignment="Left" Margin="10,170,0,0" VerticalAlignment="Top" Width="82"/>
+            <TextBox HorizontalAlignment="Left" Height="22" Margin="10,138,0,0" TextWrapping="Wrap"  Text="{Binding CurrentEngineerUser.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="138"/>
+            <TextBox HorizontalAlignment="Left" Height="22" Margin="10,195,0,0" TextWrapping="Wrap" Text="{Binding CurrentEngineerUser.Name, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="138"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="181,158,0,0" VerticalAlignment="Top" Height="41" Click="EditEngineer_Click"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,91,0,0" TextWrapping="Wrap" Text="Personal Information:" VerticalAlignment="Top" Width="138"/>
+            <TextBlock HorizontalAlignment="Left" Margin="10,235,0,0" TextWrapping="Wrap" Text="Current Task:" VerticalAlignment="Top" Width="138"/>
+            <Label Content="Id:" HorizontalAlignment="Left" Margin="10,265,0,0" VerticalAlignment="Top" Width="82"/>
+            <Label Content="Alias:" HorizontalAlignment="Left" Margin="10,318,0,0" VerticalAlignment="Top" Width="82"/>
+            <TextBox HorizontalAlignment="Left" Height="22" Margin="10,344,0,0" TextWrapping="Wrap"  Text="{Binding CurrentEngineerUser.Task.Alias, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="138"/>
+            <TextBox HorizontalAlignment="Left" Height="22" Margin="10,291,0,0" TextWrapping="Wrap"  Text="{Binding CurrentEngineerUser.Task.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" VerticalAlignment="Top" Width="138"/>
+            <Button Content="Button" HorizontalAlignment="Left" Margin="181,308,0,0" VerticalAlignment="Top" Height="36" Click="EditTask_Click"/>
+            <ProgressBar HorizontalAlignment="Center" Height="20" Margin="0,389,0,0" VerticalAlignment="Top" Width="202"/>
+        </Grid>
+
+        <Grid Margin="248,0,0,0">
+            <TextBlock HorizontalAlignment="Center" Margin="0,60,0,0" TextWrapping="Wrap" Text="what would you like to do?" VerticalAlignment="Top" Width="419" Height="38" FontSize="28"/>
+            <TextBlock HorizontalAlignment="Left" Margin="32,22,0,0" TextWrapping="Wrap" Text="Hello" VerticalAlignment="Top" Width="80" Height="38" FontSize="28"/>
+            <TextBlock HorizontalAlignment="Left" Margin="123,22,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Height="38" FontSize="28">
+                <TextBlock.Text>
+                    <MultiBinding StringFormat="{}{0}!">
+                        <Binding Path="CurrentEngineerUser.Name" />
+                    </MultiBinding>
+                </TextBlock.Text>
+            </TextBlock>
+            <Button Content="Task Completed" HorizontalAlignment="Left" Margin="253,131,0,0" VerticalAlignment="Top" Width="210" Height="61" Click="taskCompleted_Click"/>
+            <TextBlock HorizontalAlignment="Left" Margin="44,144,0,0" TextWrapping="Wrap" Text="To mark your current task as completed, please press -&gt;" VerticalAlignment="Top" RenderTransformOrigin="0.509,0.463" Width="168" Height="34"
+                       IsEnabled= "{Binding CurrentAssignedTask.CompleteDate,Mode=TwoWay, Converter={StaticResource CompleteDateToBoolConverterKey}}"/>
+            <TextBlock HorizontalAlignment="Left" Margin="44,242,0,0" TextWrapping="Wrap" VerticalAlignment="Top" RenderTransformOrigin="0.509,0.463" Width="382" Height="34"><Run Text="To start a new task, please choose from the following:"/><LineBreak/><Run Text="Note! You can only start a new task if you completed the previous one."/></TextBlock>
+            <!-- ... (your existing XAML code) -->
+
+            <ComboBox x:Name="tasksForEngineer" HorizontalAlignment="Center" Margin="0,315,0,0" VerticalAlignment="Top" Width="437" Height="47"
+          ItemsSource="{Binding AvailableTasks}" SelectionChanged="tasksForEngineer_SelectionChanged">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Text="{Binding}"/>
+                            <Expander VerticalAlignment="Bottom" Header="Details" IsExpanded="False" Margin="330,15,0,0" >
+                                <!-- Expander Content -->
+                                <StackPanel>
+                                    <TextBlock Text="{Binding TaskDetails}"/>
+                                   
+                                    <!-- Add more details as needed -->
+                                </StackPanel>
+                            </Expander>
+                        </Grid>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
+            </ComboBox>
+
+            <!-- ... (your existing XAML code) -->
+
+
+            <Button Content="Start task" HorizontalAlignment="Left" Margin="142,399,0,0" VerticalAlignment="Top" Width="228" Click="assignTask_Click"/>
+
+        </Grid>
     </Grid>
 </Window>

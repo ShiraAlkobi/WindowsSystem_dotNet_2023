@@ -12,6 +12,7 @@
         <local:IntToVisibilityConverterUpdate x:Key="intToVisibilityConverterUpdate"/>
         <local:IntToVisibilityConverterAdd x:Key="intToVisibilityConverterAdd"/>
         <local:ProjectStatusToBoolConverter x:Key="ProjectStatusToBoolConverterKey"/>
+        <local:CompleteDateToBoolConverter x:Key="CompleteDateToBoolConverterKey"/>
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Padding" Value="15"/>

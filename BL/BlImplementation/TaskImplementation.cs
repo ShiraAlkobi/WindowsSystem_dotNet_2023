@@ -4,6 +4,8 @@ using System.Net.NetworkInformation;
 using System;
 using BlApi;
 using BO;
+using System.Diagnostics;
+
 /// <summary>
 /// this class implement the task interface
 /// </summary>
@@ -125,15 +127,17 @@ internal class TaskImplementation : ITask
     {
         ///ReadAll function return an IEnumreable of DO objects
         ///so convertion is needed in order to use filter on the object
-        return _dal.Task.ReadAll().Select(task => doToBoTask(task))
-           .Where(task => filter is null ? true : filter(task))
-           .Select(item => new BO.TaskInList()//readall returns list of tasks so need to convert to taskinlist
-           {
-               Id = item.Id,
-               Alias = item.Alias,
-               Description = item.Description,
-               Status = item.Status
-           });
+        return _dal.Task.ReadAll()
+      .Select(task => doToBoTask(task))
+      .Where(task => filter is null ? true : filter(task))
+      .OrderBy(task => task.Id) // Add this line for ordering by Id
+      .Select(item => new BO.TaskInList()
+      {
+          Id = item.Id,
+          Alias = item.Alias,
+          Description = item.Description,
+          Status = item.Status
+      });
 
     }
 
@@ -315,4 +319,5 @@ internal class TaskImplementation : ITask
                group item by item.Status into groups
                select groups;
     }
+    
 }

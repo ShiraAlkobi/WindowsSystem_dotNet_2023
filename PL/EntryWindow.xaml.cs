@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PL.Engineer;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -31,7 +32,7 @@ namespace PL
 
         private void btn_EngineerWindow_Click(object sender, RoutedEventArgs e)
         {
-            
+            new EngineerWindow(12345678).ShowDialog();
         }
     }
 }
