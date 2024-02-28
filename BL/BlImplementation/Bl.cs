@@ -160,8 +160,9 @@ internal class Bl : IBl
     /// <summary>
     /// resets the clock to the current time 
     /// </summary>
-    public void ResetClock()
+    public DateTime ResetClock()
     {
         Clock = DateTime.Now.Date;
+        return Clock;
     }
 }

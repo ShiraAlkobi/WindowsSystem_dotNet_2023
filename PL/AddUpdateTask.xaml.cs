@@ -261,7 +261,7 @@ namespace PL
             {
                 if (button.DataContext != null)
                 {
-                    var selectedObject = button.DataContext; // Access the object passed as CommandParameter
+                    var selectedObject = button.DataContext; // Access the object passed as datacontext
                     BO.TaskInList t = (BO.TaskInList)selectedObject;
                     CurrentTask.Dependencies.Add((BO.TaskInList)selectedObject);
                     NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == CurrentTask.Id) == false)

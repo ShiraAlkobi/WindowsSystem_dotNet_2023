@@ -19,9 +19,24 @@ namespace PL
     public partial class MainWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
+
+
+        public DateTime CurrentDate
+        {
+            get { return (DateTime)GetValue(CurrentDateProperty); }
+            set { SetValue(CurrentDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentDateProperty =
+            DependencyProperty.Register("CurrentDate", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(null));
+
+
         public MainWindow()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            CurrentDate = s_bl.ResetClock();
+            this.DataContext = this;
         }
         /// <summary>
         /// by clicking on "handle engineer" button, a new window will appear with the engineers details
@@ -90,5 +105,27 @@ namespace PL
             }
 
         }
+
+        private void AddHour_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.AddHour();
+            CurrentDate = s_bl.Clock;
+        }
+        private void AddDay_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.AddDay();
+            CurrentDate = s_bl.Clock;
+        }
+        private void AddMonth_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.AddMonth();
+            CurrentDate = s_bl.Clock;
+        }
+        private void AddYear_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.AddYear();
+            CurrentDate = s_bl.Clock;
+        }
+
     }
 }
