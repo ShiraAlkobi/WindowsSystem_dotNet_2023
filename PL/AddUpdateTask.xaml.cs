@@ -26,6 +26,7 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+       
         /// <summary>
         /// dependency property for the engineer that is being added or updated in this window
         /// </summary>
@@ -38,11 +39,29 @@ namespace PL
         public static readonly DependencyProperty CurrentTaskProperty =
             DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(AddUpdateTask), new PropertyMetadata(null));
 
-       
-       
-      
 
 
+        public IEnumerable<BO.TaskInList>? SelectedDependencies
+        {
+            get { return (IEnumerable<BO.TaskInList>)GetValue(selectedDependenciesProperty); }
+            set { SetValue(selectedDependenciesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty selectedDependenciesProperty =
+            DependencyProperty.Register("MyProperty", typeof(IEnumerable<BO.TaskInList>), typeof(AddUpdateTask), new PropertyMetadata(null));
+
+
+
+        public IEnumerable<BO.TaskInList> NotSelectedDependencies
+        {
+            get { return (IEnumerable<BO.TaskInList>)GetValue(NotSelectedDependenciesProperty); }
+            set { SetValue(NotSelectedDependenciesProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for NotSelectedDependencies.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty NotSelectedDependenciesProperty =
+            DependencyProperty.Register("NotSelectedDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(AddUpdateTask), new PropertyMetadata(null));
 
         public IEnumerable<BO.EngineerInTask> AllEngineers
         {
@@ -90,6 +109,7 @@ namespace PL
             DependencyProperty.Register("CurrentProjectStatusTask", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
         public DateTime today {  get; set; } =  DateTime.Today.Date;
 
+        
         /// <summary>
         /// ctor for the window
         /// </summary>
@@ -108,11 +128,17 @@ namespace PL
             CurrentProjectStatusTask = s_bl.getProjectStatus();
             AllEngineers = (from item in s_bl.Engineer.ReadAll()
                             select new BO.EngineerInTask() { Id = item.Id, Name = item.Name }).ToList();
+            
+            
             if (id == 0)
             {
                 ///create an engineer with default values
                 CurrentTask = new BO.Task() { CreatedAtDate = DateTime.Now };
-               
+                SelectedDependencies = null;
+                ///if we're in an add window, all of the tasks can be dependencies
+                NotSelectedDependencies = (from item in s_bl.Task.ReadAll()
+                                  select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
+
             }
             else
             {
@@ -120,8 +146,15 @@ namespace PL
                 {
                     ///read the right task according to the given id
                     CurrentTask = s_bl.Task.Read(id);
-                   
+                    SelectedDependencies = CurrentTask.Dependencies;
                     today = CurrentTask.CreatedAtDate;
+                    ///if we're in an update window, in order to prevent circular dependency - 
+                    ///the tasks list for dependencies have to contain only the ones that doesn't depend on the cuurent task
+                    NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == id) == false)
+                                               where s_bl.Task.getDependencies(id).Any(b => b.Id == item.Id) == false
+                                               where item.Id != id
+                                               select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
+
                 }///if an exception was thrown from the read function, catch it and show a message box which explains the exception
                 catch (BO.BlDoesNotExistException e)
                 {
@@ -129,8 +162,11 @@ namespace PL
                                                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            
+
             this.DataContext = this;
         }
+
         /// <summary>
         /// an event when clicking the add button
         /// </summary>
@@ -214,9 +250,58 @@ namespace PL
         private void CheckNumInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the input is a numeric character
-            if (Regex.IsMatch(e.Text, @"^\d+$"))
+            if (!IsNumeric(e.Text))
             {
                 e.Handled = true; // Mark the event as handled, preventing the character from being added to the TextBox
+            }
+        }
+        private bool IsNumeric(string text)
+        {
+            return int.TryParse(text, out _);
+        }
+
+        private void AddDependency_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            if (button != null)
+            {
+                if (button.DataContext != null)
+                {
+                    var selectedObject = button.DataContext; // Access the object passed as datacontext
+                    BO.TaskInList t = (BO.TaskInList)selectedObject;
+                    CurrentTask.Dependencies.Add((BO.TaskInList)selectedObject);
+                    NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == CurrentTask.Id) == false)
+                                               where s_bl.Task.getDependencies(CurrentTask.Id).Any(b => b.Id == item.Id) == false
+                                               where item.Id != CurrentTask.Id
+                                               select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
+                    s_bl.Task.UpdateDependencies(CurrentTask.Id, t.Id);
+                    SelectedDependencies = CurrentTask.Dependencies;
+                    ExistedDependencies.ItemsSource = SelectedDependencies;
+                    RemainedDependencies.ItemsSource = NotSelectedDependencies;
+                }
+            }
+        }
+
+        private void RemoveDependency_Click(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            if (button != null)
+            {
+                if (button.DataContext != null)
+                {
+                    var selectedObject = button.DataContext; // Access the object passed as CommandParameter
+                    BO.TaskInList t = (BO.TaskInList)selectedObject;
+                    CurrentTask.Dependencies?.Remove((BO.TaskInList)selectedObject);
+                    NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == CurrentTask.Id) == false)
+                                               where s_bl.Task.getDependencies(CurrentTask.Id).Any(b => b.Id == item.Id) == false
+                                               where item.Id != CurrentTask.Id
+                                               select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
+                    s_bl.Task.DeleteDependencies(CurrentTask.Id, t.Id);
+                    SelectedDependencies = CurrentTask.Dependencies;
+                    ExistedDependencies.ItemsSource = SelectedDependencies;
+                    RemainedDependencies.ItemsSource = NotSelectedDependencies;
+                }
+
             }
         }
     }

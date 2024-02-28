@@ -14,11 +14,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="minus.jpg" />
+    <None Remove="plus.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\BL\BL.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Manager\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="minus.jpg" />
+    <Resource Include="plus.jpg" />
   </ItemGroup>
 
 </Project>

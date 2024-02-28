@@ -47,7 +47,6 @@ namespace PL.Engineer
             InitializeComponent();
             EngineerList = s_bl?.Engineer.ReadAll()!;//rereading the engineerlist after updating or adding engineer
                                                      //because we want the list to be updated immidiatly
-
         }
 
         /// <summary>
@@ -74,7 +73,7 @@ namespace PL.Engineer
             BO.Engineer? engineer= (sender as ListView)?.SelectedItem as BO.Engineer;
             //create new window with id parameter from the clicked engineer
             AddUpdateEngineer addUpdateEngineer = new AddUpdateEngineer(engineer.Id);
-            addUpdateEngineer.ShowDialog();//show the windo
+            addUpdateEngineer.ShowDialog();//show the window
             EngineerList = (Experience == BO.EngineerExperience.All) ?
                 s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Experience)!;//rereading the engineerlist after updating or adding engineer
                                                                                                       //because we want the list to be updated immidiatly

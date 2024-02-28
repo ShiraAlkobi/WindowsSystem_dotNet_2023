@@ -3,6 +3,7 @@ using BO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,21 @@ internal class Bl : IBl
     /// getting an object of enginner implementation
     /// </summary>
     public IEngineer Engineer => new EngineerImplementation();
+
+    /// <summary>
+    /// a static field that keeps the current Date
+    /// helps keeping the clock with a single instance
+    /// </summary>
+    private static DateTime s_Clock = DateTime.Now.Date;
+    /// <summary>
+    /// a property that represents the project's clock 
+    /// </summary>
+    public DateTime Clock 
+    { 
+        get { return s_Clock; }
+        private set { s_Clock = value; }
+    }
+
 
     /// <summary>
     /// an instance of the IDAL interface in order to get data from the DAL data source
@@ -107,5 +123,46 @@ internal class Bl : IBl
     public DateTime? getEndDate()
     {
         return _dal.getEndDate();
+    }
+
+    /// <summary>
+    /// adds one year to the clock
+    /// </summary>
+    public void AddYear()
+    {
+        Clock.AddYears(1);
+    }
+
+    /// <summary>
+    /// adds one month to the clock
+    /// </summary>
+    public void AddMonth()
+    {
+        Clock.AddMonths(1);
+    }
+
+    /// <summary>
+    /// adds one day to the clock
+    /// </summary>
+    public void AddDay()
+    {
+        Clock.AddDays(1);
+    }
+
+    /// <summary>
+    /// adds one hour to the clock
+    /// </summary>
+    public void AddHour()
+    {
+        Clock.AddHours(1);
+    }
+
+    /// <summary>
+    /// resets the clock to the current time 
+    /// </summary>
+    public DateTime ResetClock()
+    {
+        Clock = DateTime.Now.Date;
+        return Clock;
     }
 }

@@ -26,7 +26,7 @@
     <Email>ConstructionCrew@jct.com</Email>
     <Cost>150</Cost>
     <Name>ConstructionCrew</Name>
-    <Level>AdvancedBeginner</Level>
+    <Level>Advanced</Level>
   </Engineer>
   <Engineer>
     <Id>260067350</Id>

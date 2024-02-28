@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddUpdateTask" Height="630" Width="500">
+        Title="AddUpdateTask" Height="630" Width="600">
 
     <!-- Window background color -->
     <Window.Background>
@@ -38,7 +38,7 @@
         <!--using binding according to each value of the engineer properties-->
         <!--the comboBox is the enum of the engineer experience-->
         <!--The task and id fields depends on the id - the isEnabled attribute is binding according to the id-->
-        <StackPanel HorizontalAlignment="Right" Margin="0,25,80,73" Width="170" >
+        <StackPanel HorizontalAlignment="Right" Margin="0,25,270,73" Width="170" >
             <TextBox Margin="0,11,0,10"
                  Text="{Binding CurrentTask.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                     IsEnabled="False" />
@@ -62,7 +62,7 @@
             <TextBox Margin="0,4,0,10"
                   Text="{Binding CurrentTask.RequiredEffortTime, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      IsEnabled="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource ProjectStatusToBoolConverterKey}}"
-                     />
+                      PreviewTextInput="CheckNumInput" />
             <TextBox Margin="0,4,0,10"
                   Text="{Binding CurrentTask.ForecastDate, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      IsEnabled="False"/>
@@ -76,12 +76,46 @@
                 Text="{Binding CurrentTask.Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      TextWrapping="Wrap" />
             <ComboBox Margin="0,0,0,10"
-                ItemsSource="{Binding AllEngineers}" SelectedItem="{Binding EngineerAssigned , Mode=TwoWay}"/>   
+                ItemsSource="{Binding AllEngineers}" SelectedItem="{Binding EngineerAssigned , Mode=TwoWay}"
+                      IsEnabled="{Binding CurrentProjectStatus,Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
             <ComboBox
                    ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
                     SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay}" Height="22"/>
-            
+
         </StackPanel>
+
+        <ListBox x:Name="ExistedDependencies" Height="150" Margin="350,56,18,408" ItemsSource="{Binding SelectedDependencies,Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                        <Button Content="-" Click="RemoveDependency_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+
+
+
+        <ListBox x:Name="RemainedDependencies" Margin="350,275,18,107" ItemsSource="{Binding NotSelectedDependencies,Mode=TwoWay}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />                            
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="5"/>
+                        <Button Content="+" Click="AddDependency_Click" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="20" Height="20"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <!-- Add Engineer Button -->
         <Button Content="Add Task" Margin="10,560,10,10"
@@ -116,5 +150,9 @@
             <!-- Apply the button style to the Button -->
 
         </Button>
+        <Label Content="Dependencies of this Task:" HorizontalAlignment="Left" Margin="362,20,0,0" VerticalAlignment="Top"
+               FontFamily="Segoe UI" FontSize="16" FontWeight="Bold"/>
+        <Label Content="Dependencies to Add:" HorizontalAlignment="Left" Margin="379,239,0,0" VerticalAlignment="Top"
+               FontFamily="Segoe UI" FontSize="16" FontWeight="Bold"/>
     </Grid>
 </Window>
