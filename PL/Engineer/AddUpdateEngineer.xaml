@@ -45,10 +45,9 @@
                     SelectedValue="{Binding CurrentEngineer.Level, Mode=TwoWay, NotifyOnValidationError=true, 
                         ValidatesOnExceptions=true}"       />
             <!--SelectedItem="{Binding TaskAssigned , Mode=TwoWay}"-->
-            <ComboBox Margin="0,8,0,10"
-                 ItemsSource="{Binding AllTasks}" 
-                    SelectedValue="{Binding CurrentEngineer.Task, Mode=TwoWay, NotifyOnValidationError=true,ValidatesOnExceptions=true}" 
-                    IsEnabled="{Binding CurrentProjectStatus, Mode=TwoWay, Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}"/>
+            <TextBox Margin="0,8,0,10"
+                    Text="{Binding CurrentEngineer.Task, Mode=OneTime, NotifyOnValidationError=true,ValidatesOnExceptions=true}" 
+                    IsEnabled="False" Height="40"/>
         </StackPanel>
 
         <!-- Add Engineer Button -->
