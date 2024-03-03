@@ -84,7 +84,7 @@
 
         </StackPanel>
 
-        <ListBox x:Name="ExistedDependencies" Height="150" Margin="350,56,18,408" ItemsSource="{Binding SelectedDependencies,Mode=TwoWay}">
+        <ListBox x:Name="ExistedDependencies" Margin="350,56,18,380" ItemsSource="{Binding SelectedDependencies,Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -92,8 +92,8 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
-                        <Button Content="-" Click="RemoveDependency_Click" HorizontalAlignment="Center" VerticalAlignment="Center" Width="20" Height="20"/>
+                        <TextBlock Text="{Binding}" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                        <Button Content="-" Click="RemoveDependency_Click" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="20" Height="20"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -108,7 +108,7 @@
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />                            
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="5"/>
                         <Button Content="+" Click="AddDependency_Click" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="20" Height="20"/>

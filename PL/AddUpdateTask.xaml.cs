@@ -49,7 +49,7 @@ namespace PL
 
         // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty selectedDependenciesProperty =
-            DependencyProperty.Register("MyProperty", typeof(IEnumerable<BO.TaskInList>), typeof(AddUpdateTask), new PropertyMetadata(null));
+            DependencyProperty.Register("SelectedDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(AddUpdateTask), new PropertyMetadata(null));
 
 
 
@@ -137,7 +137,7 @@ namespace PL
                 SelectedDependencies = null;
                 ///if we're in an add window, all of the tasks can be dependencies
                 NotSelectedDependencies = (from item in s_bl.Task.ReadAll()
-                                  select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
+                                            select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
 
             }
             else
@@ -146,7 +146,7 @@ namespace PL
                 {
                     ///read the right task according to the given id
                     CurrentTask = s_bl.Task.Read(id);
-                    SelectedDependencies = CurrentTask.Dependencies;
+                    SelectedDependencies = CurrentTask?.Dependencies;
                     today = CurrentTask.CreatedAtDate;
                     ///if we're in an update window, in order to prevent circular dependency - 
                     ///the tasks list for dependencies have to contain only the ones that doesn't depend on the cuurent task
@@ -262,46 +262,64 @@ namespace PL
 
         private void AddDependency_Click(object sender, RoutedEventArgs e)
         {
+            //Button button = (Button)sender;
+            //if (button != null)
+            //{
+            //    if (button.DataContext != null)
+            //    {
+            //        var selectedObject = button.DataContext; // Access the object passed as datacontext
+            //        BO.TaskInList t = (BO.TaskInList)selectedObject;
+            //        CurrentTask.Dependencies.Add((BO.TaskInList)selectedObject);
+            //        NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == CurrentTask.Id) == false)
+            //                                   where s_bl.Task.getDependencies(CurrentTask.Id).Any(b => b.Id == item.Id) == false
+            //                                   where item.Id != CurrentTask.Id
+            //                                   select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
+            //        s_bl.Task.UpdateDependencies(CurrentTask.Id, t.Id);
+            //        SelectedDependencies = CurrentTask.Dependencies;
+            //        ExistedDependencies.ItemsSource = SelectedDependencies;
+            //        RemainedDependencies.ItemsSource = NotSelectedDependencies;
+            //    }
+            //}
+
             Button button = (Button)sender;
-            if (button != null)
+            if (button != null && button.DataContext is BO.TaskInList selectedObject)
             {
-                if (button.DataContext != null)
-                {
-                    var selectedObject = button.DataContext; // Access the object passed as datacontext
-                    BO.TaskInList t = (BO.TaskInList)selectedObject;
-                    CurrentTask.Dependencies.Add((BO.TaskInList)selectedObject);
-                    NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == CurrentTask.Id) == false)
-                                               where s_bl.Task.getDependencies(CurrentTask.Id).Any(b => b.Id == item.Id) == false
-                                               where item.Id != CurrentTask.Id
-                                               select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
-                    s_bl.Task.UpdateDependencies(CurrentTask.Id, t.Id);
-                    SelectedDependencies = CurrentTask.Dependencies;
-                    ExistedDependencies.ItemsSource = SelectedDependencies;
-                    RemainedDependencies.ItemsSource = NotSelectedDependencies;
-                }
+                CurrentTask.Dependencies.Add(selectedObject);
+                s_bl.Task.UpdateDependencies(CurrentTask.Id, selectedObject.Id);
+                NotSelectedDependencies = NotSelectedDependencies.Where(item => item.Id != selectedObject.Id).ToList();
+                SelectedDependencies = CurrentTask.Dependencies;
             }
         }
 
         private void RemoveDependency_Click(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
-            if (button != null)
-            {
-                if (button.DataContext != null)
-                {
-                    var selectedObject = button.DataContext; // Access the object passed as CommandParameter
-                    BO.TaskInList t = (BO.TaskInList)selectedObject;
-                    CurrentTask.Dependencies?.Remove((BO.TaskInList)selectedObject);
-                    NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == CurrentTask.Id) == false)
-                                               where s_bl.Task.getDependencies(CurrentTask.Id).Any(b => b.Id == item.Id) == false
-                                               where item.Id != CurrentTask.Id
-                                               select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
-                    s_bl.Task.DeleteDependencies(CurrentTask.Id, t.Id);
-                    SelectedDependencies = CurrentTask.Dependencies;
-                    ExistedDependencies.ItemsSource = SelectedDependencies;
-                    RemainedDependencies.ItemsSource = NotSelectedDependencies;
-                }
+            //Button button = (Button)sender;
+            //if (button != null)
+            //{
+            //    if (button.DataContext != null)
+            //    {
+            //        var selectedObject = button.DataContext; // Access the object passed as CommandParameter
+            //        BO.TaskInList t = (BO.TaskInList)selectedObject;
+            //        CurrentTask.Dependencies?.Remove((BO.TaskInList)selectedObject);
+            //        NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == CurrentTask.Id) == false)
+            //                                   where s_bl.Task.getDependencies(CurrentTask.Id).Any(b => b.Id == item.Id) == false
+            //                                   where item.Id != CurrentTask.Id
+            //                                   select new BO.TaskInList() { Id = item.Id, Alias = item.Alias }).ToList();
+            //        s_bl.Task.DeleteDependencies(CurrentTask.Id, t.Id);
+            //        SelectedDependencies = CurrentTask.Dependencies;
+            //        ExistedDependencies.ItemsSource = SelectedDependencies;
+            //        RemainedDependencies.ItemsSource = NotSelectedDependencies;
+            //    }
 
+            //}
+
+            Button button = (Button)sender;
+            if (button != null && button.DataContext is BO.TaskInList selectedObject)
+            {
+                CurrentTask.Dependencies.Remove(selectedObject);
+                s_bl.Task.DeleteDependencies(CurrentTask.Id, selectedObject.Id);
+                NotSelectedDependencies = NotSelectedDependencies.Concat(new[] { selectedObject }).ToList();
+                SelectedDependencies = CurrentTask.Dependencies;
             }
         }
     }

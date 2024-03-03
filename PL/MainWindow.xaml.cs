@@ -36,7 +36,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            CurrentDate = s_bl.ResetClock();
+            CurrentDate = s_bl.Clock;
             this.DataContext = this;
         }
         /// <summary>
@@ -63,7 +63,7 @@ namespace PL
                 Factory.Get().InitializeDB();
                 MessageBox.Show("Data initialized!");
             }
-            
+            CurrentDate = s_bl.ResetClock();
         }
 
         private void btn_Reset_Click(object sender, RoutedEventArgs e)
@@ -74,6 +74,7 @@ namespace PL
                 Factory.Get().ResetDB();
                 MessageBox.Show("Data reset!");
             }
+            CurrentDate = s_bl.ResetClock();
         }
 
         private void btn_GanttChart_Click(object sender, RoutedEventArgs e)
@@ -127,6 +128,7 @@ namespace PL
             s_bl.AddYear();
             CurrentDate = s_bl.Clock;
         }
+
 
     }
 }

@@ -30,7 +30,7 @@ internal class Bl : IBl
     /// a static field that keeps the current Date
     /// helps keeping the clock with a single instance
     /// </summary>
-    private static DateTime s_Clock = DateTime.Now.Date;
+    private static DateTime s_Clock = DateTime.Now;
     /// <summary>
     /// a property that represents the project's clock 
     /// </summary>
@@ -130,7 +130,7 @@ internal class Bl : IBl
     /// </summary>
     public void AddYear()
     {
-        Clock.AddYears(1);
+        Clock = Clock.AddYears(1);
     }
 
     /// <summary>
@@ -138,7 +138,7 @@ internal class Bl : IBl
     /// </summary>
     public void AddMonth()
     {
-        Clock.AddMonths(1);
+        Clock = Clock.AddMonths(1);
     }
 
     /// <summary>
@@ -146,7 +146,7 @@ internal class Bl : IBl
     /// </summary>
     public void AddDay()
     {
-        Clock.AddDays(1);
+        Clock = Clock.AddDays(1);
     }
 
     /// <summary>
@@ -154,7 +154,7 @@ internal class Bl : IBl
     /// </summary>
     public void AddHour()
     {
-        Clock.AddHours(1);
+        Clock = Clock.AddHours(1);
     }
 
     /// <summary>
