@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace PL.Engineer
     /// </summary>
     public partial class EngineerWindow : Window
     {
+
+
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
         //Using a DependencyProperty as the backing store for CurrentEngineer.This enables animation, styling, binding, etc...
@@ -48,23 +51,20 @@ namespace PL.Engineer
         public static readonly DependencyProperty TaskDetailsProperty =
     DependencyProperty.Register("TaskDetails", typeof(BO.Task), typeof(EngineerWindow),new PropertyMetadata(null));
 
-       
         public BO.Task TaskDetails
         {
             get { return (BO.Task)GetValue(TaskDetailsProperty); }
             set { SetValue(TaskDetailsProperty, value); }
         }
-
-
-        public IEnumerable<BO.TaskInEngineer> AvailableTasks
+        public IEnumerable<BO.TaskInList> AvailableTasks
         {
-            get { return (IEnumerable<BO.TaskInEngineer>)GetValue(AvailableTasksProperty); }
+            get { return (IEnumerable<BO.TaskInList>)GetValue(AvailableTasksProperty); }
             set { SetValue(AvailableTasksProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for AllTasks.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AvailableTasksProperty =
-            DependencyProperty.Register("AvailableTasks", typeof(IEnumerable<BO.TaskInEngineer>), typeof(EngineerWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("AvailableTasks", typeof(IEnumerable<BO.TaskInList>), typeof(EngineerWindow), new PropertyMetadata(null));
         public EngineerWindow(int id)
         {
             InitializeComponent();
@@ -79,9 +79,10 @@ namespace PL.Engineer
                 else
                     CurrentAssignedTask=new BO.Task();
                 AvailableTasks = (from item in s_bl.Task.ReadAll()
-                                  where s_bl.Engineer.checkAssignedTask(item.Id)==true
-                                  select new BO.TaskInEngineer() { Id = item.Id, Alias = item.Alias }
-                                  ).ToList();
+                                  where s_bl.Engineer.checkAssignedTask(item.Id) == true
+                                  select item).ToList();
+
+
 
 
             }///if an exception was thrown from the read function, catch it and show a message box which explains the exception
@@ -124,8 +125,9 @@ namespace PL.Engineer
                     CurrentAssignedTask = s_bl.Task.Read(CurrentEngineerUser.Task.Id);
                 AvailableTasks = (from item in s_bl.Task.ReadAll()
                                   where s_bl.Engineer.checkAssignedTask(item.Id) == true
-                                  select new BO.TaskInEngineer() { Id = item.Id, Alias = item.Alias }
-                                   ).ToList();
+                                  select item).ToList();
+
+
 
             }
             catch (Exception t)
@@ -138,50 +140,56 @@ namespace PL.Engineer
 
         private void assignTask_Click(object sender, RoutedEventArgs e)
         {
-            CurrentAssignedTask = s_bl.Task.Read(((BO.TaskInEngineer)tasksForEngineer.SelectedItem).Id);
-            s_bl.Engineer.Update(new BO.Engineer
-            {
-                Id = CurrentEngineerUser.Id,
-                Name = CurrentEngineerUser.Name,
-                Email = CurrentEngineerUser.Email,
-                Cost = CurrentEngineerUser.Cost,
-                Level = CurrentEngineerUser.Level,
-                Task = new BO.TaskInEngineer() { Id=CurrentAssignedTask.Id,Alias=CurrentAssignedTask.Alias}
-            }) ;
 
-            s_bl.Task.Update(new()
+            try
             {
-                Id = CurrentAssignedTask.Id,
-                Alias = CurrentAssignedTask.Alias,
-                Description = CurrentAssignedTask.Description,
-                Dependencies = CurrentAssignedTask.Dependencies,
-                Status = CurrentAssignedTask.Status,
-                CreatedAtDate = CurrentAssignedTask.CreatedAtDate,
-                ScheduledDate = CurrentAssignedTask.ScheduledDate,
-                StartDate = DateTime.Now,
-                ForecastDate = CurrentAssignedTask.ForecastDate,
-                RequiredEffortTime = CurrentAssignedTask.RequiredEffortTime,
-                DeadlineDate = CurrentAssignedTask.DeadlineDate,
-                CompleteDate = CurrentAssignedTask.CompleteDate,
-                Deliverables = CurrentAssignedTask.Deliverables!,
-                Remarks = CurrentAssignedTask.Remarks!,
-                Engineer = new BO.EngineerInTask { Id=CurrentEngineerUser.Id,Name=CurrentEngineerUser.Name},
-                Complexity = CurrentAssignedTask.Complexity
-            });
-            CurrentEngineerUser = s_bl.Engineer.Read(CurrentEngineerUser.Id);
-               if (CurrentEngineerUser.Task is not null)
-                            CurrentAssignedTask = s_bl.Task.Read(CurrentEngineerUser.Task.Id);
+                CurrentAssignedTask = s_bl.Task.Read(((BO.TaskInList)tasksForEngineer.SelectedItem).Id);
+                s_bl.Engineer.Update(new BO.Engineer
+                {
+                    Id = CurrentEngineerUser.Id,
+                    Name = CurrentEngineerUser.Name,
+                    Email = CurrentEngineerUser.Email,
+                    Cost = CurrentEngineerUser.Cost,
+                    Level = CurrentEngineerUser.Level,
+                    Task = new BO.TaskInEngineer() { Id = CurrentAssignedTask.Id, Alias = CurrentAssignedTask.Alias }
+                });
 
+                s_bl.Task.Update(new()
+                {
+                    Id = CurrentAssignedTask.Id,
+                    Alias = CurrentAssignedTask.Alias,
+                    Description = CurrentAssignedTask.Description,
+                    Dependencies = CurrentAssignedTask.Dependencies,
+                    Status = CurrentAssignedTask.Status,
+                    CreatedAtDate = CurrentAssignedTask.CreatedAtDate,
+                    ScheduledDate = CurrentAssignedTask.ScheduledDate,
+                    StartDate = DateTime.Now,
+                    ForecastDate = CurrentAssignedTask.ForecastDate,
+                    RequiredEffortTime = CurrentAssignedTask.RequiredEffortTime,
+                    DeadlineDate = CurrentAssignedTask.DeadlineDate,
+                    CompleteDate = CurrentAssignedTask.CompleteDate,
+                    Deliverables = CurrentAssignedTask.Deliverables!,
+                    Remarks = CurrentAssignedTask.Remarks!,
+                    Engineer = new BO.EngineerInTask { Id = CurrentEngineerUser.Id, Name = CurrentEngineerUser.Name },
+                    Complexity = CurrentAssignedTask.Complexity
+                });
+                CurrentEngineerUser = s_bl.Engineer.Read(CurrentEngineerUser.Id);
+                if (CurrentEngineerUser.Task is not null)
+                    CurrentAssignedTask = s_bl.Task.Read(CurrentEngineerUser.Task.Id);
+            }catch(Exception ) { MessageBox.Show("please choose a task"); }
         }         
 
         private void EditEngineer_Click(object sender, RoutedEventArgs e)
         {
             new AddUpdateEngineer(CurrentEngineerUser.Id).ShowDialog();
+            CurrentEngineerUser = s_bl.Engineer.Read(CurrentEngineerUser.Id);
+
         }
 
         private void EditTask_Click(object sender, RoutedEventArgs e)
         {
-            new AddUpdateTask(CurrentAssignedTask.Id).ShowDialog();
+            if(CurrentEngineerUser.Task is not null)
+            new AddUpdateTask(CurrentEngineerUser.Task.Id).ShowDialog();
         }
         private void tasksForEngineer_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -189,11 +197,8 @@ namespace PL.Engineer
             {
                 TaskDetails = s_bl.Task.Read(selectedTask.Id);
             }
-            else
-            {
-                TaskDetails = null; // Make sure to set it to null if no task is selected
-            }
         }
+
 
 
     }

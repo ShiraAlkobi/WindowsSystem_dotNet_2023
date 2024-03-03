@@ -67,6 +67,50 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+    public class AssignedTaskToBoolConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            BO.TaskInEngineer? AssignedTask = (BO.TaskInEngineer)value;
+
+            ///if the project's status is the plan stage, the date is not enabled to change
+            if (AssignedTask != null)
+            {
+                return true;
+            }
+            ///if the project's status is the execution stage, the date is enabled to change
+            else
+            {
+                return false;
+            }
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+    public class AssignedTaskToBoolConverterReverse : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            BO.TaskInEngineer? AssignedTask = (BO.TaskInEngineer)value;
+
+            ///if the project's status is the plan stage, the date is not enabled to change
+            if (AssignedTask == null)
+            {
+                return true;
+            }
+            ///if the project's status is the execution stage, the date is enabled to change
+            else
+            {
+                return false;
+            }
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class ProjectStatusToIsEnabledConverterReverse : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

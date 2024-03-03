@@ -5,7 +5,7 @@
     <Email>ProjectManager@jct.com</Email>
     <Cost>194</Cost>
     <Name>ProjectManager</Name>
-    <Level>Intermediate</Level>
+    <Level>Advanced</Level>
   </Engineer>
   <Engineer>
     <Id>569964387</Id>
@@ -45,7 +45,7 @@
   <Engineer>
     <Id>12345678</Id>
     <Email>Engineer@.com</Email>
-    <Cost>50</Cost>
+    <Cost>60</Cost>
     <Name>engineer</Name>
     <Level>Beginner</Level>
   </Engineer>

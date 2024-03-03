@@ -168,16 +168,19 @@ internal class EngineerImplementation : BlApi.IEngineer
 
         try
         {
-            DO.Task? t_task = _dal.Task.Read(t.Task.Id);
-            if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)//can only upgrade level of engineer
-            {
-                //throw 
-            }
-            if ((int)t.Level < (int)t_task.Complexity)//can only assign engineer with enough experience for the comlexity of the task
-                //return false;
             if (t.Task is not null)
-                checkAssignedTask(t.Task.Id);
-            _dal.Task.Update(t_task with { EngineerId = t.Id });
+            {
+                DO.Task? t_task = _dal.Task.Read(t.Task.Id);
+                if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)//can only upgrade level of engineer
+                {
+                    //throw 
+                }
+                if ((int)t.Level < (int)t_task.Complexity)//can only assign engineer with enough experience for the comlexity of the task
+                                                          //return false;
+
+                    checkAssignedTask(t.Task.Id);
+                _dal.Task.Update(t_task with { EngineerId = t.Id });
+            }
             DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)t.Level);//creating new object with updated fields
             _dal.Engineer.Update(t_engineer);//calling dal function to update the data base
         }

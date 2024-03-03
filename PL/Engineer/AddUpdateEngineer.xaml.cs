@@ -55,7 +55,9 @@ namespace PL.Engineer
         ///Using a DependencyProperty as the backing store for CurrentProjectStatus.This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentProjectStatusEngineerProperty =
             DependencyProperty.Register("CurrentProjectStatusEngineer", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
- 
+
+
+
 
 
         /// <summary>
@@ -90,7 +92,7 @@ namespace PL.Engineer
                     ///read the right engineer according to the given id
                     CurrentEngineer = s_bl.Engineer.Read(id);
   
-
+                    
 
                 }///if an exception was thrown from the read function, catch it and show a message box which explains the exception
                 catch (BO.BlDoesNotExistException e)
