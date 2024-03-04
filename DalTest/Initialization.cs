@@ -184,6 +184,38 @@ public static class Initialization
          
         }
     }
+
+    /// <summary>
+    /// this function initialize users- for each engineer created, a user is created
+    /// </summary>
+    private static void CreateUsers()
+    {
+        ///add the manager to the data base
+        s_dal!.User.Create(new User(12345678, "12345678", "Manager123", DO.Position.Manager));
+        ///get all the engineers
+        IEnumerable<DO.Engineer?> engineers = s_dal!.Engineer.ReadAll();
+        string t_password;
+        ///for each created engineer, create a user
+        ///the user's name is the engineer's id
+        ///the user's password is the engineer's name (without spaces) and the last 4 digits of his id
+        foreach (var engineer in engineers) 
+        {
+            t_password = engineer.Name.Replace(" ", "");
+            t_password += LastFourDigits(engineer.Id);
+            s_dal.User.Create(new User(engineer.Id, engineer.Id.ToString(), t_password, DO.Position.Engineer));
+        }
+    }
+    /// <summary>
+    /// help function, gets a number and returns a string of its 4 last digits
+    /// </summary>
+    /// <param name="number"></param>
+    /// <returns></returns>
+    public static string LastFourDigits(int number)
+    {
+        string numberString = number.ToString();
+        return numberString.Substring(numberString.Length - 4);
+       
+    }
     /// <summary>
     /// this function actually sending the interface objects to the create functions 
     /// we defined and do the initialization 
@@ -199,6 +231,7 @@ public static class Initialization
         createTasks();
         createEngineers();
         CreateDependencies();
+        CreateUsers();  
     }
 
     public static void emptyData()
@@ -231,6 +264,16 @@ public static class Initialization
                 s_dal.Dependency.Delete(dependency.Id);
             }
         }
+
+        //List<User> users = s_dal.User.ReadAll()!.ToList<User>();
+        //if (users.Count > 0)
+        //{
+        //    foreach (User user in users)
+        //    {
+        //        s_dal.User.Delete(user.Id);
+        //    }
+        //}
+
         s_dal.ResetId();
         s_dal.setStatus();
     }

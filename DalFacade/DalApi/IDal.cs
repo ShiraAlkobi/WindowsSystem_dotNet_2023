@@ -8,7 +8,9 @@ public interface IDal
     ITask Task { get; }///property for the sub interface ITask
     IEngineer Engineer { get; }///property for the sub interface IEngineer
     IDependency Dependency { get; }///property for the sub interface IDependency
+    IUser User { get; }///property for the sun interface IUser
 
+    #region Project Dates and Status
     DateTime? ProjectStartDate { get; set; }///property for the project's start date
     DateTime? ProjectEndDate { get; set; }///property for the project's end date
     DO.ProjectStatus ProjectStatus { get; set; }///property for the project's status
@@ -50,5 +52,5 @@ public interface IDal
     /// function to call resetId of chosen implementation of the factory
     /// </summary>
     public void ResetId();
-
+    #endregion
 }

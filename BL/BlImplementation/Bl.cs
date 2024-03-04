@@ -25,6 +25,10 @@ internal class Bl : IBl
     /// getting an object of enginner implementation
     /// </summary>
     public IEngineer Engineer => new EngineerImplementation();
+    /// <summary>
+    /// getting an object of user implementation
+    /// </summary>
+    public IUser User => new UserImplementation();
 
     /// <summary>
     /// a static field that keeps the current Date

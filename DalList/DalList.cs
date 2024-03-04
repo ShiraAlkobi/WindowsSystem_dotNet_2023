@@ -19,6 +19,8 @@ sealed internal class DalList : IDal
     public IEngineer Engineer => new EngineerImplementation();
 
     public IDependency Dependency => new DependencyImplementation();
+    public IUser User => new UserImplementation();
+
 
     /// <summary>
     /// properties for the project's start and end dates and status

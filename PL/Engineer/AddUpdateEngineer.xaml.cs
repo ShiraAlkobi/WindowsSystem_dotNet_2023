@@ -91,10 +91,8 @@ namespace PL.Engineer
                 {
                     ///read the right engineer according to the given id
                     CurrentEngineer = s_bl.Engineer.Read(id);
-  
-                    
-
-                }///if an exception was thrown from the read function, catch it and show a message box which explains the exception
+                }
+                ///if an exception was thrown from the read function, catch it and show a message box which explains the exception
                 catch (BO.BlDoesNotExistException e)
                 {
                     MessageBox.Show($"Engineer with id: {id} does not exist", "Input Error!",
@@ -143,29 +141,7 @@ namespace PL.Engineer
         /// <param name="e"></param>
         private void UpdateEngineer_Click(object sender, RoutedEventArgs e)
         {
-            if (CurrentEngineer.Task != null)
-            {
-                BO.Task task = s_bl.Task.Read(CurrentEngineer.Task.Id);
-                s_bl.Task.Update(new()
-                {
-                    Id = task.Id,
-                    Alias = task.Alias,
-                    Description = task.Description,
-                    Dependencies = task.Dependencies,
-                    Status = task.Status,
-                    CreatedAtDate = task.CreatedAtDate,
-                    ScheduledDate = task.ScheduledDate,
-                    StartDate = DateTime.Now,
-                    ForecastDate = task.ForecastDate,
-                    RequiredEffortTime = task.RequiredEffortTime,
-                    DeadlineDate = task.DeadlineDate,
-                    CompleteDate = task.CompleteDate,
-                    Deliverables = task.Deliverables!,
-                    Remarks = task.Remarks!,
-                    Engineer = task.Engineer,
-                    Complexity = task.Complexity
-                });
-            }
+            
             ///create an new engineer according to the inserted values
             BO.Engineer newEngineer = new()
             {

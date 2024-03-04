@@ -7,7 +7,7 @@ using DO;
 ///CRUD functions for the engineer entity
 internal class TaskImplementation : ITask ///derived from this interface
 {
-    ///getting an task's object and adding it to the DataSounce
+    ///getting a task's object and adding it to the DataSounce
     public int Create(Task item)
     { 
         int newID = DataSource.Config.NextTaskId; ///identifing

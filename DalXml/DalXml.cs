@@ -22,6 +22,8 @@ namespace Dal
         public ITask Task => new TaskImplementation();
         public IEngineer Engineer => new EngineerImplementation();
         public IDependency Dependency => new DependencyImplementation();
+        public IUser User => new UserImplementation();
+
 
         /// <summary>
         /// these properties represents the project start and end dates
