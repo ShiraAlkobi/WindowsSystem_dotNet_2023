@@ -10,7 +10,7 @@
         <Grid Margin="0,0,552,0" VerticalAlignment="Top" >
             <!-- Personal Information Section -->
             <StackPanel Background="LightGray" Margin="0,10,0,0" >
-                <Image HorizontalAlignment="Left" Height="75" Width="85" Source="YourImagePathHere.png"/>
+                <Image Height="75" Margin="20,20,20,0" Width="87" Source="/Engineer/user (1).png"/>
                 <TextBlock Text="Personal Information:" FontSize="16" FontWeight="Bold" Margin="0,10,0,5"/>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <Label Content="Id:" Width="50" VerticalAlignment="Center"/>
@@ -18,13 +18,17 @@
                 </StackPanel>
                 <StackPanel  Orientation="Horizontal" Margin="0,5,0,0">
                     <Label Content="Name:" Width="50" VerticalAlignment="Center"/>
-                    <Label Content="{Binding CurrentEngineerUser.Name}" BorderBrush="#FF22026C" BorderThickness="1.5" VerticalAlignment="Center"/>
+                    <Label Content="{Binding CurrentEngineerUser.Name}" BorderBrush="#FF22026C" BorderThickness="1.5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </StackPanel>
-                <Button Content="Edit" Margin="0,10,0,0" Height="30" Click="EditEngineer_Click" Background="#007ACC" Foreground="White"/>
+                <Button Height="30" BorderThickness="0" Margin="20,15,20,20" Click="EditEngineer_Click" HorizontalAlignment="Right" Background="Transparent" Foreground="White" Width="58">
+                    <Image Source="C:\Users\User\Downloads\pencil.png" />
+                </Button>
+
+
             </StackPanel>
 
             <!-- Current Task Section -->
-            <StackPanel Background="LightGray" Margin="0,268,0,-173" >
+            <StackPanel Background="LightGray" Margin="0,263,0,-171" >
                 <TextBlock Text="Current Task:" FontSize="16" FontWeight="Bold" Margin="0,10,0,5"/>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0" RenderTransformOrigin="0.5,0.5">
                     <StackPanel.RenderTransform>
@@ -42,9 +46,12 @@
                     <Label Content="Alias:" Width="50" VerticalAlignment="Center"/>
                     <Label Content="{Binding CurrentEngineerUser.Task.Alias}" BorderBrush="#FF22026C" BorderThickness="1.5" VerticalAlignment="Center"/>
                 </StackPanel>
-                <Button Content="Edit" Margin="0,10,0,0" Height="30" Click="EditTask_Click" Background="#007ACC" Foreground="White"/>
+                <Button Height="30" BorderThickness="0" Margin="20,15,20,20" HorizontalAlignment="Right" Click="EditTask_Click" Background="Transparent" Foreground="White" Width="58">
+                    <Image Source="C:\Users\User\Downloads\pencil.png" />
+                </Button>
                 <ProgressBar Height="20" Margin="0,10,0,0"/>
             </StackPanel>
+
         </Grid>
 
         <!-- Action Section -->

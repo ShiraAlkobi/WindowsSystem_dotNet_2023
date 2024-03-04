@@ -55,7 +55,33 @@
         <Button Content="Handle Engineers" Style="{StaticResource ButtonStyle}" Click="btn_EngineerList_Click" Margin="400,177,0,0" Height="104" Width="200"/>
         <Button Content="Gantt Chart" Style="{StaticResource ButtonStyle}" Click="btn_GanttChart_Click" Margin="34,299,0,0" Height="104" Width="200"/>
         <Button Content="Set start date" Style="{StaticResource ButtonStyle}" Click="btn_setStartDate_Click" Margin="34,28,0,0" Height="56" Width="267"/>
-        <Label Content="{Binding CurrentDate}" HorizontalAlignment="Left" Margin="387,28,0,0" VerticalAlignment="Top" Height="66" Width="336" FontFamily="Bahnschrift" FontSize="24" HorizontalContentAlignment="Center"/>
+        <Label Content="{Binding CurrentDate}" HorizontalAlignment="Left" Margin="387,28,0,0" VerticalAlignment="Top" Height="66" Width="336" FontFamily="Bahnschrift" FontSize="24" HorizontalContentAlignment="Center">
+            <Label.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+            </Label.RenderTransform>
+            <Label.Triggers>
+                <EventTrigger RoutedEvent="Label.MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Label.RenderTransform).(ScaleTransform.ScaleX)"
+                                     To="1.1" Duration="0:0:0.3"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(Label.RenderTransform).(ScaleTransform.ScaleY)"
+                                     To="1.1" Duration="0:0:0.3"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="Label.MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Label.RenderTransform).(ScaleTransform.ScaleX)"
+                                     To="1" Duration="0:0:0.3"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(Label.RenderTransform).(ScaleTransform.ScaleY)"
+                                     To="1" Duration="0:0:0.3"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Label.Triggers>
+        </Label>
         <Button Content="Add Hour" HorizontalAlignment="Left" Margin="387,99,0,0" VerticalAlignment="Top" Height="31" Width="84" Click="AddHour_Click"/>
         <Button Content="Add Day" HorizontalAlignment="Left" Margin="471,99,0,0" VerticalAlignment="Top" Height="31" Width="84" Click="AddDay_Click"/>
         <Button Content="Add Month" HorizontalAlignment="Left" Margin="555,99,0,0" VerticalAlignment="Top" Height="31" Width="84" Click="AddMonth_Click"/>

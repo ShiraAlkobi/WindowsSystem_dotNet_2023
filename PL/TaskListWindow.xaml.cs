@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -40,15 +41,30 @@ namespace PL
         ///// </summary>
         ///// <param name="sender"></param>
         ///// <param name="e"></param>
-        private void cbExperienceSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        public IEnumerable<BO.EngineerInTask> Engineers
         {
-            TaskList = (Complexity == BO.EngineerExperience.All) ?
-                s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Complexity == Complexity)!;
+            get { return (IEnumerable<BO.EngineerInTask>)GetValue(EngineersProperty); }
+            set { SetValue(EngineersProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for AllTasks.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty EngineersProperty =
+            DependencyProperty.Register("Engineers", typeof(IEnumerable<BO.EngineerInTask>), typeof(TaskListWindow), new PropertyMetadata(null));
+
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton radioButton && radioButton.Content is BO.EngineerExperience selectedComplexity)
+            {
+                TaskList = (selectedComplexity == BO.EngineerExperience.All) ?
+              s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Complexity == selectedComplexity)!;
+            }
         }
         public TaskListWindow()
         {
             InitializeComponent();
             TaskList = s_bl?.Task.ReadAll()!;
+            Engineers = from item in s_bl?.Engineer.ReadAll()
+                        select new BO.EngineerInTask() { Id = item.Id, Name = item.Name };
         }
 
         private void AddTaskWindow_Click(object sender, RoutedEventArgs e)
@@ -73,11 +89,30 @@ namespace PL
 
        
 
-        private void status_SelectionChanged(object sender, SelectionChangedEventArgs e)
+ 
+
+        private void RadioButton_CheckedStatus(object sender, RoutedEventArgs e)
         {
-            TaskList = (Status == BO.Status.Unscheduled) ?
-               s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Status == Status)!;
-            
+            if (sender is RadioButton radioButton && radioButton.Content is BO.Status selectedStatus)
+            {
+                TaskList = (selectedStatus == BO.Status.Unscheduled) ?
+               s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Status == selectedStatus)!;
+            }
+        }
+
+        private void RadioButton_CheckedEngineer(object sender, RoutedEventArgs e)
+        {
+            if (sender is RadioButton radioButton && radioButton.Content is BO.EngineerInTask selectedEngineer)
+            {
+                TaskList = from task in s_bl?.Task.ReadAll()
+                           where (s_bl?.Task.Read(task.Id).Engineer?.Id == selectedEngineer.Id)
+                           select task;
+            }
+        }
+
+        private void resetFilter_Click(object sender, RoutedEventArgs e)
+        {
+            TaskList = s_bl?.Task.ReadAll();
         }
     }
 }

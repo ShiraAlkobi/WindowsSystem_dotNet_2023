@@ -29,56 +29,56 @@
             </Grid.ColumnDefinitions>
 
             <!-- Show filtering criteria -->
-            <Label Content="filter by:" FontSize="20" HorizontalAlignment="Left" Margin="10,1,0,0" VerticalAlignment="Top" Width="200" RenderTransformOrigin="0.508,0.651"/>
 
             <!-- Filtering options , changing list of engineers according to expereince chosen-->
             <!-- TODO: change filter-->
-            <ComboBox Margin="369,24,261,0" 
-                ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" Height="41" Grid.ColumnSpan="2"
-                SelectedValue="{Binding Path=Status, Mode=TwoWay}" SelectionChanged="status_SelectionChanged">
-                <!-- Apply the button style to the ComboBox -->
-                <ComboBox.Style>
-                    <Style TargetType="{x:Type ComboBox}">
-                        <Setter Property="Foreground" Value="black"/>
-                        <Setter Property="Background" Value="#FF76C7C0"/>
-                        <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                        <Setter Property="BorderThickness" Value="2"/>
-                        <Setter Property="FontSize" Value="16"/>
-                        <Setter Property="Padding" Value="5"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF62A29D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </ComboBox.Style>
-            </ComboBox>
-            <ComboBox Margin="110,24,125,0" 
-                ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" Height="41"
-                SelectedValue="{Binding Path=Complexity, Mode=TwoWay}" SelectionChanged="cbExperienceSelector_SelectionChanged">
-                <!-- Apply the button style to the ComboBox -->
-                <ComboBox.Style>
-                    <Style TargetType="{x:Type ComboBox}">
-                        <Setter Property="Foreground" Value="black"/>
-                        <Setter Property="Background" Value="#FF76C7C0"/>
-                        <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                        <Setter Property="BorderThickness" Value="2"/>
-                        <Setter Property="FontSize" Value="16"/>
-                        <Setter Property="Padding" Value="5"/>
-                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="VerticalAlignment" Value="Top"/>
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#FF62A29D"/>
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </ComboBox.Style>
-            </ComboBox>
-            <Label Content="complexity" HorizontalAlignment="Left" Margin="110,0,0,0" VerticalAlignment="Top" Width="188" Height="38" FontWeight="Bold"/>
-            <Label Content="status" HorizontalAlignment="Left" Margin="369,2,0,0" VerticalAlignment="Top" Width="188" Height="38" Grid.ColumnSpan="2" FontWeight="Bold"/>
+
+
+
+            <Menu HorizontalAlignment="Left" Margin="108,0,0,0" VerticalAlignment="Center" Width="256" Height="36" Grid.Column="1" >
+                <!-- Complexity Submenu -->
+                <MenuItem Header="Filter:" Height="35" Width="255" FontSize="20" FontFamily="Guttman Haim" >
+                    <!-- Complexity Submenu -->
+                    <MenuItem Header="reset filter" Click="resetFilter_Click"></MenuItem>
+                    <MenuItem Header="Complexity" Height="20">
+                        <ItemsControl ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" Height="100" >
+                            <ItemsControl.ItemTemplate >
+                                <DataTemplate >
+                                    <RadioButton Content="{Binding}" GroupName="Complexity" Checked="RadioButton_Checked" IsChecked="{Binding Path=Complexity, Mode=TwoWay}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </MenuItem>
+
+
+
+                    <!-- Status Submenu -->
+                    <MenuItem Header="Status">
+                        <ItemsControl ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" Height="100" >
+                            <ItemsControl.ItemTemplate >
+                                <DataTemplate >
+                                    <RadioButton Content="{Binding}" GroupName="Status" Checked="RadioButton_CheckedStatus" IsChecked="{Binding Path=Status, Mode=TwoWay}" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </MenuItem>
+
+                    <!-- Engineer ID Submenu -->
+                    <MenuItem Header="Engineer">
+                        <Grid Height="100">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right">
+                                <ItemsControl ItemsSource="{Binding Engineers}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <RadioButton Content="{Binding}" GroupName="Engineers" Checked="RadioButton_CheckedEngineer" IsChecked="{Binding Path=Status, Mode=TwoWay}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </ScrollViewer>
+                        </Grid>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
         </Grid>
 
         <!-- ListView ,if clicked o engineer, an update window will open-->

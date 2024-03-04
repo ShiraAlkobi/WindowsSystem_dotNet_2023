@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddUpdateTask" Height="630" Width="600">
-
+        Title="AddUpdateTask" Height="630" Width="600"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
     <!-- Window background color -->
     <Window.Background>
         <SolidColorBrush Color="#FFD4EDE6"/>
@@ -81,9 +81,8 @@
             <ComboBox
                    ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 
                     SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay}" Height="22"/>
-
         </StackPanel>
-
+       
         <ListBox x:Name="ExistedDependencies" Margin="350,56,18,380" ItemsSource="{Binding SelectedDependencies,Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListBox.ItemTemplate>
                 <DataTemplate>

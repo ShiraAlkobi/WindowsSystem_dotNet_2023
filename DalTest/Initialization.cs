@@ -2,6 +2,9 @@
 using DalApi;
 using DO;
 using System;
+using System.Diagnostics.Metrics;
+using System.Numerics;
+using System.Runtime.ConstrainedExecution;
 using System.Security.Cryptography;
 /// <summary>
 /// this file will initialize the entities with our project`s(house renovation) details- 
@@ -19,7 +22,7 @@ public static class Initialization
     /// </summary>
     private static void createTasks()
     {
-        string[] taskDescriptions = {//array with 20 tasks
+        string[] taskNames = {//array with 20 tasks
                 "Define Renovation Goals and Budget",
                 "Hire Architect and Interior Designer",
                 "Obtain Necessary Permits",
@@ -40,17 +43,41 @@ public static class Initialization
                 "Landscaping and Outdoor Improvements",
                 "Final Inspection",
                 "Cleanup and Interior Decorating"
-            };
+        };
+        string[] taskDescriptions =
+            {
+                "Work with stakeholders to set clear renovation goals and establish a budget.",
+                "Engage professionals to design and plan the renovation project.",
+                "Acquire all required permits from local authorities.",
+                "Clear the space by demolishing existing structures and preparing the site.",
+                "Implement structural modifications as needed.",
+                "Install or modify plumbing and electrical systems.",
+                "Lay down new flooring materials.",
+                "Renovate and upgrade the kitchen area.",
+                "Renovate and upgrade the bathroom area.",
+                "Apply paint and finish to walls.",
+                "Install new windows and doors.",
+                "Repair or replace the roof as necessary.",
+                "Install heating, ventilation, and air conditioning systems.",
+                "Install new lighting fixtures.",
+                "Add insulation to walls and ceilings.",
+                "Install cabinets and storage units.",
+                "Install fixtures and appliances.",
+                "Enhance the outdoor spaces.",
+                "Conduct a thorough inspection to ensure everything meets standards.",
+                "Clean the renovated space and add final interior touches."
+         };
         ///loop that will initialize the id, create time and description fields of task
         ///and push it to the list using create() of interface
         for (int i = 0; i < 20; i++)
         {
+            DO.EngineerExperience t_Complexity = (DO.EngineerExperience)s_rand.Next(1, 6);
             TimeSpan t_requiredEffortTime = TimeSpan.FromDays(s_rand.Next(30, 50));
-            string t_Alias = $"TaskName{i + 1}";//id
+            string t_Alias = taskNames[i];//id
             string t_Description = taskDescriptions[i];//what is the task (using the array)
             DateTime t_CreatedAtDate = DateTime.Now;//initialize the creation date of the task to today
             //creating new task wuth the correct fields
-            Task t_Task = new Task(0, t_Alias, t_Description, false, t_CreatedAtDate, default, default, t_requiredEffortTime, default, default, null, null, 0, DO.EngineerExperience.Beginner);
+            Task t_Task = new Task(0, t_Alias, t_Description, false, t_CreatedAtDate, default, default, t_requiredEffortTime, default, default, null, null, 0, t_Complexity);
             s_dal!.Task.Create(t_Task);//push it to list
         }
     }
@@ -62,7 +89,15 @@ public static class Initialization
     {
         //6 names for the engineers
         string[] names =
-        { "ProjectManager","Architect","InteriorDesigner","ConstructionCrew","Electrician","Plumber" };
+        {
+
+            "Amit Cohen",
+            "Maya Levi",
+            "Odeya Lapian",
+            "Yael Shoham",
+            "Itay Avraham",
+            "Noa moshe" 
+        };
         Engineer t_Engineer = new Engineer();//create new engineer
         for (int i = 0; i < 6; i++)
         {
@@ -70,13 +105,13 @@ public static class Initialization
             do
                 t_Id = s_rand.Next(100000000, 999999999);//random id
             while (s_dal!.Engineer.Read(t_Id) != null);//if the random id already exists, draw another one
-            string t_Email = $"{names[i]}@jct.com"; //create an email according to the engineer's name
+            string t_Email = $"{names[i].Split(' ')[0]}@reno.com"; //create an email according to the engineer's name
             double t_Cost = s_rand.Next(50,400); //create a random hourly wage
-            DO.EngineerExperience t_Level = (DO.EngineerExperience)s_rand.Next(1, 5);
+            DO.EngineerExperience t_Level = (DO.EngineerExperience)s_rand.Next(1, 6);
             t_Engineer = new Engineer(t_Id, t_Email, t_Cost, names[i],t_Level);//initialize the engineer with the id
             s_dal!.Engineer.Create(t_Engineer);//push to list
         }
-        s_dal!.Engineer.Create(new Engineer(12345678, "Engineer@.com", 50, "engineer", EngineerExperience.Beginner));
+        s_dal!.Engineer.Create(new Engineer(12345678, "Manager@reno.com", 50, "Manager", EngineerExperience.Expert));
     }
     /// <summary>
     /// this function initialize dependencies- cant start task without other done
@@ -88,33 +123,65 @@ public static class Initialization
         {
             Dependency d;
             Task t1;
-            //loop that will create the dependencies between the
-            //first task-Define Renovation Goals and Budget to the others
-            //cant start any of the other tasks without completing the first one
-            for (int i = 1; i <19; i++)
+            d = new Dependency(0, 2, 1);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 3, 2);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 4, 3);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 5, 4);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 6, 4);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 7, 4);
+            s_dal!.Dependency.Create(d);
+            for (int i=5;i<8;i++)
             {
-                t1 = TaskList[i];
-                d = new Dependency(0, t1.Id, TaskList[0].Id);
+                d = new Dependency(0, 8, i);
                 s_dal!.Dependency.Create(d);
             }
-            //loop that will create the dependencies between the
-            //last task-Cleanup and Interior Decorating to the others
-            //cant start the last task without completing all the others
-            for (int i = 0; i < 18; i++)
+            for (int i = 5; i < 8; i++)
             {
-                t1 = TaskList[i+1];
-                d = new Dependency(0, TaskList[19].Id, t1.Id);
+                d = new Dependency(0, 9, i);
                 s_dal!.Dependency.Create(d);
             }
-            //loop that will create the dependencies between the
-            //second to last task-Final Inspection to the others
-            //cant start this task without completing the tasks before it
-            for (int i = 0; i < 17; i++)
+            for (int i = 10; i < 16; i++)
             {
-                t1 = TaskList[i+1];
-                d = new Dependency(0, TaskList[18].Id, t1.Id);
+                d = new Dependency(0, i, 5);
+                s_dal!.Dependency.Create(d);
+                d = new Dependency(0, i, 6);
                 s_dal!.Dependency.Create(d);
             }
+            d = new Dependency(0, 11, 10);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 14, 10);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 16, 8);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 17, 8);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 17, 9);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 18, 12);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 18, 13);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 19, 8);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 19, 9);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 19, 11);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 19, 14);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 19, 15);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 19, 17);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 20, 19);
+            s_dal!.Dependency.Create(d);
+
+         
         }
     }
     /// <summary>
