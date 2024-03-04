@@ -129,6 +129,10 @@ namespace PL
             CurrentDate = s_bl.Clock;
         }
 
-
+        private void btn_ResetClock_Click(object sender, RoutedEventArgs e)
+        {
+            s_bl.ResetClock();
+            CurrentDate = s_bl.Clock;
+        }
     }
 }

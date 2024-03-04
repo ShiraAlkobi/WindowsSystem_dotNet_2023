@@ -265,24 +265,4 @@
     <DependentTask>19</DependentTask>
     <DependsOnTask>18</DependsOnTask>
   </Dependency>
-  <Dependency>
-    <Id>54</Id>
-    <DependentTask>4</DependentTask>
-    <DependsOnTask>2</DependsOnTask>
-  </Dependency>
-  <Dependency>
-    <Id>55</Id>
-    <DependentTask>6</DependentTask>
-    <DependsOnTask>2</DependsOnTask>
-  </Dependency>
-  <Dependency>
-    <Id>56</Id>
-    <DependentTask>10</DependentTask>
-    <DependsOnTask>2</DependsOnTask>
-  </Dependency>
-  <Dependency>
-    <Id>57</Id>
-    <DependentTask>3</DependentTask>
-    <DependsOnTask>18</DependsOnTask>
-  </Dependency>
 </ArrayOfDependency>

@@ -60,7 +60,9 @@
         <Button Content="Add Day" HorizontalAlignment="Left" Margin="471,99,0,0" VerticalAlignment="Top" Height="31" Width="84" Click="AddDay_Click"/>
         <Button Content="Add Month" HorizontalAlignment="Left" Margin="555,99,0,0" VerticalAlignment="Top" Height="31" Width="84" Click="AddMonth_Click"/>
         <Button Content="Add Year" HorizontalAlignment="Left" Margin="639,99,0,0" VerticalAlignment="Top" Height="31" Width="84" Click="AddYear_Click"/>
-
+        <Button BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Height="44" Margin="387,28,0,0" VerticalAlignment="Top" Width="42" Click="btn_ResetClock_Click">
+            <Image Source="/restart_icon_227406.png" />
+        </Button>
 
 
     </Grid>

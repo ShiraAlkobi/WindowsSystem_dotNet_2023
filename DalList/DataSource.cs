@@ -8,6 +8,8 @@ internal static class DataSource
     internal static List<DO.Dependency?> Dependencys { get; } = new();
     internal static List<DO.Engineer?> Engineers { get; } = new();
     internal static List<DO.Task?> Tasks { get; } = new();
+    internal static List<DO.User?> Users { get; } = new();
+
 
     /// <summary>
     /// Unique identifing number for each task and dependency, project's start and end dates and status

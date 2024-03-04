@@ -93,6 +93,7 @@ namespace PL.Engineer
             }
 
             this.DataContext = this;
+
         }
 
         private void taskCompleted_Click(object sender, RoutedEventArgs e)

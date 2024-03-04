@@ -7,6 +7,7 @@ public interface IBl
 {
     public ITask Task { get;} 
     public IEngineer Engineer { get; }
+    public IUser User { get; }
 
     /// <summary>
     /// sets the plan stage status in the data source

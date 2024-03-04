@@ -21,34 +21,26 @@ namespace PL
     public partial class EntryWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
-        public string UserName
+
+        public BO.User CurrentUser
         {
-            get { return (string)GetValue(userNameProperty); }
-            set { SetValue(userNameProperty, value); }
+            get { return (BO.User)GetValue(CurredntUserProperty); }
+            set { SetValue(CurredntUserProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty userNameProperty =
-            DependencyProperty.Register("UserName", typeof(string), typeof(EntryWindow), new PropertyMetadata(null));
-
-        public string Password
-        {
-            get { return (string)GetValue(passwordProperty); }
-            set { SetValue(passwordProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for MyProperty.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty passwordProperty =
-            DependencyProperty.Register("Password", typeof(string), typeof(EntryWindow), new PropertyMetadata(null));
+        // Using a DependencyProperty as the backing store for CurredntUser.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurredntUserProperty =
+            DependencyProperty.Register("CurredntUser", typeof(BO.User), typeof(EntryWindow), new PropertyMetadata(null));
 
 
 
         public EntryWindow()
         {
             InitializeComponent();
-            UserName = "Enter User Name...";
-            Password = "Enter Password...";
 
+            CurrentUser = new BO.User();
+
+                
             this.DataContext = this;
         }
 
@@ -99,56 +91,34 @@ namespace PL
         }
 
         private void btn_LogIn_Click(object sender, RoutedEventArgs e)
-        {
-            string user = UserName_text.Text;
-            string password = Password_text.Text;
-            int numPassword = 0;
-            int.TryParse(password, out numPassword);
-            bool flag = false;
-            if (user == "Manager" && numPassword == 1)
-            {
-                new MainWindow().Show();
-                Close();
-            }
-            else
-            {
-                
-                
-                    //if (!ContainsOnlyLetters(user))
-                    //{
-                    //    MessageBox.Show("The User Name must contain only letters! ", "User Name Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    //    UserName_text.Text = string.Empty;
-                    //}
-                    //if (!IsNumeric(password))
-                    //{
-                    //    MessageBox.Show("The Password must contain only numbers! ", "Password Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                    //    Password_text.Text = string.Empty;
-                    //}
-                    //else
-                    {
-                        try
-                        {
-                            BO.Engineer t_enginer = s_bl.Engineer.Read(numPassword);
-                            if (t_enginer.Name != user)
-                            {
-                                MessageBox.Show($"The user name - {user} does not exist in the project, please try again", "User Name Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                                UserName_text.Text = string.Empty;
-                            }
-                            else flag = true;
+        {           
+            int userId= Convert.ToInt32(CurrentUser.UserName);
 
-                        }
-                        catch (BO.BlDoesNotExistException ex)
-                        {
-                            MessageBox.Show("The Password is incorrect, please try again", "Password Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                            Password_text.Text = string.Empty;
-                        }
-                    }
+            try
+            {
+                BO.User t_user = s_bl.User.Read(userId);
+                if (t_user.Position == BO.Position.Manager)
+                {
+                    new MainWindow().ShowDialog();
+                    Close();
                 }
-                new EngineerWindow(numPassword).Show(); 
-                Close();
+                else
+                {
+                    if (t_user.Password != CurrentUser.Password)
+                    {
+                        MessageBox.Show("Password is wrong, try again", "", MessageBoxButton.OK);
+                    }
+                    else new EngineerWindow(t_user.Id).ShowDialog();
+
+                }
+            }
+            ///user id was not found - means the user name is definately wrong
+            catch (BO.BlDoesNotExistException)
+            {
+                MessageBox.Show("User Name or Password are wrong, try again", "", MessageBoxButton.OK);
+            }
             
-
-
         }
+
     }
 }

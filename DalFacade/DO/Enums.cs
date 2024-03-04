@@ -14,3 +14,9 @@ public enum ProjectStatus
     PlanStage,
     ExecutionStage
 }
+
+public enum Position
+{
+    Engineer,
+    Manager
+}

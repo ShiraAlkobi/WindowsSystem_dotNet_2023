@@ -12,19 +12,13 @@
         <Button Content="Engineer" Height="80" Width="150" HorizontalAlignment="Center" Margin="440,344,0,0" VerticalAlignment="Top" Click="btn_EngineerWindow_Click"/>
         <Label Content="Logo" Height="54" Margin="259,16,215,0" VerticalAlignment="Top" FontFamily="Sitka Text Semibold" FontSize="36"/>
         <Label Content="User Name:" Height="27" Margin="0,113,300,0" FontFamily="Sitka Text" HorizontalAlignment="Right" VerticalAlignment="Top"/>
-        <TextBox x:Name="Password_text" Text="{Binding Password}" HorizontalAlignment="Center" Height="24" Margin="0,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+        <TextBox Text="{Binding CurrentUser.Password}" HorizontalAlignment="Center" Height="24" Margin="0,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
 
-        <TextBox x:Name="UserName_text" Text="{Binding UserName}" HorizontalAlignment="Center" Height="24" Margin="0,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
+        <TextBox Text="{Binding CurrentUser.UserName}" HorizontalAlignment="Center" Height="24" Margin="0,145,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="154" GotFocus="TextBox_GotFocus" LostFocus="TextBox_LostFocus"/>
         <Button Content="Log In" HorizontalAlignment="Center" Height="26" Margin="0,276,0,0" VerticalAlignment="Top" Width="100" FontFamily="Sitka Text" FontSize="18" Click="btn_LogIn_Click"/>
         <Expander HorizontalAlignment="Left" Height="67" Margin="385,150,0,0" VerticalAlignment="Top" Width="204">
-            <TextBlock Text="User name must include at least one capital letter
-                                        No special characters or numbers are allowed" TextWrapping="WrapWithOverflow" Margin="0,0,0,-34"/>
-        </Expander>
-        <Expander HorizontalAlignment="Left" Height="99" Margin="385,217,0,0" VerticalAlignment="Top" Width="205">
-            <TextBlock Text="Password must include 6 numbers.
-                       No special characters or letters are allowed.
-                                            For Engineers - the password is your id.
-                                                         For Managers - the password is the constant code you have." TextWrapping="WrapWithOverflow" Margin="0,0,0,-41"/>
+            <TextBlock Text="User name is your personal Id
+                                        No special characters are allowed" TextWrapping="WrapWithOverflow" Margin="0,0,0,-34"/>
         </Expander>
         <Label Content="Password:" Height="27" Margin="0,185,308,0" FontFamily="Sitka Text" HorizontalAlignment="Right" VerticalAlignment="Top"/>
 
