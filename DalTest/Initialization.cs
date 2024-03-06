@@ -96,7 +96,7 @@ public static class Initialization
             "Odeya Lapian",
             "Yael Shoham",
             "Itay Avraham",
-            "Noa moshe" 
+            "Noa Moshe" 
         };
         Engineer t_Engineer = new Engineer();//create new engineer
         for (int i = 0; i < 6; i++)
@@ -111,7 +111,7 @@ public static class Initialization
             t_Engineer = new Engineer(t_Id, t_Email, t_Cost, names[i],t_Level);//initialize the engineer with the id
             s_dal!.Engineer.Create(t_Engineer);//push to list
         }
-        s_dal!.Engineer.Create(new Engineer(12345678, "Manager@reno.com", 50, "Manager", EngineerExperience.Expert));
+        s_dal!.Engineer.Create(new Engineer(87654321, "Engineer@reno.com", 50, "Engineer", EngineerExperience.Expert));
     }
     /// <summary>
     /// this function initialize dependencies- cant start task without other done
@@ -265,14 +265,14 @@ public static class Initialization
             }
         }
 
-        //List<User> users = s_dal.User.ReadAll()!.ToList<User>();
-        //if (users.Count > 0)
-        //{
-        //    foreach (User user in users)
-        //    {
-        //        s_dal.User.Delete(user.Id);
-        //    }
-        //}
+        List<User> users = s_dal.User.ReadAll()!.ToList<User>();
+        if (users.Count > 0)
+        {
+            foreach (User user in users)
+            {
+                s_dal.User.Delete(user.Id);
+            }
+        }
 
         s_dal.ResetId();
         s_dal.setStatus();

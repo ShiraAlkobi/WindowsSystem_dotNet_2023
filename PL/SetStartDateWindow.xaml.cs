@@ -19,9 +19,34 @@ namespace PL
     /// </summary>
     public partial class SetStartDateWindow : Window
     {
+
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public DateTime StartDate
+        {
+            get { return (DateTime)GetValue(StartDateProperty); }
+            set { SetValue(StartDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for StartDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty StartDateProperty =
+            DependencyProperty.Register("StartDate", typeof(DateTime), typeof(SetStartDateWindow), new PropertyMetadata(default));
+
+
         public SetStartDateWindow()
         {
             InitializeComponent();
+            StartDate = DateTime.Now;
+        }
+
+        private void setDate_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBoxResult result = MessageBox.Show("NOTE! You can only set the start date once.\n To confirm, press OK","",MessageBoxButton.OKCancel,MessageBoxImage.Warning);
+            if (result == MessageBoxResult.OK)
+            {
+                s_bl.setStartAndEndDates(StartDate);
+
+                Close();
+            }
         }
     }
 }

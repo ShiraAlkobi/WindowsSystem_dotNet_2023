@@ -51,7 +51,7 @@ namespace PL
 
         private void btn_EngineerWindow_Click(object sender, RoutedEventArgs e)
         {
-            new EngineerWindow(12345678).ShowDialog();
+            new EngineerWindow(CurrentUser.Id).Show();
         }
 
 
@@ -97,19 +97,27 @@ namespace PL
             try
             {
                 BO.User t_user = s_bl.User.Read(userId);
-                if (t_user.Position == BO.Position.Manager)
+                if (t_user.Password != CurrentUser.Password)
                 {
-                    new MainWindow().ShowDialog();
-                    Close();
+                    MessageBox.Show("Password is wrong, try again", "", MessageBoxButton.OK);
                 }
                 else
                 {
-                    if (t_user.Password != CurrentUser.Password)
+                    if (t_user.Position == BO.Position.Manager)
                     {
-                        MessageBox.Show("Password is wrong, try again", "", MessageBoxButton.OK);
+                        new MainWindow().ShowDialog();
+                        Close();
                     }
-                    else new EngineerWindow(t_user.Id).ShowDialog();
+                    else
+                    {
+                        if (s_bl.getProjectStatus() == BO.ProjectStatus.PlanStage)
+                        {
+                            MessageBox.Show("Engineer can not enter the system in this stage.", "", MessageBoxButton.OK, MessageBoxImage.Stop);
+                        }
+                        
+                        else new EngineerWindow(t_user.Id).Show();
 
+                    }
                 }
             }
             ///user id was not found - means the user name is definately wrong

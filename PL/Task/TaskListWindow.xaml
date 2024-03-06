@@ -37,7 +37,7 @@
 
             <Menu HorizontalAlignment="Left" Margin="108,0,0,0" VerticalAlignment="Center" Width="256" Height="36" Grid.Column="1" >
                 <!-- Complexity Submenu -->
-                <MenuItem Header="Filter:" Height="35" Width="255" FontSize="20" FontFamily="Guttman Haim" >
+                <MenuItem Header="Filter:" Height="35" Width="255" FontSize="20" FontFamily="Candara" >
                     <!-- Complexity Submenu -->
                     <MenuItem Header="reset filter" Click="resetFilter_Click"></MenuItem>
                     <MenuItem Header="Complexity" Height="20">

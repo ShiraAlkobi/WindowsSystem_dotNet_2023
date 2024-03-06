@@ -30,7 +30,7 @@
         <!--using binding according to each value of the engineer properties-->
         <!--the comboBox is the enum of the engineer experience-->
         <!--The task and id fields depends on the id - the isEnabled attribute is binding according to the id-->
-        <StackPanel HorizontalAlignment="right" Margin="0,36,50,79" Width="156" >
+        <StackPanel HorizontalAlignment="Right" Margin="0,36,31,79" Width="234" >
             <TextBox Margin="0,5,0,10"
                  Text="{Binding CurrentEngineer.Id, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      IsEnabled="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToIsEnabledConverter}}"/>
@@ -103,6 +103,6 @@
                 </Style>
             </Button.Style>
         </Button>
-        
+
     </Grid>
 </Window>

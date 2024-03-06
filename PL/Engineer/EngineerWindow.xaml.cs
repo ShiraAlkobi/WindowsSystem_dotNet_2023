@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -56,15 +57,15 @@ namespace PL.Engineer
             get { return (BO.Task)GetValue(TaskDetailsProperty); }
             set { SetValue(TaskDetailsProperty, value); }
         }
-        public IEnumerable<BO.TaskInList> AvailableTasks
+        public ObservableCollection<BO.TaskInList> AvailableTasks
         {
-            get { return (IEnumerable<BO.TaskInList>)GetValue(AvailableTasksProperty); }
+            get { return (ObservableCollection<BO.TaskInList>)GetValue(AvailableTasksProperty); }
             set { SetValue(AvailableTasksProperty, value); }
         }
 
         // Using a DependencyProperty as the backing store for AllTasks.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AvailableTasksProperty =
-            DependencyProperty.Register("AvailableTasks", typeof(IEnumerable<BO.TaskInList>), typeof(EngineerWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("AvailableTasks", typeof(ObservableCollection<BO.TaskInList>), typeof(EngineerWindow), new PropertyMetadata(null));
         public EngineerWindow(int id)
         {
             InitializeComponent();
@@ -78,9 +79,9 @@ namespace PL.Engineer
                  CurrentAssignedTask = s_bl.Task.Read(CurrentEngineerUser.Task.Id);
                 else
                     CurrentAssignedTask=new BO.Task();
-                AvailableTasks = (from item in s_bl.Task.ReadAll()
+                AvailableTasks = new ObservableCollection<BO.TaskInList>((from item in s_bl.Task.ReadAll()
                                   where s_bl.Engineer.checkAssignedTask(item.Id) == true
-                                  select item).ToList();
+                                  select item).ToList());
 
 
 
@@ -124,9 +125,9 @@ namespace PL.Engineer
                 
                 if (CurrentEngineerUser.Task is not null)
                     CurrentAssignedTask = s_bl.Task.Read(CurrentEngineerUser.Task.Id);
-                AvailableTasks = (from item in s_bl.Task.ReadAll()
-                                  where s_bl.Engineer.checkAssignedTask(item.Id) == true
-                                  select item).ToList();
+                AvailableTasks = new ObservableCollection<BO.TaskInList>((from item in s_bl.Task.ReadAll()
+                                                                          where s_bl.Engineer.checkAssignedTask(item.Id) == true
+                                                                          select item).ToList());
 
 
 
@@ -164,7 +165,7 @@ namespace PL.Engineer
                     Status = CurrentAssignedTask.Status,
                     CreatedAtDate = CurrentAssignedTask.CreatedAtDate,
                     ScheduledDate = CurrentAssignedTask.ScheduledDate,
-                    StartDate = DateTime.Now,
+                    StartDate = s_bl.Clock,
                     ForecastDate = CurrentAssignedTask.ForecastDate,
                     RequiredEffortTime = CurrentAssignedTask.RequiredEffortTime,
                     DeadlineDate = CurrentAssignedTask.DeadlineDate,
@@ -200,7 +201,26 @@ namespace PL.Engineer
             }
         }
 
+        private void tasksForEngineer_DropDownOpened(object sender, EventArgs e)
+        {
+            AvailableTasks = new ObservableCollection<BO.TaskInList>((from item in s_bl.Task.ReadAll()
+                                                                      where s_bl.Engineer.checkAssignedTask(item.Id) == true
+                                                                      select item).ToList());
+        }
 
+        private void viewBtn_Click(object sender, RoutedEventArgs e)
+        {
+            viewDetailsPopUp.IsOpen = true;
+        }
 
+        private void CloseBtn_Click(object sender, RoutedEventArgs e)
+        {
+            viewDetailsPopUp.IsOpen = false;
+        }
+
+        private void ViewTask_Click(object sender, RoutedEventArgs e)
+        {
+            viewDetailsTaskPopUp.IsOpen = true;
+        }
     }
 }

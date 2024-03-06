@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Engineer\user %281%29.png" />
     <None Remove="kisspng-computer-icons-clip-art-5b1f48d052afb3.3601203615287769123387.jpg" />
     <None Remove="kisspng-computer-icons-clip-art-5b1f48d052afb3.3601203615287769123387.png" />
     <None Remove="restart_icon_227406.png" />
@@ -24,10 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Manager\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <Resource Include="Engineer\user (1).png" />
     <Resource Include="kisspng-computer-icons-clip-art-5b1f48d052afb3.3601203615287769123387.jpg" />
     <Resource Include="kisspng-computer-icons-clip-art-5b1f48d052afb3.3601203615287769123387.png" />
     <Resource Include="restart_icon_227406.png" />

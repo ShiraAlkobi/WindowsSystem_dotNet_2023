@@ -22,6 +22,18 @@ namespace PL
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
 
 
+
+        public BO.ProjectStatus ProjectStatus
+        {
+            get { return (BO.ProjectStatus)GetValue(ProjectStatusProperty); }
+            set { SetValue(ProjectStatusProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProjectStatus.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty ProjectStatusProperty =
+            DependencyProperty.Register("ProjectStatus", typeof(BO.ProjectStatus), typeof(MainWindow), new PropertyMetadata(null));
+
+
         public DateTime CurrentDate
         {
             get { return (DateTime)GetValue(CurrentDateProperty); }
@@ -37,6 +49,7 @@ namespace PL
         {
             InitializeComponent();
             CurrentDate = s_bl.Clock;
+            ProjectStatus=s_bl.getProjectStatus();
             this.DataContext = this;
         }
         /// <summary>
@@ -64,6 +77,7 @@ namespace PL
                 MessageBox.Show("Data initialized!");
             }
             CurrentDate = s_bl.ResetClock();
+            ProjectStatus = s_bl.getProjectStatus();
         }
 
         private void btn_Reset_Click(object sender, RoutedEventArgs e)
@@ -75,11 +89,12 @@ namespace PL
                 MessageBox.Show("Data reset!");
             }
             CurrentDate = s_bl.ResetClock();
+            ProjectStatus = s_bl.getProjectStatus();
         }
 
         private void btn_GanttChart_Click(object sender, RoutedEventArgs e)
         {
-            
+            new GanttWindow().ShowDialog();
         }
 
 
@@ -91,22 +106,10 @@ namespace PL
         private void btn_setStartDate_Click(object sender, RoutedEventArgs e)
         {
             new SetStartDateWindow().ShowDialog();
+            ProjectStatus=s_bl.getProjectStatus();
         }
 
-        private void DatePicker_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            if (sender is DatePicker datePicker)
-            {
-                DateTime? selectedDate = datePicker.SelectedDate;
-
-                if (selectedDate is not null)
-                {
-                    DateTime start = selectedDate??DateTime.MinValue;
-                    s_bl.setStartAndEndDates(start);
-                }
-            }
-
-        }
+        
 
         private void AddHour_Click(object sender, RoutedEventArgs e)
         {
@@ -133,6 +136,7 @@ namespace PL
         {
             s_bl.ResetClock();
             CurrentDate = s_bl.Clock;
+
         }
     }
 }

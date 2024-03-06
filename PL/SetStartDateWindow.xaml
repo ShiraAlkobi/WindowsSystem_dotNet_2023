@@ -5,9 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="SetStartDateWindow" Height="100" Width="200">
-    <Grid>
-        <DatePicker HorizontalAlignment="Center" VerticalAlignment="Center" Height="33" Width="156"/>
-
+        Height="317" Width="286"
+        DataContext =  "{Binding RelativeSource = {RelativeSource Mode=self}}">
+    <Grid Margin="0,0,10,7">
+        <Calendar SelectedDate="{Binding StartDate, Mode=TwoWay}" VerticalAlignment="Center" Height="178" Width="200" DisplayMode="Month" DisplayDateStart="3/4/2024">
+        </Calendar>
+        <Label Content="Pick a start date for the project:" HorizontalAlignment="Left" Margin="53,10,0,0" VerticalAlignment="Top" Width="185"/>
+        <Button Content="set" HorizontalAlignment="Center" Margin="0,219,0,0" VerticalAlignment="Top" Width="92" Click="setDate_Click"/>
     </Grid>
+
 </Window>
