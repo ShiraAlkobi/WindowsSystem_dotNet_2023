@@ -48,7 +48,7 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            CurrentDate = s_bl.Clock;
+            CurrentDate = s_bl.getClock();
             ProjectStatus=s_bl.getProjectStatus();
             this.DataContext = this;
         }
@@ -107,6 +107,7 @@ namespace PL
         {
             new SetStartDateWindow().ShowDialog();
             ProjectStatus=s_bl.getProjectStatus();
+            
         }
 
         
@@ -114,28 +115,58 @@ namespace PL
         private void AddHour_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddHour();
-            CurrentDate = s_bl.Clock;
+            CurrentDate = s_bl.getClock();
+            if (CurrentDate >= s_bl.getStartDate())
+            {
+                s_bl.changeStatus();
+                MessageBox.Show("Project Started!");
+
+            }
         }
         private void AddDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddDay();
-            CurrentDate = s_bl.Clock;
+            CurrentDate = s_bl.getClock();
+            if (CurrentDate >= s_bl.getStartDate())
+            {
+                s_bl.changeStatus();
+                MessageBox.Show("Project Started!");
+
+            }
         }
         private void AddMonth_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddMonth();
-            CurrentDate = s_bl.Clock;
+            CurrentDate = s_bl.getClock();
+            if (CurrentDate >= s_bl.getStartDate())
+            {
+                s_bl.changeStatus();
+                MessageBox.Show("Project Started!");
+
+            }
         }
         private void AddYear_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddYear();
-            CurrentDate = s_bl.Clock;
+            CurrentDate = s_bl.getClock();
+            if (CurrentDate >= s_bl.getStartDate())
+            {
+                s_bl.changeStatus();
+                MessageBox.Show("Project Started!");
+
+            }
         }
 
         private void btn_ResetClock_Click(object sender, RoutedEventArgs e)
         {
             s_bl.ResetClock();
-            CurrentDate = s_bl.Clock;
+            CurrentDate = s_bl.getClock();
+            if (CurrentDate >= s_bl.getStartDate())
+            {
+                s_bl.changeStatus();
+                MessageBox.Show("Project Started!");
+
+            }
 
         }
     }

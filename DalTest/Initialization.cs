@@ -72,7 +72,7 @@ public static class Initialization
         for (int i = 0; i < 20; i++)
         {
             DO.EngineerExperience t_Complexity = (DO.EngineerExperience)s_rand.Next(1, 6);
-            TimeSpan t_requiredEffortTime = TimeSpan.FromDays(s_rand.Next(30, 50));
+            TimeSpan t_requiredEffortTime = TimeSpan.FromDays(s_rand.Next(7, 20));
             string t_Alias = taskNames[i];//id
             string t_Description = taskDescriptions[i];//what is the task (using the array)
             DateTime t_CreatedAtDate = DateTime.Now;//initialize the creation date of the task to today
@@ -276,6 +276,7 @@ public static class Initialization
 
         s_dal.ResetId();
         s_dal.setStatus();
+        s_dal.setClock(DateTime.Now.Date);
     }
 
 

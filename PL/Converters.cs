@@ -40,7 +40,7 @@ namespace PL
             throw new NotImplementedException();
         }
     }
-
+   
     /// <summary>
     /// converts from Project's status to IsEnabled attribute - just like the previos convertor but the logic is different
     /// we can make the Task start date textBox close for changes when the status is plan stage

@@ -19,8 +19,8 @@
             <Setter Property="Padding" Value="15"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#FF76C7C0"/>
-            <Setter Property="BorderBrush" Value="#FF62A29D"/>
+            <Setter Property="Background" Value="#FF92DBF9"/>
+            <Setter Property="BorderBrush" Value="#FF5491E5"/>
             <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
             <Setter Property="VerticalAlignment" Value="Top"/>
@@ -38,7 +38,7 @@
             <!-- Hover effect -->
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FF62A29D"/>
+                    <Setter Property="Background" Value="#FFDFBB81"/>
                 </Trigger>
             </Style.Triggers>
         </Style>

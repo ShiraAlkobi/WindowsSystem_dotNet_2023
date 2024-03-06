@@ -57,7 +57,7 @@ public interface IBl
     /// <summary>
     /// the property represent the whole program clock
     /// </summary>
-    public DateTime Clock { get; }
+    public DateTime getClock();
     /// <summary>
     /// adds one year to the clock
     /// </summary>

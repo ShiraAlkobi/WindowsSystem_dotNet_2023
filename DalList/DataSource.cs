@@ -28,6 +28,7 @@ internal static class DataSource
         ///fields to the project's dates and status
         internal static DateTime? projectStartDate = null;
         internal static DateTime? projectEndDate = null;
-        internal static DO.ProjectStatus projectStatus = DO.ProjectStatus.PlanStage;        
+        internal static DO.ProjectStatus projectStatus = DO.ProjectStatus.PlanStage; 
+        internal static DateTime Clock= DateTime.Now.Date;
     }
 }

@@ -28,6 +28,7 @@ sealed internal class DalList : IDal
     public DateTime? ProjectStartDate { get; set; }
     public DateTime? ProjectEndDate { get; set; }
     public ProjectStatus ProjectStatus { get; set; }
+    public DateTime Clock { get ; set ; }
 
     /// <summary>
     /// sets the given dates in the list DataSource config file
@@ -89,5 +90,15 @@ sealed internal class DalList : IDal
     {
         DataSource.Config.NextDependencyId = 1;
         DataSource.Config.NextTaskId = 1;
+    }
+
+    public void setClock(DateTime clock)
+    {
+        DataSource.Config.Clock = clock;
+    }
+
+    public DateTime getClock()
+    {
+        return DataSource.Config.Clock;
     }
 }

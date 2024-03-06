@@ -99,7 +99,7 @@ internal class Bl : IBl
         _dal.setStartAndEndDates(start, end);
 
         ///change the project's status from plan to execution stage
-        changeStatus();
+        
     }
 
     /// <summary>
@@ -134,7 +134,7 @@ internal class Bl : IBl
     /// </summary>
     public void AddYear()
     {
-        Clock = Clock.AddYears(1);
+        _dal.setClock(_dal.getClock().AddYears(1));
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ internal class Bl : IBl
     /// </summary>
     public void AddMonth()
     {
-        Clock = Clock.AddMonths(1);
+        _dal.setClock(_dal.getClock().AddMonths(1));
     }
 
     /// <summary>
@@ -150,7 +150,7 @@ internal class Bl : IBl
     /// </summary>
     public void AddDay()
     {
-        Clock = Clock.AddDays(1);
+        _dal.setClock(_dal.getClock().AddDays(1));
     }
 
     /// <summary>
@@ -158,7 +158,7 @@ internal class Bl : IBl
     /// </summary>
     public void AddHour()
     {
-        Clock = Clock.AddHours(1);
+        _dal.setClock(_dal.getClock().AddHours(1));
     }
 
     /// <summary>
@@ -166,7 +166,12 @@ internal class Bl : IBl
     /// </summary>
     public DateTime ResetClock()
     {
-        Clock = DateTime.Now.Date;
-        return Clock;
+        _dal.setClock(DateTime.Now.Date);
+        return _dal.getClock();
+    }
+
+    public DateTime getClock()
+    {
+        return _dal.getClock();
     }
 }

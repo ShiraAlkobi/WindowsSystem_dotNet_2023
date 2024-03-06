@@ -34,6 +34,7 @@ namespace Dal
         public DateTime? ProjectStartDate { get; set; }
         public DateTime? ProjectEndDate { get; set; }
         public ProjectStatus ProjectStatus { get; set; }
+        public DateTime Clock { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 
         /// <summary>
         /// sets the given dates in the XML config file
@@ -179,6 +180,43 @@ namespace Dal
         {
             XMLTools.ResetId("data-config", "NextDependencyId");
             XMLTools.ResetId("data-config", "NextTaskId");
+        }
+
+        public void setClock(DateTime clock)
+        {
+
+            ///load the data from the config file
+            XElement root = XMLTools.LoadListFromXMLElement("data-config");
+
+            ///if the status isn't written in the file, insert it
+            if (root.Element("Clock") is null)
+            {
+                XElement t_Clock = new XElement("Clock", clock);
+                root.Add(t_Clock);
+            }
+            else///change the value of the project's status to the plan stage
+                root.Element("Clock")?.SetValue((clock).ToString());
+
+            ///save the changes to the file
+            XMLTools.SaveListToXMLElement(root, "data-config");
+        }
+
+        public DateTime getClock()
+        {
+            ///load data
+            XElement root = XMLTools.LoadListFromXMLElement("data-config");
+
+            ///gets the date from the file
+            XElement? t_Clock = root.Element("Clock");
+
+           
+            ///convert the value to string, then convert it to date time object to return
+            string temp = t_Clock.Value;
+            DateTime s;
+            DateTime.TryParse(temp, out s);
+            return s;
+            
+            
         }
     }
 }

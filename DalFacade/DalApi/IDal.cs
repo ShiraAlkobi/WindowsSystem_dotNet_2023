@@ -11,10 +11,12 @@ public interface IDal
     IUser User { get; }///property for the sun interface IUser
 
     #region Project Dates and Status
+    DateTime Clock { get; set; }
     DateTime? ProjectStartDate { get; set; }///property for the project's start date
     DateTime? ProjectEndDate { get; set; }///property for the project's end date
     DO.ProjectStatus ProjectStatus { get; set; }///property for the project's status
-
+    public void setClock(DateTime clock);
+    public DateTime getClock();
     /// <summary>
     ///sets the given dates in the XML config file
     /// </summary>

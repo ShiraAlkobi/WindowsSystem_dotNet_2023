@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="GanttWindo" Height="600" Width="800"
-        DataContext =  "{Binding RelativeSource = {RelativeSource Mode=self}}">
-    <Grid>
+        Title="GanttWindo" Height="600" Width="800">
+    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+    <Grid  >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="200"/>
-            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition Width="550"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -44,7 +44,7 @@
                     <Border BorderThickness="2" BorderBrush="DarkCyan">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
                             
-                            <TextBlock HorizontalAlignment="Left" Text="{Binding Id}" FontWeight="Bold" Background="LightBlue"/>
+                            <TextBlock HorizontalAlignment="Left" Text="{Binding Id}" FontWeight="Bold" Background="LightBlue" Width="17"/>
                             <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}"  Fill="White"/>
                             
                             <!--Width="{Binding DaysFromStart}"-->
@@ -58,5 +58,27 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
+           <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+        <TextBlock Text="Week Ranges:" FontSize="16" FontWeight="Bold" Margin="10"/>
+
+
+           <ItemsControl ItemsSource="{Binding WeekRanges}" HorizontalAlignment="Right" Grid.Column="2" >
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <!-- Use a vertical StackPanel as the ItemsPanel -->
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+            <ItemsControl.ItemTemplate>
+                <!-- Use a DataTemplate to define how each week range should be displayed -->
+                <DataTemplate>
+                    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
+                        <TextBlock Text="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </StackPanel>
     </Grid>
+    </ScrollViewer>
 </Window>

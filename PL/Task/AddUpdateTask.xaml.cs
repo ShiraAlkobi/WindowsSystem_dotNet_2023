@@ -81,7 +81,7 @@ namespace PL
         ///Using a DependencyProperty as the backing store for CurrentProjectStatus.This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentProjectStatusTaskProperty =
             DependencyProperty.Register("CurrentProjectStatusTask", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
-        public DateTime today { get; set; } = DateTime.Today.Date;
+        
 
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace PL
             if (id == 0)
             {
                 ///create an engineer with default values
-                CurrentTask = new BO.Task() { CreatedAtDate = DateTime.Now };
+                CurrentTask = new BO.Task() { CreatedAtDate = s_bl.getClock() };
                 SelectedDependencies = null;
                 ///if we're in an add window, all of the tasks can be dependencies
                 NotSelectedDependencies = s_bl.Task.ReadAll();
@@ -120,7 +120,7 @@ namespace PL
                     ///read the right task according to the given id
                     CurrentTask = s_bl.Task.Read(id);
                     SelectedDependencies = new ObservableCollection<TaskInList>(CurrentTask?.Dependencies);
-                    today = CurrentTask.CreatedAtDate;
+                    
                     ///if we're in an update window, in order to prevent circular dependency - 
                     ///the tasks list for dependencies have to contain only the ones that doesn't depend on the cuurent task
                     NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == id) == false)
@@ -194,7 +194,7 @@ namespace PL
                 Description = CurrentTask.Description,
                 Dependencies = CurrentTask.Dependencies,
                 Status = CurrentTask.Status,
-                CreatedAtDate = s_bl.Clock,
+                CreatedAtDate = s_bl.getClock(),
                 ScheduledDate = CurrentTask.ScheduledDate,
                 StartDate = CurrentTask.StartDate,
                 ForecastDate = CurrentTask.ForecastDate,
