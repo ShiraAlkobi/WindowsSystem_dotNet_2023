@@ -69,4 +69,14 @@ public interface ITask
     /// <param name="dependsOn"></param>
     /// <param name="dependent"></param>
     public void DeleteDependencies(int dependsOn, int dependent);
+
+    /// <summary>
+    /// checks if taskToCheck is dependent on t - in all of its dependencies and their dependencies
+    /// works in recursion to avoid circular dependency
+    /// </summary>
+    /// <param name="taskToCheck"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public bool CircularDependency(int taskToCheck, int t);
+
 }

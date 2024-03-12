@@ -20,9 +20,6 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
-
-
-
         public BO.ProjectStatus ProjectStatus
         {
             get { return (BO.ProjectStatus)GetValue(ProjectStatusProperty); }
@@ -52,6 +49,7 @@ namespace PL
             ProjectStatus = s_bl.getProjectStatus();
             this.DataContext = this;
         }
+
         /// <summary>
         /// by clicking on "handle engineer" button, a new window will appear with the engineers details
         /// </summary>
@@ -125,6 +123,7 @@ namespace PL
                 }
             ProjectStatus = s_bl.getProjectStatus();
         }
+
         private void AddDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddDay();
@@ -138,6 +137,7 @@ namespace PL
                 }
             ProjectStatus = s_bl.getProjectStatus();
         }
+
         private void AddMonth_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddMonth();
@@ -151,6 +151,7 @@ namespace PL
                 }
             ProjectStatus = s_bl.getProjectStatus();
         }
+
         private void AddYear_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddYear();

@@ -351,4 +351,28 @@ internal class TaskImplementation : ITask
             _dal.Dependency.Delete(t_dependency.Id);
         }
     }
+
+    /// <summary>
+    /// checks if taskToCheck is dependent on t - in all of its dependencies and their dependencies
+    /// </summary>
+    /// <param name="taskToCheck"></param>
+    /// <param name="t"></param>
+    /// <returns></returns>
+    public bool CircularDependency(int taskToCheck, int t)
+    {
+        bool flag = true;
+        BO.TaskInList? temp = (from item in getDependencies(taskToCheck)
+                               where item.Id == t
+                               select item).FirstOrDefault();
+        if (temp != null) { return false; }
+        else
+        {
+            foreach (var item in getDependencies(taskToCheck))
+            {
+                flag = CircularDependency(item.Id, t);
+                if (!flag) { return flag; }
+            }
+        }
+        return true;
+    }
 }

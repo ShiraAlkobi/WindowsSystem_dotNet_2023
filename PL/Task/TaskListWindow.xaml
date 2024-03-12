@@ -5,16 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        WindowStyle="None"
         Title="TaskListWindow" Height="640" Width="800"
+        Background="#FF4D62A4"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
-
-    <!-- Window background color -->
-    <Window.Background>
-        <SolidColorBrush Color="#FFD4EDE6"/>
-    </Window.Background>
-
     <!-- External Grid -->
     <Grid>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="79*"/>
             <RowDefinition Height="545*"/>
@@ -23,24 +20,14 @@
 
         <!-- Internal, Upper Grid -->
         <Grid Height="auto" Grid.Row="0" Width="auto">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
+            <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click"/>
 
-            <!-- Show filtering criteria -->
-
-            <!-- Filtering options , changing list of engineers according to expereince chosen-->
-            <!-- TODO: change filter-->
-
-
-
-            <Menu HorizontalAlignment="Left" Margin="108,0,0,0" VerticalAlignment="Center" Width="256" Height="36" Grid.Column="1" >
+            <Menu HorizontalAlignment="Left" Margin="90,0,0,0" VerticalAlignment="Center" Width="250" Height="36" >
                 <!-- Complexity Submenu -->
-                <MenuItem Header="Filter:" Height="35" Width="255" FontSize="20" FontFamily="Candara" >
+                <MenuItem Style="{StaticResource menuItem}" Header="Choose Filter:" Height="35" Width="255" FontSize="20">
                     <!-- Complexity Submenu -->
-                    <MenuItem Header="reset filter" Click="resetFilter_Click"></MenuItem>
-                    <MenuItem Header="Complexity" Height="20">
+                    <MenuItem Style="{StaticResource menuItem}" Margin="-20,0,0,0" Header="Reset Filter" Click="resetFilter_Click"/>
+                    <MenuItem Style="{StaticResource menuItem}" Margin="-20,0,0,0" Header="Complexity" Height="20">
                         <ItemsControl ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" Height="100" >
                             <ItemsControl.ItemTemplate >
                                 <DataTemplate >
@@ -50,11 +37,9 @@
                         </ItemsControl>
                     </MenuItem>
 
-
-
                     <!-- Status Submenu -->
-                    <MenuItem Header="Status">
-                        <ItemsControl ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" Height="100" >
+                    <MenuItem Margin="-20,0,0,0" Style="{StaticResource menuItem}" Header="Status">
+                        <ItemsControl ItemsSource="{Binding Source={StaticResource StatusCollectionKey}}" Height="80" >
                             <ItemsControl.ItemTemplate >
                                 <DataTemplate >
                                     <RadioButton Content="{Binding}" GroupName="Status" Checked="RadioButton_CheckedStatus" IsChecked="{Binding Path=Status, Mode=TwoWay}" />
@@ -64,9 +49,9 @@
                     </MenuItem>
 
                     <!-- Engineer ID Submenu -->
-                    <MenuItem Header="Engineer">
-                        <Grid Height="100">
-                            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Right">
+                    <MenuItem Style="{StaticResource menuItem}" Margin="-20,0,0,0" Header="Engineer">
+                        <Grid Height="140" Width="200">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
                                 <ItemsControl ItemsSource="{Binding Engineers}">
                                     <ItemsControl.ItemTemplate>
                                         <DataTemplate>
@@ -82,27 +67,11 @@
         </Grid>
 
         <!-- ListView ,if clicked o engineer, an update window will open-->
-        <ListView Margin="5,79,5,100" ItemsSource="{Binding TaskList}" MouseDoubleClick="UpdateTaskWindow_DoubleClick" Grid.RowSpan="2"/>
-
+        <ListView ListView.ItemContainerStyle="{StaticResource listViewItem}"  Margin="3,79,3,100" ItemsSource="{Binding TaskList}" 
+                  Background="#FFCCD9DE"
+                  MouseDoubleClick="UpdateTaskWindow_DoubleClick" Grid.RowSpan="2"/>
         <!-- Button to Add Engineer -->
-        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="280" Margin="0,464,0,20" Click="AddTaskWindow_Click">
-            <!-- Apply the  button style to the Button -->
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="#FF76C7C0"/>
-                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                    <Setter Property="FontSize" Value="16"/>
-                    <Setter Property="Padding" Value="10"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FF62A29D"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
-        </Button>
-
+        <Button Style="{StaticResource ButtonStyle}" Foreground="#FF4D62A4" Content="Add Task" Grid.Row="1" HorizontalAlignment="Center" Width="460" Margin="0,480,0,10" Click="AddTaskWindow_Click" Height="56" Background="#FFCFDFE6"/>
+        
     </Grid>
 </Window>

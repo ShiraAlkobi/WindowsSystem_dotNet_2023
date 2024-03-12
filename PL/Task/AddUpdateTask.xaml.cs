@@ -65,14 +65,6 @@ namespace PL
         public static readonly DependencyProperty NotSelectedDependenciesProperty =
             DependencyProperty.Register("NotSelectedDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(AddUpdateTask), new PropertyMetadata(null));
 
-
-
-
-
-        
-
-        
-
         public BO.ProjectStatus CurrentProjectStatusTask
         {
             get { return (BO.ProjectStatus)GetValue(CurrentProjectStatusTaskProperty); }
@@ -96,12 +88,8 @@ namespace PL
             {
                 InitializeComponent();
             }
-            catch (Exception ex) { MessageBox.Show("Can't Open Window, Error"); return; }
-
-
+            catch (Exception) { MessageBox.Show("Can't Open Window, Error"); return; }
             CurrentProjectStatusTask = s_bl.getProjectStatus();
-
-
 
             if (id == 0)
             {
@@ -110,8 +98,6 @@ namespace PL
                 SelectedDependencies = null;
                 ///if we're in an add window, all of the tasks can be dependencies
                 NotSelectedDependencies = s_bl.Task.ReadAll();
-
-
             }
             else
             {
@@ -120,14 +106,14 @@ namespace PL
                     ///read the right task according to the given id
                     CurrentTask = s_bl.Task.Read(id);
                     SelectedDependencies = new ObservableCollection<TaskInList>(CurrentTask?.Dependencies);
-                    
+
                     ///if we're in an update window, in order to prevent circular dependency - 
                     ///the tasks list for dependencies have to contain only the ones that doesn't depend on the cuurent task
-                    NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => s_bl.Task.getDependencies(t.Id).Any(a => a.Id == id) == false)
+                    NotSelectedDependencies = (from item in s_bl.Task.ReadAll(t => t.Id != id)
                                                where s_bl.Task.getDependencies(id).Any(b => b.Id == item.Id) == false
-                                               where item.Id != id
+                                               where s_bl.Task.CircularDependency(item.Id, id)
                                                select item).ToList();
-
+                   
                 }///if an exception was thrown from the read function, catch it and show a message box which explains the exception
                 catch (BO.BlDoesNotExistException e)
                 {
@@ -135,10 +121,10 @@ namespace PL
                                                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
-
             this.DataContext = this;
         }
+
+        
 
         /// <summary>
         /// an event when clicking the add button
@@ -261,8 +247,9 @@ namespace PL
             }
         }
 
-
-
-
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

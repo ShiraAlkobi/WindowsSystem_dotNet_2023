@@ -5,32 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="AddUpdateTask" Height="630" Width="842"
+        WindowStyle="None"
+        Title="AddUpdateTask" Height="630" Width="842" Background="#FF5D6A76"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
-    <!-- Window background color -->
-    <Window.Background>
-        <SolidColorBrush Color="#FFD4EDE6"/>
-    </Window.Background>
+    
 
     <!-- Grid with grid lines-->
     <Grid ShowGridLines="True" Margin="0,0,10,0">
+        <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click"/>
         <!-- Left StackPanel with labels -->
         <StackPanel HorizontalAlignment="Left" Grid.Column="0" Margin="0,25,0,54" Width="129" >
             <!--a label for each property of the engineer, also has a font and size -->
-            <Label Content="Id:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" />
-            <Label Content="Alias:" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" />
-            <Label Content="Description:" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold" />
-            <Label Content="Status:" Margin="0,30,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Created:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Scheduled to start:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Started:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Required effort time:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Forecast to end:" Margin="0,8,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Completed:" Margin="0,4,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Deliverables:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Remarks:" Margin="0,20,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Assigned engineer:" Margin="0,5,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
-            <Label Content="Complexity:" Margin="0,25,0,0" FontFamily="Segoe UI" FontSize="12" FontWeight="Bold"/>
+            <Label Style="{StaticResource label}" Content="Id :" Margin="0,10,0,0" />
+            <Label Style="{StaticResource label}" Content="Alias :"/>
+            <Label Style="{StaticResource label}" Content="Description :"/>
+            <Label Style="{StaticResource label}" Content="Status :" Margin="0,28,0,0" />
+            <Label Style="{StaticResource label}" Content="Created :" Margin="0,5,0,0" />
+            <Label Style="{StaticResource label}" Content="Scheduled to start:" Margin="0,2,0,0" />
+            <Label Style="{StaticResource label}" Content="Started :" Margin="0,3,0,0"/>
+            <Label Style="{StaticResource label}" Content="Required effort time:" Margin="0,5,0,0" FontSize="13" />
+            <Label Style="{StaticResource label}" Content="Forecast to end :" Margin="0,6,0,0"/>
+            <Label Style="{StaticResource label}" Content="Completed :" Margin="0,1,0,0"/>
+            <Label Style="{StaticResource label}" Content="Deliverables :" Margin="0,5,0,0"/>
+            <Label Style="{StaticResource label}" Content="Remarks :" Margin="0,20,0,0" />
+            <Label Style="{StaticResource label}" Content="Assigned engineer:" Margin="0,11,0,0"/>
+            <Label Style="{StaticResource label}" Content="Complexity :" Margin="0,28,0,0"/>
 
         </StackPanel>
 
@@ -81,7 +80,7 @@
                     SelectedValue="{Binding CurrentTask.Complexity, Mode=TwoWay}" Height="22"/>
         </StackPanel>
 
-        <ListBox  Margin="379,56,18,380" ItemsSource="{Binding SelectedDependencies,Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible">
+        <ListBox  Margin="379,47,18,389" ItemsSource="{Binding SelectedDependencies,Mode=TwoWay}" ScrollViewer.VerticalScrollBarVisibility="Visible" ScrollViewer.HorizontalScrollBarVisibility="Visible">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -90,7 +89,7 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding}" VerticalAlignment="Center" TextWrapping="Wrap"/>
-                        <Button Content="-" Click="RemoveDependency_Click" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="20" Height="20"/>
+                        <Button Background="#FF79C6D1" Content="-" Click="RemoveDependency_Click" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="20" Height="20"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
@@ -108,15 +107,16 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Text="{Binding}" VerticalAlignment="Center" Margin="5"/>
-                        <Button Content="+" Click="AddDependency_Click" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="20" Height="20"/>
+                        <Button Background="#FF79C6D1" Content="+" Click="AddDependency_Click" Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="5" Width="20" Height="20"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
         <!-- Add Engineer Button -->
-        <Button Content="Add Task" Margin="10,560,10,10"
-            Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5">
+        <Button Content="Add Task" Background="#FF79C6D1" Margin="134,555,124,15"
+            Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}"
+                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1"/>
@@ -125,31 +125,15 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Button.RenderTransform>
-            <!-- Apply font properties to button -->
-            <Button.FontFamily>
-                <FontFamily>Segoe UI</FontFamily>
-            </Button.FontFamily>
-            <Button.FontSize>16</Button.FontSize>
-            <Button.FontWeight>Bold</Button.FontWeight>
-            <!-- Apply the button style to the Button -->
-
-        </Button>
+         </Button>
 
         <!-- Update Engineer Button -->
-        <Button Content="Update Task" Margin="10,560,10,10"
-            Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateTask_Click">
-            <!-- Apply font properties to button -->
-            <Button.FontFamily>
-                <FontFamily>Segoe UI</FontFamily>
-            </Button.FontFamily>
-            <Button.FontSize>16</Button.FontSize>
-            <Button.FontWeight>Bold</Button.FontWeight>
-            <!-- Apply the button style to the Button -->
-
+        <Button Content="Update Task" Margin="134,555,124,15" Background="#FF79C6D1" Foreground="#FF5D6A76"
+            Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" 
+                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="UpdateTask_Click">            
         </Button>
-        <Label Content="Dependencies of this Task:" HorizontalAlignment="Left" Margin="362,20,0,0" VerticalAlignment="Top"
-               FontFamily="Segoe UI" FontSize="16" FontWeight="Bold"/>
-        <Label Content="Dependencies to Add:" HorizontalAlignment="Left" Margin="379,239,0,0" VerticalAlignment="Top"
-               FontFamily="Segoe UI" FontSize="16" FontWeight="Bold"/>
+        <Label Style="{StaticResource label}" FontSize="16" Content="Dependencies of this Task:" HorizontalAlignment="Left" Margin="379,20,0,0" VerticalAlignment="Top"/>
+        <Label Style="{StaticResource label}" FontSize="16" Content="Dependencies to Add:" HorizontalAlignment="Left" Margin="379,243,0,0" VerticalAlignment="Top"/>
+        
     </Grid>
 </Window>

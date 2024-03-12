@@ -64,7 +64,7 @@
     <CreatedAtDate>2024-03-12T21:04:24.7458219+02:00</CreatedAtDate>
     <ScheduledDate>2024-06-02T00:00:00</ScheduledDate>
     <StartDate xsi:nil="true" />
-    <RequiredEffortTime>P10D</RequiredEffortTime>
+    <RequiredEffortTime>P7D</RequiredEffortTime>
     <DeadlineDate xsi:nil="true" />
     <CompleteDate xsi:nil="true" />
     <EngineerId>0</EngineerId>
