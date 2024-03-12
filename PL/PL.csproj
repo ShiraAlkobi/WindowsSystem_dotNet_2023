@@ -17,6 +17,7 @@
     <None Remove="construction.png" />
     <None Remove="Engineer\user %281%29.png" />
     <None Remove="restart_icon_227406.png" />
+    <None Remove="Task\未来 ストックフォトと画像.jpeg" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +29,7 @@
     <Resource Include="images\construction.png" />
     <Resource Include="Engineer\user (1).png" />
     <Resource Include="restart_icon_227406.png" />
+    <Resource Include="Task\未来 ストックフォトと画像.jpeg" />
   </ItemGroup>
 
 </Project>

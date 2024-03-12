@@ -114,5 +114,10 @@ namespace PL
         {
             TaskList = s_bl?.Task.ReadAll();
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

@@ -20,9 +20,6 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
-
-
-
         public BO.ProjectStatus ProjectStatus
         {
             get { return (BO.ProjectStatus)GetValue(ProjectStatusProperty); }
@@ -52,6 +49,7 @@ namespace PL
             ProjectStatus=s_bl.getProjectStatus();
             this.DataContext = this;
         }
+
         /// <summary>
         /// by clicking on "handle engineer" button, a new window will appear with the engineers details
         /// </summary>
@@ -106,11 +104,8 @@ namespace PL
         private void btn_setStartDate_Click(object sender, RoutedEventArgs e)
         {
             new SetStartDateWindow().ShowDialog();
-            ProjectStatus=s_bl.getProjectStatus();
-            
-        }
-
-        
+            ProjectStatus = s_bl.getProjectStatus();            
+        }        
 
         private void AddHour_Click(object sender, RoutedEventArgs e)
         {
@@ -123,6 +118,7 @@ namespace PL
 
             }
         }
+
         private void AddDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddDay();
@@ -134,6 +130,7 @@ namespace PL
 
             }
         }
+
         private void AddMonth_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddMonth();
@@ -145,6 +142,7 @@ namespace PL
 
             }
         }
+
         private void AddYear_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddYear();
@@ -153,7 +151,6 @@ namespace PL
             {
                 s_bl.changeStatus();
                 MessageBox.Show("Project Started!");
-
             }
         }
 
@@ -165,9 +162,7 @@ namespace PL
             {
                 s_bl.changeStatus();
                 MessageBox.Show("Project Started!");
-
             }
-
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

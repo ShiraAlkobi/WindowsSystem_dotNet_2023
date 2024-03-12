@@ -6,16 +6,44 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         WindowStyle="None"
-        Title="EntryWindow" Height="400" Width="600">
-    <Grid Background="#FF4D62A4" Height="400" VerticalAlignment="Center">
+        Title="EntryWindow" Height="420" Width="600"
+        Background="#FF4D62A4">
+    
+    <Grid  Height="400" VerticalAlignment="Center">
 
-        <Image Source="/construction.png" Margin="427,50,53,268"/>
-        <Button Content="Admin" Height="33" Width="75" HorizontalAlignment="Left" Margin="520,192,0,0" VerticalAlignment="Top" Click="btn_AdminWindow_Click">
+        <Image Source="/construction.png" Margin="357,52,-5,200">
+            <Image.RenderTransform>
+                <ScaleTransform ScaleX="1" ScaleY="1"/>
+            </Image.RenderTransform>
+            <Image.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleX)"
+                                     To="1.3" Duration="0:0:0.5"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleY)"
+                                     To="1.3" Duration="0:0:0.5"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+                <EventTrigger RoutedEvent="MouseLeave">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleX)"
+                                     To="1" Duration="0:0:0.3"/>
+                            <DoubleAnimation Storyboard.TargetProperty="(Image.RenderTransform).(ScaleTransform.ScaleY)"
+                                     To="1" Duration="0:0:0.3"/>
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Image.Triggers>
+        </Image>
+        <Button Content="Admin" Height="33" Width="75" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top" Click="btn_AdminWindow_Click">
             <Button.Background>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
             </Button.Background>
         </Button>
-        <Button Content="Engineer" Height="31" Width="74" HorizontalAlignment="Left" Margin="521,230,0,0" VerticalAlignment="Top" Click="btn_EngineerWindow_Click" Background="#FF94AAC2"/>
+        <Button Content="Engineer" Height="31" Width="74" HorizontalAlignment="Left" Margin="10,269,0,0" VerticalAlignment="Top" Click="btn_EngineerWindow_Click" Background="#FF94AAC2"/>
         <TextBlock Style="{StaticResource titleText}" Text="Log into the system" Height="54" Margin="-25,40,250,0" VerticalAlignment="Top" Foreground="#FFC5DCE6"  />
         <TextBlock Style="{StaticResource normalText}" Text="User Name:" Height="27" Margin="60,94,0,0" FontFamily="Bahnschrift SemiLight" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="90"/>
         <TextBlock Style="{StaticResource normalText}" Text="Password:" Height="27" Margin="60,160,300,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
@@ -27,28 +55,34 @@
         </Border>
 
         <Border CornerRadius="10" BorderBrush="White" BorderThickness="1" HorizontalAlignment="left" Height="24" Margin="60,187,0,0"  VerticalAlignment="Top" Width="200" >
-         
-                <TextBox BorderBrush="Transparent" Background="Transparent" Text ="{Binding CurrentUser.Password}"  GotFocus="Password_GotFocus" LostFocus="Password_LostFocus"/>
-           
+
+            <TextBox BorderBrush="Transparent" Background="Transparent" Text ="{Binding CurrentUser.Password}"  GotFocus="Password_GotFocus" LostFocus="Password_LostFocus"/>
+
         </Border>
 
         <Button Style="{StaticResource button}" Content="Log In" HorizontalAlignment="Left" Height="56" Margin="105,230,0,0" VerticalAlignment="Top" Width="100" FontSize="18" Click="btn_LogIn_Click" RenderTransformOrigin="0.5,0.5"/>
 
-        <Expander  HorizontalAlignment="Left" Height="67" Margin="265,120,0,0" VerticalAlignment="Top" Width="204">
+        <Expander  HorizontalAlignment="Left" Height="67" Margin="265,120,0,0" VerticalAlignment="Top" Width="170">
             <TextBlock Text="User name is your personal Id.
-                                        No special characters are allowed" 
-                       Foreground="White" TextWrapping="WrapWithOverflow" Margin="0,0,0,10"/>
+                                        No special characters
+                                          are allowed" 
+                       Foreground="White" Background="#FFACA1A1" Margin="0,0,0,-4" TextWrapping="WrapWithOverflow" Width="164"/>
         </Expander>
         <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click"/>
 
-        <Grid Grid.Column="1"
-            Grid.RowSpan="2"
-            Margin="160,-365,-610,85" 
-              Panel.ZIndex="-1">
+        <Grid Margin="0,300,0,0" >
             
+            <StackPanel Orientation="Horizontal">
+                <StackPanel>
+                    <Border Width="700" Height="30" Background="#FFF1F1F1" Margin="300,0,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="30" Background="#FF5FD1C6" Margin="160,5,0,0" CornerRadius="20"/>
+                    <Border Width="700" Height="30" Background="#FFCC5252" Margin="20,5,0,0" CornerRadius="20"/>
+
+                </StackPanel>
+            </StackPanel>
         </Grid>
 
     </Grid>
-    
-   
+
+
 </Window>

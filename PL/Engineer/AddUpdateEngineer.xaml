@@ -5,26 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"   
-        WindowStyle="None"
-        Title="AddUpdateEngineer" Height="450" Width="350">
-
-    <!-- Window background color -->
-    <Window.Background>
-        <SolidColorBrush Color="#FFD4EDE6"/>
-    </Window.Background>
+        WindowStyle="None" 
+        Title="AddUpdateEngineer" Height="400" Width="350" Background="#FF5D6A76">
 
     <!-- Grid with grid lines-->
     <Grid ShowGridLines="True">
-        <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click"/>
+        <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click" Margin="0,1,0,0"/>
         <!-- Left StackPanel with labels -->
         <StackPanel HorizontalAlignment="Left" Grid.Column="0" Margin="10,25,0,25" Width="150" >
             <!--a label for each property of the engineer, also has a font and size -->
-            <Label Content="Id:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Name:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Email:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Cost:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Level:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
-            <Label Content="Task:" Margin="0,10,0,0" FontFamily="Segoe UI" FontSize="14" FontWeight="Bold"/>
+            <Label Style="{StaticResource label}" Content="Id:" Margin="0,10,0,0" />
+            <Label Style="{StaticResource label}" Content="Name:" Margin="0,10,0,0" />
+            <Label Style="{StaticResource label}" Content="Email:" Margin="0,10,0,0"/>
+            <Label Style="{StaticResource label}" Content="Cost:" Margin="0,10,0,0" />
+            <Label Style="{StaticResource label}" Content="Level:" Margin="0,10,0,0"/>
+            <Label Style="{StaticResource label}" Content="Task:" Margin="0,10,0,0"/>
         </StackPanel>
 
         <!-- Right StackPanel with TextBoxes, ComboBox, and margins adjusted -->
@@ -54,48 +49,28 @@
         </StackPanel>
 
         <!-- Add Engineer Button -->
-        <Button Content="Add Engineer" Margin="10,330,10,34"
-            Visibility="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" Click="AddEngineer_Click">
+        <Button Content="Add Engineer" Margin="56,315,56,42" Background="#FF79C6D1" Foreground="#FF5D6A76"
+            Visibility="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" 
+                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="AddEngineer_Click">
             <!-- Apply font properties to button -->
-            <Button.FontFamily>
-                <FontFamily>Segoe UI</FontFamily>
-            </Button.FontFamily>
-            <Button.FontSize>16</Button.FontSize>
-            <Button.FontWeight>Bold</Button.FontWeight>
-            <!-- Apply the button style to the Button -->
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="#FF76C7C0"/>
-                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                    <Setter Property="Padding" Value="10"/>
-                    <Style.Triggers>
+            <!--<Style>
+                <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#FF62A29D"/>
                         </Trigger>
                     </Style.Triggers>
                 </Style>
-            </Button.Style>
+            </Button.Style>-->
         </Button>
 
         <!-- Update Engineer Button -->
-        <Button Content="Update Engineer" Margin="10,330,10,34"
-            Visibility="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" Click="UpdateEngineer_Click">
-            <!-- Apply font properties to button -->
-            <Button.FontFamily>
-                <FontFamily>Segoe UI</FontFamily>
-            </Button.FontFamily>
-            <Button.FontSize>16</Button.FontSize>
-            <Button.FontWeight>Bold</Button.FontWeight>
+        <Button Content="Update Engineer" Margin="56,315,56,42" Background="#FF79C6D1" Foreground="#FF5D6A76"
+            Visibility="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" 
+                 FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="UpdateEngineer_Click">
+
             <!-- Apply the button style to the Button -->
             <Button.Style>
                 <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="#FF76C7C0"/>
-                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                    <Setter Property="Padding" Value="10"/>
                     <Style.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
                             <Setter Property="Background" Value="#FF62A29D"/>
