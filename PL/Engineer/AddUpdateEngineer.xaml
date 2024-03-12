@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"   
-        
+        WindowStyle="None"
         Title="AddUpdateEngineer" Height="450" Width="350">
 
     <!-- Window background color -->
@@ -15,6 +15,7 @@
 
     <!-- Grid with grid lines-->
     <Grid ShowGridLines="True">
+        <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click"/>
         <!-- Left StackPanel with labels -->
         <StackPanel HorizontalAlignment="Left" Grid.Column="0" Margin="10,25,0,25" Width="150" >
             <!--a label for each property of the engineer, also has a font and size -->

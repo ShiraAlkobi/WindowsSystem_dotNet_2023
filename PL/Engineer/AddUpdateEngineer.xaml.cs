@@ -179,5 +179,10 @@ namespace PL.Engineer
         {
             return int.TryParse(text, out _);
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

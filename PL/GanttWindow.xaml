@@ -17,7 +17,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <ItemsControl  Grid.Row="2" ItemsSource="{Binding GanttTasks}" >
+        <ItemsControl  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding GanttTasks}" >
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="2" BorderBrush="DarkCyan">
@@ -58,11 +58,11 @@
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
         </ItemsControl>
-           <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
-        <TextBlock Text="Week Ranges:" FontSize="16" FontWeight="Bold" Margin="10"/>
+           <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Top">-->
+        
 
 
-           <ItemsControl ItemsSource="{Binding WeekRanges}" HorizontalAlignment="Right" Grid.Column="2" >
+        <ItemsControl Grid.Row="0" Grid.Column="1" ItemsSource="{Binding WeekRanges}" HorizontalAlignment="Right" >
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <!-- Use a vertical StackPanel as the ItemsPanel -->
@@ -77,8 +77,8 @@
                     </Border>
                 </DataTemplate>
             </ItemsControl.ItemTemplate>
-        </ItemsControl>
-    </StackPanel>
+         </ItemsControl>
+        
     </Grid>
     </ScrollViewer>
 </Window>

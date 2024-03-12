@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
+        WindowStyle="None"
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
@@ -15,6 +16,7 @@
 
     <!-- External Grid -->
     <Grid>
+        <!--<Button Style="{StaticResource CloseButton}" Click="CloseButton_Click"/>-->
         <Grid.RowDefinitions>
             <RowDefinition Height="40*"/>
             <RowDefinition Height="500*"/>
@@ -24,15 +26,16 @@
         <!-- Internal, Upper Grid -->
         <Grid HorizontalAlignment="Stretch" Height="auto" Grid.Row="0" VerticalAlignment="Stretch" Width="auto">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="400*"/>
+                <ColumnDefinition Width="383*"/>
+                <ColumnDefinition Width="17*"/>
             </Grid.ColumnDefinitions>
 
             <!-- Show filtering criteria -->
             <Label Content="Select Experience:" FontSize="20" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Width="200"/>
 
             <!-- Filtering options , changing list of engineers according to expereince chosen-->
-            <ComboBox Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Margin="5"
+            <ComboBox Grid.Column="1" Margin="10,5,73,0" Width="300"
                       ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"
                       SelectedValue="{Binding Path=Experience, Mode=TwoWay}" SelectionChanged="cbExperienceSelector_SelectionChanged">
                 <!-- Apply the button style to the ComboBox -->

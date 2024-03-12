@@ -55,7 +55,7 @@ namespace PL
         }
 
 
-        private void TextBox_GotFocus(object sender, RoutedEventArgs e)
+        private void UserName_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
             if (textBox.Text == "Enter User Name")
@@ -64,12 +64,30 @@ namespace PL
             }
         }
 
-        private void TextBox_LostFocus(object sender, RoutedEventArgs e)
+        private void UserName_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
             if (string.IsNullOrWhiteSpace(textBox.Text))
             {
                 textBox.Text = "Enter User Name";
+            }
+        }
+
+        private void Password_GotFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (textBox.Text == "Enter Password")
+            {
+                textBox.Text = "";
+            }
+        }
+
+        private void Password_LostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = (TextBox)sender;
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                textBox.Text = "Enter Password";
             }
         }
 
@@ -91,11 +109,29 @@ namespace PL
         }
 
         private void btn_LogIn_Click(object sender, RoutedEventArgs e)
-        {           
-            int userId= Convert.ToInt32(CurrentUser.UserName);
-
-            try
+        {
+            try 
             {
+                if (string.IsNullOrEmpty(CurrentUser.UserName))
+                {
+                    MessageBox.Show("Please insert user name", "", MessageBoxButton.OK);
+                    return;
+                }
+                else if (string.IsNullOrEmpty(CurrentUser.Password))
+                {
+                    MessageBox.Show("Please insert password", "", MessageBoxButton.OK);
+                    return;
+                }
+
+                if (!IsNumeric(CurrentUser.UserName))
+                {
+                    MessageBox.Show("User name have to contain only numbers", "", MessageBoxButton.OK);
+                    return;
+                }
+
+                int userId = Convert.ToInt32(CurrentUser.UserName);
+
+            
                 BO.User t_user = s_bl.User.Read(userId);
                 if (t_user.Password != CurrentUser.Password)
                 {
@@ -128,5 +164,9 @@ namespace PL
             
         }
 
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }

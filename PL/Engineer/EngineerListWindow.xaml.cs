@@ -78,5 +78,10 @@ namespace PL.Engineer
                 s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Experience)!;//rereading the engineerlist after updating or adding engineer
                                                                                                       //because we want the list to be updated immidiatly
         }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
     }
 }
