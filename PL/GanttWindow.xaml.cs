@@ -22,7 +22,10 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
-        public readonly int PixelsPerDay = 20;
+        public readonly int PixelsPerDay = 21;
+
+
+        
         public IEnumerable<TaskGantt> GanttTasks
         {
             get { return (IEnumerable<TaskGantt>)GetValue(GanttTasksProperty); }
@@ -50,17 +53,17 @@ namespace PL
             UpdateWeekRanges();
                 DateTime? projectStartDate=s_bl.getStartDate();
                 DateTime? projectEndDate = s_bl.getEndDate();
-
+            
             GanttTasks = from item in s_bl.Task.ReadAll()
                         let task =s_bl.Task.Read(item.Id)  
-                        let finalStartDate = task.StartDate is not null? task.StartDate: task.ScheduledDate
                         select new TaskGantt()
                         {
                             Id = task.Id,
                             Name = task.Alias,
                             Duration = task.RequiredEffortTime!.Value.Days * PixelsPerDay,
-                            TimeFromStart = (finalStartDate - projectStartDate).Value.Days * PixelsPerDay,
-                            TimeToEnd = ((projectEndDate - finalStartDate).Value.Days + task.RequiredEffortTime!.Value.Days) * PixelsPerDay
+                            TimeFromStart = (task.ScheduledDate - projectStartDate).Value.Days * PixelsPerDay,
+                            TimeToEnd = ((projectEndDate - task.ScheduledDate).Value.Days + task.RequiredEffortTime!.Value.Days) * PixelsPerDay,
+                            Status = task.Status
                         };
             this.DataContext = this;
         }
@@ -74,7 +77,7 @@ namespace PL
             DateTime? ProjectEndDate = s_bl.getEndDate();
             while (currentStartDate <= ProjectEndDate)
             {
-                currentEndDate = currentStartDate?.AddDays(7);
+                currentEndDate = currentStartDate?.AddDays(6);
                 if (currentEndDate > ProjectEndDate)
                 {
                     currentEndDate = ProjectEndDate;

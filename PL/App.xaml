@@ -4,6 +4,7 @@
              xmlns:local="clr-namespace:PL"
              StartupUri="EntryWindow.xaml">
 	<Application.Resources>
+        <local:StatusToColorConverter x:Key="StatusToColorConverterKey"/>
         <local:EngineerExperienceCollection x:Key="EngineerExperienceCollectionKey"/>
         <local:ProjectStatusToIsEnabledConverterReverse x:Key="ProjectStatusToIsEnabledConverterReverseKey"/>
         <local:StatusCollection x:Key="StatusCollectionKey"/>

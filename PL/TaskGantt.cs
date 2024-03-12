@@ -14,5 +14,6 @@ public class TaskGantt
     public int Duration { get; set; }
     public int TimeFromStart { get; set; }
     public int TimeToEnd { get; set; }
+    public BO.Status Status { get; set; }
     
 }

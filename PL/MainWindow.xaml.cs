@@ -49,7 +49,7 @@ namespace PL
         {
             InitializeComponent();
             CurrentDate = s_bl.getClock();
-            ProjectStatus=s_bl.getProjectStatus();
+            ProjectStatus = s_bl.getProjectStatus();
             this.DataContext = this;
         }
         /// <summary>
@@ -69,7 +69,7 @@ namespace PL
         /// <param name="e"></param>
         private void btn_Initialization_Click(object sender, RoutedEventArgs e)
         {
-           MessageBoxResult result= MessageBox.Show("Are you sure you want to initialize data? ","",MessageBoxButton.YesNo,MessageBoxImage.Question); 
+            MessageBoxResult result = MessageBox.Show("Are you sure you want to initialize data? ", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 Factory.Get().ResetDB();
@@ -106,55 +106,63 @@ namespace PL
         private void btn_setStartDate_Click(object sender, RoutedEventArgs e)
         {
             new SetStartDateWindow().ShowDialog();
-            ProjectStatus=s_bl.getProjectStatus();
-            
+            ProjectStatus = s_bl.getProjectStatus();
+
         }
 
-        
+
 
         private void AddHour_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddHour();
             CurrentDate = s_bl.getClock();
             if (CurrentDate >= s_bl.getStartDate())
-            {
-                s_bl.changeStatus();
-                MessageBox.Show("Project Started!");
+                if (s_bl.getProjectStatus() == BO.ProjectStatus.PlanStage)
+                {
+                    s_bl.changeStatus();
+                    MessageBox.Show("Project Started!");
 
-            }
+                }
+            ProjectStatus = s_bl.getProjectStatus();
         }
         private void AddDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddDay();
             CurrentDate = s_bl.getClock();
             if (CurrentDate >= s_bl.getStartDate())
-            {
-                s_bl.changeStatus();
-                MessageBox.Show("Project Started!");
+                if (s_bl.getProjectStatus() == BO.ProjectStatus.PlanStage)
+                {
+                    s_bl.changeStatus();
+                    MessageBox.Show("Project Started!");
 
-            }
+                }
+            ProjectStatus = s_bl.getProjectStatus();
         }
         private void AddMonth_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddMonth();
             CurrentDate = s_bl.getClock();
             if (CurrentDate >= s_bl.getStartDate())
-            {
-                s_bl.changeStatus();
-                MessageBox.Show("Project Started!");
+                if (s_bl.getProjectStatus() == BO.ProjectStatus.PlanStage)
+                {
+                    s_bl.changeStatus();
+                    MessageBox.Show("Project Started!");
 
-            }
+                }
+            ProjectStatus = s_bl.getProjectStatus();
         }
         private void AddYear_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddYear();
             CurrentDate = s_bl.getClock();
             if (CurrentDate >= s_bl.getStartDate())
-            {
-                s_bl.changeStatus();
-                MessageBox.Show("Project Started!");
+                if (s_bl.getProjectStatus() == BO.ProjectStatus.PlanStage)
+                {
+                    s_bl.changeStatus();
+                    MessageBox.Show("Project Started!");
 
-            }
+                }
+            ProjectStatus = s_bl.getProjectStatus();
         }
 
         private void btn_ResetClock_Click(object sender, RoutedEventArgs e)
@@ -162,11 +170,13 @@ namespace PL
             s_bl.ResetClock();
             CurrentDate = s_bl.getClock();
             if (CurrentDate >= s_bl.getStartDate())
-            {
-                s_bl.changeStatus();
-                MessageBox.Show("Project Started!");
+                if (s_bl.getProjectStatus() == BO.ProjectStatus.PlanStage)
+                {
+                    s_bl.changeStatus();
+                    MessageBox.Show("Project Started!");
 
-            }
+                }
+            ProjectStatus = s_bl.getProjectStatus();
 
         }
 
@@ -175,5 +185,5 @@ namespace PL
             this.Close();
         }
     }
-    
+
 }

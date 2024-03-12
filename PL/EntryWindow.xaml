@@ -21,7 +21,7 @@
         <TextBlock Style="{StaticResource normalText}" Text="Password:" Height="27" Margin="60,160,300,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
         <Border CornerRadius="10" BorderThickness="1" BorderBrush="White" HorizontalAlignment="Left" Height="24" Margin="60,120,0,0" VerticalAlignment="Top" Width="200">
-            <TextBox BorderBrush="Transparent" Background="Transparent" Text="{Binding CurrentUser.UserName}" 
+            <TextBox  BorderBrush="Transparent" Background="Transparent" Text="{Binding CurrentUser.UserName}" 
                      Foreground="White" TextWrapping="Wrap" GotFocus="UserName_GotFocus" LostFocus="UserName_LostFocus"/>
 
         </Border>

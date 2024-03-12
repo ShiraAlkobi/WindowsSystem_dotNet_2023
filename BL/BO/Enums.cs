@@ -15,8 +15,8 @@ public enum Status
     Unscheduled,
     Scheduled,
     OnTrack,
-    Done
-    //TODO:InJeopardy - will decide later
+    Done,
+    Delayed
 }
 
 public enum ProjectStatus

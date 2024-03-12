@@ -5,80 +5,89 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
-        Title="GanttWindo" Height="600" Width="800">
+        Title="GanttWindow" Height="600" Width="800" Background="LightGray" >
     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
-    <Grid  >
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="250"/>
-            <ColumnDefinition Width="550"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
+        <Grid  >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="35"/>
+                <RowDefinition Height="515"/>
 
-        <ItemsControl  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding GanttTasks}" >
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderThickness="2" BorderBrush="DarkCyan">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+            </Grid.RowDefinitions>
 
-                            <TextBlock Height="20" HorizontalAlignment="Left" Text="{Binding Name}" FontWeight="Bold" Background="White"/>
-                            
+            <ItemsControl  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding GanttTasks}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="2" BorderBrush="silver">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
 
-                            <!--Width="{Binding DaysFromStart}"-->
-                            <!--Width="{Binding DaysFromStart}"-->
-                            
+                                <TextBlock Height="20" HorizontalAlignment="Left" Text="{Binding Name}" FontWeight="Bold" Background="LightGray"/>
 
 
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+                                <!--Width="{Binding DaysFromStart}"-->
+                                <!--Width="{Binding DaysFromStart}"-->
 
 
-        <ItemsControl Grid.Column="2" Grid.Row="2" ItemsSource="{Binding GanttTasks}" >
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderThickness="2" BorderBrush="DarkCyan">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-                            
-                            <TextBlock HorizontalAlignment="Left" Text="{Binding Id}" FontWeight="Bold" Background="LightBlue" Width="17"/>
-                            <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}"  Fill="White"/>
-                            
-                            <!--Width="{Binding DaysFromStart}"-->
-                            <!--Width="{Binding DaysFromStart}"-->
-                            <TextBlock HorizontalAlignment="Left"  Width="{Binding Duration}" FontWeight="Bold" Background="LightBlue"/>
-                            <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeToEnd}"  Fill="White"/>
+
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
 
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
-           <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Top">-->
-        
+            <ItemsControl Grid.Column="2" Grid.Row="2" ItemsSource="{Binding GanttTasks}" >
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderThickness="2"  BorderBrush="DimGray">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+
+                                <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Id}" FontWeight="Bold" Background="Silver" Width="17"/>
+                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}"  Fill="White"/>
+
+                                <!--Width="{Binding DaysFromStart}"-->
+                                <!--Width="{Binding DaysFromStart}"-->
+                                <TextBlock HorizontalAlignment="Left"  Width="{Binding Duration}" FontWeight="Bold" Background="{Binding Status, Mode=TwoWay, Converter={StaticResource StatusToColorConverterKey}}"/>
+                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeToEnd}"  Fill="White"/>
 
 
-        <ItemsControl Grid.Row="0" Grid.Column="1" ItemsSource="{Binding WeekRanges}" HorizontalAlignment="Right" >
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <!-- Use a vertical StackPanel as the ItemsPanel -->
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="2" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <!-- Use a DataTemplate to define how each week range should be displayed -->
-                <DataTemplate>
-                    <Border BorderBrush="Black" BorderThickness="1" Margin="5">
-                        <TextBlock Text="{Binding}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    </Border>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-         </ItemsControl>
-        
-    </Grid>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Top">-->
+
+
+            <ItemsControl Grid.Column="2"  ItemsSource="{Binding WeekRanges}" VerticalAlignment="Center" >
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate >
+                        <!-- Use a horizontal StackPanel as the ItemsPanel -->
+                        <StackPanel Margin="17,0,0,0" Orientation="Horizontal" Height="30" VerticalAlignment="Center"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel >
+                <ItemsControl.ItemTemplate  >
+                    <DataTemplate >
+                        <Border BorderThickness="1" BorderBrush="DimGray" VerticalAlignment="Center"  >
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center"  TextAlignment="Center" Text="{Binding}" FontWeight="Bold" Background="silver"  Width="147"/>
+
+
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Grid Grid.Row="2" >
+                <TextBlock Background="CornflowerBlue" Width="100"  TextAlignment="Center" Text="Scheduled" Margin="44,486,106,9" Height="20"/>
+                <TextBlock Background="LimeGreen" Width="100"  TextAlignment="Center" Text="Done" Margin="445,486,-295,9" Height="20"/>
+                <TextBlock Background="Yellow" Width="100"  TextAlignment="Center" Text="On Track" Margin="177,486,-27,9" Height="20"/>
+                <TextBlock Background="Red" Width="100" TextAlignment="Center" Text="Delayed" Margin="310,486,-160,9" Height="20"/>
+            </Grid>
+        </Grid>
     </ScrollViewer>
 </Window>

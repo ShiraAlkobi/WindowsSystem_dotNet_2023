@@ -283,6 +283,8 @@ internal class TaskImplementation : ITask
             return BO.Status.Unscheduled;
         if (t.StartDate == null)//if there is a schedual date but not start
             return BO.Status.Scheduled;
+        if (t.CompleteDate == null && _dal.getClock()>(t.ScheduledDate + t.RequiredEffortTime))
+            return BO.Status.Delayed;
         if (t.CompleteDate == null)//if there is a start date but not complete
             return BO.Status.OnTrack;
         else return BO.Status.Done;//if there is a complete but not done

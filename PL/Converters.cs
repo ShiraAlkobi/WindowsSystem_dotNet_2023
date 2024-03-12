@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Data;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PL
 {
@@ -40,7 +41,35 @@ namespace PL
             throw new NotImplementedException();
         }
     }
-   
+    public class StatusToColorConverter : IValueConverter
+    {
+        static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            ///if we are in plan stage of the project-you can update.else-not.
+            BO.Status status = (BO.Status)value;
+           
+
+            if (status == BO.Status.Scheduled)
+            {
+                return Brushes.CornflowerBlue;
+            }
+            if (status == BO.Status.OnTrack)
+            {
+                return Brushes.Yellow;
+            }
+            if (status == BO.Status.Done)
+            {
+                return Brushes.LimeGreen;
+            }
+            else return Brushes.Red;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            throw new NotImplementedException();
+        }
+    }
+
     /// <summary>
     /// converts from Project's status to IsEnabled attribute - just like the previos convertor but the logic is different
     /// we can make the Task start date textBox close for changes when the status is plan stage
