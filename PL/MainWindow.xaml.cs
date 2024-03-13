@@ -20,17 +20,22 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
+        /// <summary>
+        /// dependenct property for project status
+        /// </summary>
         public BO.ProjectStatus ProjectStatus
         {
             get { return (BO.ProjectStatus)GetValue(ProjectStatusProperty); }
             set { SetValue(ProjectStatusProperty, value); }
         }
 
-        // Using a DependencyProperty as the backing store for ProjectStatus.  This enables animation, styling, binding, etc...
+        // Using a DependencyProperty as the backing store for ProjectStatus. 
         public static readonly DependencyProperty ProjectStatusProperty =
             DependencyProperty.Register("ProjectStatus", typeof(BO.ProjectStatus), typeof(MainWindow), new PropertyMetadata(null));
 
-
+        /// <summary>
+        /// dependency property for the current date
+        /// </summary>
         public DateTime CurrentDate
         {
             get { return (DateTime)GetValue(CurrentDateProperty); }
@@ -45,8 +50,8 @@ namespace PL
         public MainWindow()
         {
             InitializeComponent();
-            CurrentDate = s_bl.getClock();
-            ProjectStatus = s_bl.getProjectStatus();
+            CurrentDate = s_bl.getClock();//getting the time from data base
+            ProjectStatus = s_bl.getProjectStatus();//getting the project status from data base
             this.DataContext = this;
         }
 
@@ -70,14 +75,18 @@ namespace PL
             MessageBoxResult result = MessageBox.Show("Are you sure you want to initialize data? ", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                Factory.Get().ResetDB();
-                Factory.Get().InitializeDB();
+                Factory.Get().ResetDB();//delete data
+                Factory.Get().InitializeDB();//initialize data
                 MessageBox.Show("Data initialized!");
             }
-            CurrentDate = s_bl.ResetClock();
-            ProjectStatus = s_bl.getProjectStatus();
+            CurrentDate = s_bl.ResetClock();//reset time
+            ProjectStatus = s_bl.getProjectStatus();//getting the prokject status
         }
-
+        /// <summary>
+        /// deleting data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_Reset_Click(object sender, RoutedEventArgs e)
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to reset data? ", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -89,18 +98,30 @@ namespace PL
             CurrentDate = s_bl.ResetClock();
             ProjectStatus = s_bl.getProjectStatus();
         }
-
+        /// <summary>
+        /// show gantt window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_GanttChart_Click(object sender, RoutedEventArgs e)
         {
             new GanttWindow().ShowDialog();
         }
 
-
+        /// <summary>
+        /// show task list window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_TaskList_Click(object sender, RoutedEventArgs e)
         {
             new TaskListWindow().Show();//create new window and show
         }
-
+        /// <summary>
+        /// setting schedule window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_setStartDate_Click(object sender, RoutedEventArgs e)
         {
             new SetStartDateWindow().ShowDialog();
@@ -109,19 +130,24 @@ namespace PL
         }
 
 
-
+        /// <summary>
+        /// add hour to time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddHour_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddHour();
             CurrentDate = s_bl.getClock();
-            if (CurrentDate >= s_bl.getStartDate())
+            if (CurrentDate >= s_bl.getStartDate())//if we reached the start date of the project- 
+                                                   //change project status from plan stage to execution stage
                 if (s_bl.getProjectStatus() == BO.ProjectStatus.PlanStage)
                 {
                     s_bl.changeStatus();
                     MessageBox.Show("Project Started!");
 
                 }
-            ProjectStatus = s_bl.getProjectStatus();
+            ProjectStatus = s_bl.getProjectStatus();//read the project status to the dependency property
         }
 
         private void AddDay_Click(object sender, RoutedEventArgs e)
@@ -165,18 +191,17 @@ namespace PL
                 }
             ProjectStatus = s_bl.getProjectStatus();
         }
-
+        /// <summary>
+        /// reset clock
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_ResetClock_Click(object sender, RoutedEventArgs e)
         {
             s_bl.ResetClock();
             CurrentDate = s_bl.getClock();
-            if (CurrentDate >= s_bl.getStartDate())
-                if (s_bl.getProjectStatus() == BO.ProjectStatus.PlanStage)
-                {
-                    s_bl.changeStatus();
-                    MessageBox.Show("Project Started!");
-
-                }
+            if (CurrentDate < s_bl.getStartDate())//if the reset time is before the projectstart date- change status to plan stage
+                s_bl.setStatus();
             ProjectStatus = s_bl.getProjectStatus();
 
         }
@@ -184,6 +209,11 @@ namespace PL
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+        //make the window draggable
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 

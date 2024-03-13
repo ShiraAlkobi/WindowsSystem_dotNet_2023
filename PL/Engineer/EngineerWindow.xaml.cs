@@ -114,7 +114,6 @@ namespace PL.Engineer
                     StartDate = CurrentAssignedTask.StartDate,
                     ForecastDate = CurrentAssignedTask.ForecastDate,
                     RequiredEffortTime = CurrentAssignedTask.RequiredEffortTime,
-                    DeadlineDate = CurrentAssignedTask.DeadlineDate,
                     CompleteDate = s_bl.getClock(),
                     Deliverables = CurrentAssignedTask.Deliverables!,
                     Remarks = CurrentAssignedTask.Remarks!,
@@ -168,7 +167,6 @@ namespace PL.Engineer
                     StartDate = s_bl.getClock(),
                     ForecastDate = CurrentAssignedTask.ForecastDate,
                     RequiredEffortTime = CurrentAssignedTask.RequiredEffortTime,
-                    DeadlineDate = CurrentAssignedTask.DeadlineDate,
                     CompleteDate = CurrentAssignedTask.CompleteDate,
                     Deliverables = CurrentAssignedTask.Deliverables!,
                     Remarks = CurrentAssignedTask.Remarks!,
@@ -221,6 +219,10 @@ namespace PL.Engineer
         private void ViewTask_Click(object sender, RoutedEventArgs e)
         {
             viewDetailsTaskPopUp.IsOpen = true;
+        }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
         }
     }
 }

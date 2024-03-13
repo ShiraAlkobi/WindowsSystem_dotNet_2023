@@ -301,8 +301,8 @@
             temp = Console.ReadLine();
             DO.EngineerExperience t_Complexity = (EngineerExperience)Enum.Parse(typeof(EngineerExperience), temp);
             //creating the task to add, with the gotten values
-            Task t = new(0, t_Alias, t_Description, false, DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
-               t_DeadlineDate, t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
+            Task t = new(0, t_Alias, t_Description,  DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
+               t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
             int newID = s_dal!.Task.Create(t); //calling the create func, which returns the new task's ID (identifing running number)
             Console.WriteLine("the new task is: " + s_dal!.Task.Read(newID)); //printing for the user
 
@@ -392,15 +392,6 @@
                 t_RequiredEffortTime = result;
             }
 
-            Console.WriteLine("\n Deadline Date: ");
-            temp = Console.ReadLine();
-            if (temp == "" || temp == null)
-                t_DeadlineDate = t.DeadlineDate;
-            else
-                if (DateTime.TryParse(temp!, out var result))
-            {
-                t_DeadlineDate = result;
-            }
 
             Console.WriteLine("\n Complete Date: ");
             temp = Console.ReadLine();
@@ -435,8 +426,8 @@
             if (temp == "" || temp == null)
                 t_Complexity = t.Complexity;
             ///create the task with the updated values we got
-            Task p = new(t.Id, t_alias, t_Description, false, DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
-                t_DeadlineDate, t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
+            Task p = new(t.Id, t_alias, t_Description,  DateTime.Today, t_ScheduledDate, t_StartDate, t_RequiredEffortTime,
+                 t_CompleteDate, t_Deliverables!, t_Remarks!, t_EngineerID, t_Complexity);
             s_dal!.Task.Update(p); ///call for the update func
             Console.WriteLine(p); ///print the task after updating
         }

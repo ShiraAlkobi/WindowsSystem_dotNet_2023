@@ -25,6 +25,10 @@ internal class TaskImplementation : ITask
             throw new BO.BlInputCheckException("Id can't be negative\n");
         if(string.IsNullOrEmpty(t.Alias))
             throw new BO.BlInputCheckException("must insert alias\n");
+        if (t.RequiredEffortTime == null)
+            throw new BO.BlInputCheckException("must insert RequiredEffortTime\n");
+        if (t.Complexity == BO.EngineerExperience.All)
+            throw new BO.BlInputCheckException("please select complexity\n");
 
         try
         {
@@ -35,8 +39,8 @@ internal class TaskImplementation : ITask
                 .ForEach(dependency => _dal.Dependency.Create(dependency));
 
             //create the task
-            DO.Task t_task = new(0, t.Alias, t.Description, false, t.CreatedAtDate, t.ScheduledDate, t.StartDate,
-                                 t.RequiredEffortTime, t.DeadlineDate, t.CompleteDate, t.Deliverables, t.Remarks, 0, (DO.EngineerExperience)t.Complexity);
+            DO.Task t_task = new(0, t.Alias, t.Description,  t.CreatedAtDate, t.ScheduledDate, t.StartDate,
+                                 t.RequiredEffortTime, t.CompleteDate, t.Deliverables, t.Remarks, 0, (DO.EngineerExperience)t.Complexity);
             //call dal fuction to save in data base
             return _dal.Task.Create(t_task);
         }
@@ -107,7 +111,6 @@ internal class TaskImplementation : ITask
             StartDate = t.StartDate,
             ForecastDate = t_forecast,
             RequiredEffortTime = t.RequiredEffortTime,
-            DeadlineDate = t.DeadlineDate,
             CompleteDate = t.CompleteDate,
             Deliverables = t.Deliverables,
             Dependencies = t_dependecies,
@@ -154,7 +157,10 @@ internal class TaskImplementation : ITask
             throw new BO.BlInputCheckException("Id can't be negative\n");
         if (string.IsNullOrEmpty(t.Alias))
             throw new BO.BlInputCheckException("must insert alias\n");
-
+        if (t.RequiredEffortTime == null)
+            throw new BO.BlInputCheckException("must insert RequiredEffortTime\n");
+        if (t.Complexity == BO.EngineerExperience.All)
+            throw new BO.BlInputCheckException("please select complexity\n");
         try
         {
          ///create new task of DO type  
@@ -167,7 +173,6 @@ internal class TaskImplementation : ITask
                 ScheduledDate = t.ScheduledDate,
                 StartDate = t.StartDate,
                 RequiredEffortTime = t.RequiredEffortTime,
-                DeadlineDate = t.DeadlineDate,
                 CompleteDate = t.CompleteDate,
                 Deliverables = t.Deliverables,
                 Remarks = t.Remarks,
@@ -237,7 +242,6 @@ internal class TaskImplementation : ITask
                     ScheduledDate = t_date,
                     StartDate = t.StartDate,
                     RequiredEffortTime = t.RequiredEffortTime,
-                    DeadlineDate = t.DeadlineDate,
                     CompleteDate = t.CompleteDate,
                     Deliverables = t.Deliverables,
                     Remarks = t.Remarks,

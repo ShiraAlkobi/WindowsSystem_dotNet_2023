@@ -163,7 +163,10 @@ namespace PL
             }
             
         }
-
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

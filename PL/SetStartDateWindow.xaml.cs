@@ -21,6 +21,9 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+        /// <summary>
+        /// dependency property for the start date of the project
+        /// </summary>
         public DateTime StartDate
         {
             get { return (DateTime)GetValue(StartDateProperty); }
@@ -32,21 +35,40 @@ namespace PL
             DependencyProperty.Register("StartDate", typeof(DateTime), typeof(SetStartDateWindow), new PropertyMetadata(default));
 
 
+        /// <summary>
+        /// dependency proerty for the current date
+        /// </summary>
+        public DateTime CurrentDate
+        {
+            get { return (DateTime)GetValue(CurrentDateProperty); }
+            set { SetValue(CurrentDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentDateProperty =
+            DependencyProperty.Register("CurrentDate", typeof(DateTime), typeof(SetStartDateWindow), new PropertyMetadata(default));
+
+        /// <summary>
+        /// getting data 
+        /// </summary>
         public SetStartDateWindow()
         {
             InitializeComponent();
             StartDate = DateTime.Now;
+            CurrentDate = s_bl.getClock();
         }
-
+        /// <summary>
+        /// set start date for the project and scheduld dates for the tasks
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void setDate_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("NOTE! You can only set the start date once.\n To confirm, press OK","",MessageBoxButton.OKCancel,MessageBoxImage.Warning);
-            if (result == MessageBoxResult.OK)
-            {
+            
                 s_bl.setStartAndEndDates(StartDate);
 
                 Close();
-            }
+            
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)

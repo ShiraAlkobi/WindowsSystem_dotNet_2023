@@ -20,8 +20,8 @@
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Padding" Value="15"/>
             <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="Background" Value="#FF92DBF9"/>
+            <Setter Property="Foreground" Value="#FF7AB0D2"/>
+            <Setter Property="Background" Value="AliceBlue"/>
             <Setter Property="BorderBrush" Value="#FF5491E5"/>
             <Setter Property="BorderThickness" Value="3"/>
             <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -40,7 +40,7 @@
             <!-- Hover effect -->
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#FFEB615D"/>
+                    <Setter Property="Background" Value="MediumPurple"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -88,11 +88,6 @@
             <Setter Property="Foreground" Value="#FF4D62A4"/>
             <Setter Property="FontFamily" Value="Bahnschrift SemiLight"/>
             <Setter Property="Background" Value="#FFCCD9DE"/>
-            <!--<Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Foreground" Value="Black"/>
-                </Trigger>
-            </Style.Triggers>-->
         </Style>
 
         <Style x:Key="listViewItem" TargetType="ListViewItem">

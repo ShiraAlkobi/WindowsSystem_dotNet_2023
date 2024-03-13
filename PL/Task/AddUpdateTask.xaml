@@ -6,9 +6,10 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         WindowStyle="None"
+        MouseDown="Window_MouseDown"
         Title="AddUpdateTask" Height="630" Width="842" Background="#FF5D6A76"
         xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity">
-    
+
 
     <!-- Grid with grid lines-->
     <Grid ShowGridLines="True" Margin="0,0,10,0">
@@ -43,10 +44,10 @@
                     IsEnabled="False" />
             <TextBox
                  Text="{Binding CurrentTask.Alias, Mode=TwoWay, NotifyOnValidationError=true, ValidatesOnExceptions=true}"/>
-            <TextBox Margin="0,8,0,10"
+            <TextBox Margin="0,8,0,10" IsReadOnly="True"
                  Text="{Binding CurrentTask.Description, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}" 
                      TextWrapping="Wrap" Height="50" Width="225"/>
-            <TextBox Text="{Binding CurrentTask.Status}"/>
+            <TextBox Text="{Binding CurrentTask.Status}" IsReadOnly="True"/>
 
 
             <TextBox Margin="0,11,0,10"
@@ -114,9 +115,9 @@
         </ListBox>
 
         <!-- Add Engineer Button -->
-        <Button Content="Add Task" Background="#FF79C6D1" Margin="134,555,124,15"
+        <Button Content="Add Task"  Style="{StaticResource ButtonStyle}"   Margin="182,539,0,0"
             Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}"
-                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5">
+                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="AddTask_Click" RenderTransformOrigin="0.5,0.5" Height="60" Width="525">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleY="1"/>
@@ -125,15 +126,15 @@
                     <TranslateTransform/>
                 </TransformGroup>
             </Button.RenderTransform>
-         </Button>
+        </Button>
 
         <!-- Update Engineer Button -->
-        <Button Content="Update Task" Margin="134,555,124,15" Background="#FF79C6D1" Foreground="#FF5D6A76"
+        <Button Content="Update Task" Style="{StaticResource ButtonStyle}" Margin="182,539,0,0"  Foreground="#FF5D6A76"
             Visibility="{Binding CurrentTask.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" 
-                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="UpdateTask_Click">            
+                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="UpdateTask_Click" Height="60" Width="525">
         </Button>
         <Label Style="{StaticResource label}" FontSize="16" Content="Dependencies of this Task:" HorizontalAlignment="Left" Margin="379,20,0,0" VerticalAlignment="Top"/>
         <Label Style="{StaticResource label}" FontSize="16" Content="Dependencies to Add:" HorizontalAlignment="Left" Margin="379,243,0,0" VerticalAlignment="Top"/>
-        
+
     </Grid>
 </Window>

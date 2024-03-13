@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"   
         WindowStyle="None" 
+        MouseDown="Window_MouseDown"
         Title="AddUpdateEngineer" Height="400" Width="350" Background="#FF5D6A76">
 
     <!-- Grid with grid lines-->
@@ -49,35 +50,18 @@
         </StackPanel>
 
         <!-- Add Engineer Button -->
-        <Button Content="Add Engineer" Margin="56,315,56,42" Background="#FF79C6D1" Foreground="#FF5D6A76"
+        <Button Content="Add Engineer" Margin="56,315,0,0" Background="#FF79C6D1" Foreground="#FF5D6A76" Style="{StaticResource ButtonStyle}"
             Visibility="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterAdd}}" 
-                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="AddEngineer_Click">
-            <!-- Apply font properties to button -->
-            <!--<Style>
-                <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FF62A29D"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>-->
+                FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="AddEngineer_Click" Height="43">
+
         </Button>
 
         <!-- Update Engineer Button -->
-        <Button Content="Update Engineer" Margin="56,315,56,42" Background="#FF79C6D1" Foreground="#FF5D6A76"
+        <Button Content="Update Engineer" Style="{StaticResource ButtonStyle}" Margin="56,315,0,0" Background="#FF79C6D1" Foreground="#FF5D6A76"
             Visibility="{Binding CurrentEngineer.Id, Mode=OneTime, Converter={StaticResource intToVisibilityConverterUpdate}}" 
-                 FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="UpdateEngineer_Click">
+                 FontSize="18" FontWeight="Bold" FontFamily="Segoe UI" Click="UpdateEngineer_Click" Height="43">
 
-            <!-- Apply the button style to the Button -->
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FF62A29D"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
+
         </Button>
 
     </Grid>

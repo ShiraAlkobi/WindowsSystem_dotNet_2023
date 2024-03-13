@@ -6,58 +6,30 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         WindowStyle="None"
+        MouseDown="Window_MouseDown"
         Title="MainWindow" Height="450" Width="800">
-
     <!-- Window background color -->
     <Window.Background>
-        <SolidColorBrush Color="#FFF4F1E5"/>
+        <SolidColorBrush Color="#FFC7D8E6"/>
     </Window.Background>
 
     <Grid Margin="0,0,10,0">
+        <Grid.Background>
+            <ImageBrush ImageSource="images/Blue 🦋.jpeg"/>
+        </Grid.Background>
+
         <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click"/>
-        <!-- changing style of the window -->
-        <!--<Grid.Resources>
-            <Style x:Key="ButtonStyle" TargetType="Button">
-                <Setter Property="Margin" Value="10"/>
-                <Setter Property="Padding" Value="15"/>
-                <Setter Property="FontSize" Value="18"/>
-                <Setter Property="Foreground" Value="White"/>
-                <Setter Property="Background" Value="#FF76C7C0"/>
-                <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                <Setter Property="BorderThickness" Value="3"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="VerticalAlignment" Value="Top"/>
-                <Setter Property="Height" Value="147"/>
-                <Setter Property="Width" Value="242"/>
-                <Setter Property="Template">
-                    <Setter.Value>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
-                        </ControlTemplate>
-                    </Setter.Value>
-                </Setter>
-                -->
-        <!-- Hover effect -->
-        <!--
-                <Style.Triggers>
-                    <Trigger Property="IsMouseOver" Value="True">
-                        <Setter Property="Background" Value="#FF62A29D"/>
-                    </Trigger>
-                </Style.Triggers>
-            </Style>
-        </Grid.Resources>-->
 
         <!-- Button to show engineers using template created in grid resources ,clicking on the button will open engineer list window-->
         <Button Content="Handle Tasks" Style="{StaticResource ButtonStyle}" Click="btn_TaskList_Click" Margin="150,177,0,0" Height="104" Width="200"/>
         <!-- Button to initialize data using template created in grid resources, clicling on the button will initialize date-->
-        <Button Content="Initialize Data" Style="{StaticResource ButtonStyle}" Click="btn_Initialization_Click" Margin="471,299,0,0" Height="104" Width="200" RenderTransformOrigin="0.997,0.128"/>
-        <Button Content="Reset Data" Style="{StaticResource ButtonStyle}" Click="btn_Reset_Click" Height="104" Width="200" Margin="250,299,0,0"/>
-        <Button Content="Handle Engineers" Style="{StaticResource ButtonStyle}" Click="btn_EngineerList_Click" Margin="371,177,0,0" Height="104" Width="200"/>
-        <Button Content="Gantt Chart" IsEnabled="{Binding ProjectStatus,Mode=TwoWay,Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}" Style="{StaticResource ButtonStyle}" Click="btn_GanttChart_Click" Margin="34,299,0,0" Height="104" Width="200"/>
-        <Button Content="Set start date" IsEnabled="{Binding ProjectStatus,Mode=TwoWay,Converter={StaticResource ProjectStatusToBoolConverterKey}}" Style="{StaticResource ButtonStyle}" Click="btn_setStartDate_Click" Margin="34,28,0,0" Height="56" Width="267"/>
-        <Label Content="{Binding CurrentDate}" HorizontalAlignment="Left" Margin="371,17,0,0" VerticalAlignment="Top" Height="66" Width="336" FontFamily="Bahnschrift" FontSize="24" HorizontalContentAlignment="Center">
+        <Button Content="Initialize Data"  Style="{StaticResource ButtonStyle}"  Click="btn_Initialization_Click" Margin="471,299,0,0" Height="104" Width="200" RenderTransformOrigin="0.997,0.128"/>
+        <Button Content="Reset Data"  Style="{StaticResource ButtonStyle}"  Click="btn_Reset_Click" Height="104" Width="200" Margin="250,299,0,0"/>
+        <Button Content="Handle Engineers"  Style="{StaticResource ButtonStyle}"  Click="btn_EngineerList_Click" Margin="395,177,0,0" Height="104" Width="200"/>
+        <Button Content="Gantt Chart"  IsEnabled="{Binding ProjectStatus,Mode=TwoWay,Converter={StaticResource ProjectStatusToIsEnabledConverterReverseKey}}" Style="{StaticResource ButtonStyle}" Click="btn_GanttChart_Click" Margin="34,299,0,0" Height="104" Width="200"/>
+        <Button Content="Set start date"  IsEnabled="{Binding ProjectStatus,Mode=TwoWay,Converter={StaticResource ProjectStatusToBoolConverterKey}}" Style="{StaticResource ButtonStyle}" Click="btn_setStartDate_Click" Margin="34,28,0,0" Height="56" Width="267"/>
+        <Label Content="{Binding CurrentDate}" Foreground="BlueViolet" FontFamily="Bahnschrift SemiLight" HorizontalAlignment="Left" Margin="371,17,0,0" VerticalAlignment="Top" Height="66" Width="336" FontSize="24" HorizontalContentAlignment="Center">
+            <!--transformation-->
             <Label.RenderTransform>
                 <ScaleTransform ScaleX="1" ScaleY="1"/>
             </Label.RenderTransform>
@@ -89,10 +61,9 @@
         <Button Content="Add Month" Style="{StaticResource ButtonStyle}" Margin="516,86,0,0" Height="44" Width="108" Click="AddMonth_Click"/>
         <Button Content="Add Year" Style="{StaticResource ButtonStyle}" Margin="629,86,0,0" Height="44" Width="84" Click="AddYear_Click"/>
         <Button BorderThickness="0" Background="Transparent" HorizontalAlignment="Left" Height="44" Margin="360,20,0,0" VerticalAlignment="Top" Width="42" Click="btn_ResetClock_Click">
-            <Image Source="/restart_icon_227406.png" />
+            <Image Source="images/refresh-arrow.png" />
         </Button>
 
 
     </Grid>
 </Window>
-

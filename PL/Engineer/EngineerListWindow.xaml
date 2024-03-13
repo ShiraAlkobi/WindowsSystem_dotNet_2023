@@ -6,12 +6,13 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         WindowStyle="None"
+        MouseDown="Window_MouseDown"
         Title="EngineerListWindow" Height="640" Width="800"
         DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
 
     <!-- Window background color -->
     <Window.Background>
-        <SolidColorBrush Color="#FFD4EDE6"/>
+        <SolidColorBrush Color="#FF4D62A4"/>
     </Window.Background>
 
     <!-- External Grid -->
@@ -30,12 +31,12 @@
                 <ColumnDefinition Width="383*"/>
                 <ColumnDefinition Width="17*"/>
             </Grid.ColumnDefinitions>
-
+ <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click" HorizontalAlignment="Left" Margin="343,7,0,0" Grid.Column="1"/>
             <!-- Show filtering criteria -->
-            <Label Content="Select Experience:" FontSize="20" HorizontalAlignment="Center" Margin="0,1,0,0" VerticalAlignment="Top" Width="200"/>
+            <Label Content="Select Experience:" Foreground="#FFCFDFE6" FontSize="20" HorizontalAlignment="Center" Margin="0,1,0,9" Width="200"/>
 
             <!-- Filtering options , changing list of engineers according to expereince chosen-->
-            <ComboBox Grid.Column="1" Margin="10,5,73,0" Width="300"
+            <ComboBox Grid.Column="1" Margin="10,5,79,0" Background="#FFCFDFE6"
                       ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}"
                       SelectedValue="{Binding Path=Experience, Mode=TwoWay}" SelectionChanged="cbExperienceSelector_SelectionChanged">
                 <!-- Apply the button style to the ComboBox -->
@@ -60,29 +61,39 @@
         </Grid>
 
         <!-- ListView ,if clicked o engineer, an update window will open-->
-        <ListView Margin="5,5,5,100" Grid.Row="1" ItemsSource="{Binding EngineerList}" MouseDoubleClick="UpdateEngineerWindow_DoubleClick">
+        <ListView Margin="5,5,5,100" Grid.Row="1" Background="#FFCFDFE6" ItemsSource="{Binding EngineerList}" MouseDoubleClick="UpdateEngineerWindow_DoubleClick">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="Background" Value="#FFB4C6DB"/>
+                    <Setter Property="BorderThickness" Value="0"/>
+                    <Setter Property="Margin" Value="0,0,0,5"/>
+                    <Setter Property="Padding" Value="10"/>
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="ListViewItem">
+                                <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}"
+                            SnapsToDevicePixels="true">
+                                    <ContentPresenter Content="{TemplateBinding Content}" 
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                          SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </ListView.ItemContainerStyle>
         </ListView>
 
         <!-- Button to Add Engineer -->
-        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Width="280" Margin="0,498,0,10" Click="AddEngineerWindow_Click">
+        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Foreground="#FF4D62A4" Background="#FFCFDFE6" Width="280" Margin="0,498,0,0" Style="{StaticResource ButtonStyle}" Click="AddEngineerWindow_Click" Height="66">
             <!-- Apply the  button style to the Button -->
-            <Button.Style>
-                <Style TargetType="Button">
-                    <Setter Property="Foreground" Value="White"/>
-                    <Setter Property="Background" Value="#FF76C7C0"/>
-                    <Setter Property="BorderBrush" Value="#FF62A29D"/>
-                    <Setter Property="BorderThickness" Value="2"/>
-                    <Setter Property="FontSize" Value="16"/>
-                    <Setter Property="Padding" Value="10"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Background" Value="#FF62A29D"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Button.Style>
+
         </Button>
 
     </Grid>
 </Window>
-

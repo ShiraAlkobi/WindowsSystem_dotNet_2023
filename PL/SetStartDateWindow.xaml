@@ -11,7 +11,7 @@
     
     <Grid Margin="0,0,10,7">
         <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click" Margin="0,6,0,0"/>
-        <Calendar SelectedDate="{Binding StartDate, Mode=TwoWay}" VerticalAlignment="Center" Height="178" Width="200" DisplayMode="Month" DisplayDateStart="3/4/2024">
+        <Calendar SelectedDate="{Binding StartDate, Mode=TwoWay}" VerticalAlignment="Center" DisplayDateStart="{Binding CurrentDate}" Height="178" Width="200" DisplayMode="Month" >
         </Calendar>
         <Label Content="Pick a start date for the project:" HorizontalAlignment="Left" Margin="53,10,0,0" VerticalAlignment="Top" Width="185"/>
         <Button Content="set" HorizontalAlignment="Center" Margin="0,219,0,0" VerticalAlignment="Top" Width="92" Click="setDate_Click"/>
