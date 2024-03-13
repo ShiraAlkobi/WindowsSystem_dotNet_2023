@@ -173,7 +173,7 @@ internal class EngineerImplementation : BlApi.IEngineer
                 DO.Task? t_task = _dal.Task.Read(t.Task.Id);
                 if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)//can only upgrade level of engineer
                 {
-                    //throw 
+                    throw new BO.BlCanNotUpdate("can't update engineer to a lower level");
                 }
                 if ((int)t.Level < (int)t_task.Complexity)//can only assign engineer with enough experience for the comlexity of the task
                                                           //return false;
@@ -188,26 +188,26 @@ internal class EngineerImplementation : BlApi.IEngineer
         { throw new BO.BlDoesNotExistException($"Engineer with ID={t.Id} doesn`t exist"); }
     }
 
+    /// <summary>
+    /// returns whether a task can be assigned to engineer
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <returns></returns>
     public bool checkAssignedTask(int t_id)
-    {
-
-       
-            DO.Task? t_task = _dal.Task.Read(t_id);//read the task to be assigned
+    {       
+        DO.Task? t_task = _dal.Task.Read(t_id);//read the task to be assigned
            
-            if (t_task.EngineerId > 0)//if there is already an engineer assigned to the task
-                return false;
-            // going through the dependencies and checking if there is a previous task  that is not yet completed
-            DO.Task? p = (from item in _dal.Dependency.ReadAll()
-                          where item.DependentTask == t_task.Id
-                          let temp = _dal.Task.Read(item.DependsOnTask)
-                          where (temp.CompleteDate is null)
-                          select temp).FirstOrDefault();
+        if (t_task.EngineerId > 0)//if there is already an engineer assigned to the task
+            return false;
+        // going through the dependencies and checking if there is a previous task that is not yet completed
+        DO.Task? p = (from item in _dal.Dependency.ReadAll()
+                        where item.DependentTask == t_task.Id
+                        let temp = _dal.Task.Read(item.DependsOnTask)
+                        where (temp.CompleteDate is null)
+                        select temp).FirstOrDefault();
 
-            if (p is not null)
-                return false;
-
-
-
+        if (p is not null)
+            return false;
         
         return true;
     }

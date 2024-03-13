@@ -20,8 +20,11 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
+
+        #region dependency properties
+
         /// <summary>
-        /// dependenct property for project status
+        /// dependency property for project status
         /// </summary>
         public BO.ProjectStatus ProjectStatus
         {
@@ -45,7 +48,7 @@ namespace PL
         // Using a DependencyProperty as the backing store for CurrentDate.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentDateProperty =
             DependencyProperty.Register("CurrentDate", typeof(DateTime), typeof(MainWindow), new PropertyMetadata(null));
-
+        #endregion
 
         public MainWindow()
         {
@@ -54,6 +57,8 @@ namespace PL
             ProjectStatus = s_bl.getProjectStatus();//getting the project status from data base
             this.DataContext = this;
         }
+
+        #region help functions and event handlers
 
         /// <summary>
         /// by clicking on "handle engineer" button, a new window will appear with the engineers details
@@ -117,6 +122,7 @@ namespace PL
         {
             new TaskListWindow().Show();//create new window and show
         }
+
         /// <summary>
         /// setting schedule window
         /// </summary>
@@ -126,7 +132,6 @@ namespace PL
         {
             new SetStartDateWindow().ShowDialog();
             ProjectStatus = s_bl.getProjectStatus();
-
         }
 
 
@@ -150,6 +155,11 @@ namespace PL
             ProjectStatus = s_bl.getProjectStatus();//read the project status to the dependency property
         }
 
+        /// <summary>
+        /// add day to time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddDay_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddDay();
@@ -164,6 +174,11 @@ namespace PL
             ProjectStatus = s_bl.getProjectStatus();
         }
 
+        /// <summary>
+        /// add month to time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddMonth_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddMonth();
@@ -178,6 +193,11 @@ namespace PL
             ProjectStatus = s_bl.getProjectStatus();
         }
 
+        /// <summary>
+        /// add year to time
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddYear_Click(object sender, RoutedEventArgs e)
         {
             s_bl.AddYear();
@@ -191,6 +211,7 @@ namespace PL
                 }
             ProjectStatus = s_bl.getProjectStatus();
         }
+
         /// <summary>
         /// reset clock
         /// </summary>
@@ -206,15 +227,25 @@ namespace PL
 
         }
 
+        /// <summary>
+        /// close the window when the x button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
-        //make the window draggable
+
+        /// <summary>
+        /// enables the window to move according to mouse moves
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+        #endregion
     }
-
 }

@@ -23,7 +23,7 @@ sealed internal class DalList : IDal
 
 
     /// <summary>
-    /// properties for the project's start and end dates and status
+    /// properties for the project's start and end dates, status and clock
     /// </summary>
     public DateTime? ProjectStartDate { get; set; }
     public DateTime? ProjectEndDate { get; set; }
@@ -92,11 +92,19 @@ sealed internal class DalList : IDal
         DataSource.Config.NextTaskId = 1;
     }
 
+    /// <summary>
+    /// sets clock in the config file
+    /// </summary>
+    /// <param name="clock"></param>
     public void setClock(DateTime clock)
     {
         DataSource.Config.Clock = clock;
     }
 
+    /// <summary>
+    /// returns the clock
+    /// </summary>
+    /// <returns></returns>
     public DateTime getClock()
     {
         return DataSource.Config.Clock;

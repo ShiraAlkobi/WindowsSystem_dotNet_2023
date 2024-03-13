@@ -22,10 +22,16 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        /// <summary>
+        /// constant value of pixels per day in the gantt
+        /// </summary>
         public readonly int PixelsPerDay = 21;
 
+        #region dependency properties
 
-        
+        /// <summary>
+        /// dependency property for the collection of the tasks in the gantt
+        /// </summary>
         public IEnumerable<TaskGantt> GanttTasks
         {
             get { return (IEnumerable<TaskGantt>)GetValue(GanttTasksProperty); }
@@ -36,6 +42,9 @@ namespace PL
         public static readonly DependencyProperty GanttTasksProperty =
             DependencyProperty.Register("GanttTasks", typeof(IEnumerable<TaskGantt>), typeof(GanttWindow), new PropertyMetadata(null));
 
+        /// <summary>
+        /// dependency property for the week ranges (appear above the chart)
+        /// </summary>
         public ObservableCollection<string> WeekRanges
         {
             get { return (ObservableCollection<string>)GetValue(WeekRangesProperty); }
@@ -45,20 +54,9 @@ namespace PL
         public static readonly DependencyProperty WeekRangesProperty =
             DependencyProperty.Register(nameof(WeekRanges), typeof(ObservableCollection<string>), typeof(GanttWindow), new PropertyMetadata(new ObservableCollection<string>()));
 
-
-
-        public int WeekWidth
-        {
-            get { return (int)GetValue(WeekWidthProperty); }
-            set { SetValue(WeekWidthProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for WeekWidth.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty WeekWidthProperty =
-            DependencyProperty.Register("WeekWidth", typeof(int), typeof(GanttWindow), new PropertyMetadata(0));
-
-
-
+        /// <summary>
+        /// dependency property for the total width of the chart
+        /// </summary>
         public int TotalWidth
         {
             get { return (int)GetValue(TotalWidthProperty); }
@@ -69,14 +67,14 @@ namespace PL
         public static readonly DependencyProperty TotalWidthProperty =
             DependencyProperty.Register("TotalWidth", typeof(int), typeof(GanttWindow), new PropertyMetadata(0));
 
-
+        #endregion
 
         public GanttWindow()
         {
             InitializeComponent();
             UpdateWeekRanges();
-                DateTime? projectStartDate=s_bl.getStartDate();
-                DateTime? projectEndDate = s_bl.getEndDate();
+            DateTime? projectStartDate=s_bl.getStartDate();
+            DateTime? projectEndDate = s_bl.getEndDate();
 
             GanttTasks = from item in s_bl.Task.ReadAll()
                          let task = s_bl.Task.Read(item.Id)
@@ -94,6 +92,12 @@ namespace PL
                         };
             this.DataContext = this;
         }
+
+        #region help functions and event handlers
+
+        /// <summary>
+        /// creates a collection of strings that collects the ranges of the weeks from the project's start date till end
+        /// </summary>
         private void UpdateWeekRanges()
         {
             WeekRanges.Clear();
@@ -117,19 +121,29 @@ namespace PL
                 currentStartDate = currentEndDate?.AddDays(1);
             }
             TotalWidth = count * 147 + 50;
-            WeekWidth = count * 147;
         }
+
+        /// <summary>
+        /// enables the window to move according to mouse moves
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
-
         }
+
+        /// <summary>
+        /// close the window when the x button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
-
+        #endregion
     }
 }  
     

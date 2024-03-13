@@ -16,6 +16,7 @@
         <local:AssignedTaskToBoolConverter x:Key="AssignedTaskToBoolConverterKey"/>
         <local:AssignedTaskToBoolConverterReverse x:Key="AssignedTaskToBoolConverterReverseKey"/>
         
+        
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Padding" Value="15"/>
@@ -75,9 +76,7 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
-        </Style>
-
-       
+        </Style>       
 
         <Style x:Key="label" TargetType="Label">            
             <Setter Property="FontSize" Value="14"/>
@@ -117,8 +116,5 @@
             </Setter>
         </Style>
     </Application.Resources>
-
     
-
-
 </Application>

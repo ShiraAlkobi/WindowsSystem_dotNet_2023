@@ -39,8 +39,9 @@ internal class TaskImplementation : ITask
                 .ForEach(dependency => _dal.Dependency.Create(dependency));
 
             //create the task
-            DO.Task t_task = new(0, t.Alias, t.Description,  t.CreatedAtDate, t.ScheduledDate, t.StartDate,
-                                 t.RequiredEffortTime, t.CompleteDate, t.Deliverables, t.Remarks, 0, (DO.EngineerExperience)t.Complexity);
+            DO.Task t_task = new(0, t.Alias, t.Description, t.CreatedAtDate, t.ScheduledDate, t.StartDate,
+                                t.RequiredEffortTime, t.CompleteDate, t.Deliverables, t.Remarks, 0, (DO.EngineerExperience)t.Complexity);
+            
             //call dal fuction to save in data base
             return _dal.Task.Create(t_task);
         }
@@ -365,12 +366,15 @@ internal class TaskImplementation : ITask
     public bool CircularDependency(int taskToCheck, int t)
     {
         bool flag = true;
+        ///check if t is in the taskToCheck dependencies
         BO.TaskInList? temp = (from item in getDependencies(taskToCheck)
                                where item.Id == t
                                select item).FirstOrDefault();
         if (temp != null) { return false; }
         else
         {
+            //if we didn't find t in taskToCheck dependencies, we want to check this also in taskToCheck dependencies
+            //so there won't be circular dependency
             foreach (var item in getDependencies(taskToCheck))
             {
                 flag = CircularDependency(item.Id, t);

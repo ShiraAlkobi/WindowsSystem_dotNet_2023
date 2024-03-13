@@ -28,6 +28,7 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        #region dependency properties
 
         /// <summary>
         /// dependency property for the engineer that is being added or updated in this window
@@ -41,8 +42,10 @@ namespace PL
         public static readonly DependencyProperty CurrentTaskProperty =
             DependencyProperty.Register("CurrentTask", typeof(BO.Task), typeof(AddUpdateTask), new PropertyMetadata(null));
 
-
-
+        /// <summary>
+        /// dependency property for the tasks that are selected as the task's dependencies
+        /// this is an observable collection so the updating can be faster and immidiate
+        /// </summary>
         public ObservableCollection<BO.TaskInList>? SelectedDependencies
         {
             get { return (ObservableCollection<BO.TaskInList>)GetValue(selectedDependenciesProperty); }
@@ -53,8 +56,10 @@ namespace PL
         public static readonly DependencyProperty selectedDependenciesProperty =
             DependencyProperty.Register("SelectedDependencies", typeof(ObservableCollection<BO.TaskInList>), typeof(AddUpdateTask), new PropertyMetadata(null));
 
-
-
+        /// <summary>
+        /// dependency property for the tasks that are not selected as the task's dependencies - or can't be selected because of circular dependency
+        /// this is an observable collection so the updating can be faster and immidiate
+        /// </summary>
         public IEnumerable<BO.TaskInList> NotSelectedDependencies
         {
             get { return (IEnumerable<BO.TaskInList>)GetValue(NotSelectedDependenciesProperty); }
@@ -65,6 +70,9 @@ namespace PL
         public static readonly DependencyProperty NotSelectedDependenciesProperty =
             DependencyProperty.Register("NotSelectedDependencies", typeof(IEnumerable<BO.TaskInList>), typeof(AddUpdateTask), new PropertyMetadata(null));
 
+        /// <summary>
+        /// dependency property for the project's status
+        /// </summary>
         public BO.ProjectStatus CurrentProjectStatusTask
         {
             get { return (BO.ProjectStatus)GetValue(CurrentProjectStatusTaskProperty); }
@@ -73,8 +81,8 @@ namespace PL
         ///Using a DependencyProperty as the backing store for CurrentProjectStatus.This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentProjectStatusTaskProperty =
             DependencyProperty.Register("CurrentProjectStatusTask", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
-        
 
+        #endregion
 
         /// <summary>
         /// ctor for the window
@@ -121,10 +129,11 @@ namespace PL
                                                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            ///because there're several dependency properties, the data context needs to be the whole window
             this.DataContext = this;
         }
 
-        
+        #region help functions and event handlers
 
         /// <summary>
         /// an event when clicking the add button
@@ -165,6 +174,7 @@ namespace PL
             catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message); }
 
         }
+
         /// <summary>
         /// an event when clicking the update button
         /// </summary>
@@ -206,19 +216,34 @@ namespace PL
 
         }
 
+        /// <summary>
+        /// Check if the input is a numeric character - preventing from writing letters where only numbers are needed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckNumInput(object sender, TextCompositionEventArgs e)
         {
-            // Check if the input is a numeric character
             if (!IsNumeric(e.Text))
             {
                 e.Handled = true; // Mark the event as handled, preventing the character from being added to the TextBox
             }
         }
+
+        /// <summary>
+        /// returns whether the text contains only numbers
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private bool IsNumeric(string text)
         {
             return int.TryParse(text, out _);
         }
 
+        /// <summary>
+        /// when clicking the plus button, a dependency is added so update the data base and the collections
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddDependency_Click(object sender, RoutedEventArgs e)
         {
 
@@ -233,6 +258,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// when clicking the minus button, a dependency is removed, so update the data base and the collections
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void RemoveDependency_Click(object sender, RoutedEventArgs e)
         {
 
@@ -247,13 +277,26 @@ namespace PL
             }
         }
 
+        ///<summary>
+        /// close the window when the x button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
+        /// <summary>
+        /// enables the window to move according to mouse moves
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+
+        #endregion
     }
 }

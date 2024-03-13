@@ -15,10 +15,9 @@ namespace PL
     /// </summary>
 
     /// <summary>
-    /// converts from Project's status to IsEnabled attribute
-    /// we can make the Task required effort time textBox close for changes when the status is execution stage
+    /// converts from Project's status to IsEnabled attribute (bool)
+    /// this is to make controls' features unable when the project is in execution 
     /// </summary>
-
     public class ProjectStatusToBoolConverter : IValueConverter
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
@@ -41,14 +40,17 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// converts from task's status to color 
+    /// this is to change color of task in the gantt's window, according to it's status
+    /// </summary>
     public class StatusToColorConverter : IValueConverter
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            ///if we are in plan stage of the project-you can update.else-not.
-            BO.Status status = (BO.Status)value;
-           
+            BO.Status status = (BO.Status)value;           
 
             if (status == BO.Status.Scheduled)
             {
@@ -71,21 +73,18 @@ namespace PL
     }
 
     /// <summary>
-    /// converts from Project's status to IsEnabled attribute - just like the previos convertor but the logic is different
-    /// we can make the Task start date textBox close for changes when the status is plan stage
+    /// converts from Task's complete date to IsEnabled attribute 
+    /// this is to make controls' features unable when the complete date is set  
     /// </summary>
     public class CompleteDateToBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            DateTime? completeDate = (DateTime?)value;
-
-            ///if the project's status is the plan stage, the date is not enabled to change
+            DateTime? completeDate = (DateTime?)value;            
             if (completeDate == null)
             {
                 return true;
-            }
-            ///if the project's status is the execution stage, the date is enabled to change
+            }            
             else
             {
                 return false;
@@ -96,18 +95,20 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// converts from task assigned to engineer to IsEnabled attribute (bool)
+    /// this is to make controls' features unable when the task is assigned to engineer 
+    /// </summary>
     public class AssignedTaskToBoolConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            BO.TaskInEngineer? AssignedTask = (BO.TaskInEngineer)value;
-
-            ///if the project's status is the plan stage, the date is not enabled to change
+            BO.TaskInEngineer? AssignedTask = (BO.TaskInEngineer)value;            
             if (AssignedTask != null)
             {
                 return true;
-            }
-            ///if the project's status is the execution stage, the date is enabled to change
+            }            
             else
             {
                 return false;
@@ -118,18 +119,20 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// converts from task assigned to engineer to IsEnabled attribute (bool)
+    /// this is to make controls' features unable when the task is not assigned to engineer 
+    /// </summary>
     public class AssignedTaskToBoolConverterReverse : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
             BO.TaskInEngineer? AssignedTask = (BO.TaskInEngineer)value;
-
-            ///if the project's status is the plan stage, the date is not enabled to change
             if (AssignedTask == null)
             {
                 return true;
             }
-            ///if the project's status is the execution stage, the date is enabled to change
             else
             {
                 return false;
@@ -140,6 +143,11 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// converts from Project's status to IsEnabled attribute (bool)
+    /// this is to make controls' features unable when the project is in plan 
+    /// </summary>
     public class ProjectStatusToIsEnabledConverterReverse : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
@@ -162,6 +170,11 @@ namespace PL
             throw new NotImplementedException();
         }
     }
+
+    /// <summary>
+    /// converts from id (int) to IsEnabled attribute (bool)
+    /// this is to make controls' features available when we add task/engineer
+    /// </summary>
     public class IntToIsEnabledConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

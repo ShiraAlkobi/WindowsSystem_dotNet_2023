@@ -22,6 +22,11 @@ namespace PL
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
 
+        #region dependency properties
+
+        /// <summary>
+        /// dependency property for the task that is being added or updated in this window
+        /// </summary>
         public BO.User CurrentUser
         {
             get { return (BO.User)GetValue(CurredntUserProperty); }
@@ -32,29 +37,22 @@ namespace PL
         public static readonly DependencyProperty CurredntUserProperty =
             DependencyProperty.Register("CurredntUser", typeof(BO.User), typeof(EntryWindow), new PropertyMetadata(null));
 
-
+        #endregion
 
         public EntryWindow()
         {
             InitializeComponent();
-
-            CurrentUser = new BO.User();
-
-                
+            CurrentUser = new BO.User();                           
             this.DataContext = this;
         }
 
-        private void btn_AdminWindow_Click(object sender, RoutedEventArgs e)
-        {
-            new MainWindow().ShowDialog();
-        }
+        #region help functions and event handlers        
 
-        private void btn_EngineerWindow_Click(object sender, RoutedEventArgs e)
-        {
-            new EngineerWindow(CurrentUser.Id).Show();
-        }
-
-
+        /// <summary>
+        /// event handler for got focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserName_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -64,6 +62,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// event handler for lost focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void UserName_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -73,6 +76,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// event handler for got focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Password_GotFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -82,6 +90,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// event handler for got focus
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Password_LostFocus(object sender, RoutedEventArgs e)
         {
             TextBox textBox = (TextBox)sender;
@@ -91,6 +104,11 @@ namespace PL
             }
         }
 
+        /// <summary>
+        /// prevents typing letters when only numbers are needed - in user name
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public bool ContainsOnlyLetters(string input)
         {
             foreach (char c in input)
@@ -103,11 +121,21 @@ namespace PL
             return true; // Return true if all characters are letters
         }
 
+        /// <summary>
+        /// returns whether the string contains only numbers
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private bool IsNumeric(string text)
         {
             return int.TryParse(text, out _);
         }
 
+        /// <summary>
+        /// checking for correct user name and password when clicking logIn button - when inserting wrong input, messages will be shown
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_LogIn_Click(object sender, RoutedEventArgs e)
         {
             try 
@@ -152,7 +180,6 @@ namespace PL
                         }
                         
                         else new EngineerWindow(t_user.Id).Show();
-
                     }
                 }
             }
@@ -160,16 +187,28 @@ namespace PL
             catch (BO.BlDoesNotExistException)
             {
                 MessageBox.Show("User Name or Password are wrong, try again", "", MessageBoxButton.OK);
-            }
-            
+            }            
         }
+
+        /// <summary>
+        /// enables the window to move according to mouse moves
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+
+        /// <summary>
+        /// close the window when the x button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+        #endregion
     }
 }

@@ -283,11 +283,9 @@ public static class Initialization
             }
         }
 
+        ///resets the auto numbers, the project's status and the clock
         s_dal.ResetId();
         s_dal.setStatus();
         s_dal.setClock(DateTime.Now.Date);
     }
-
-
-
 }

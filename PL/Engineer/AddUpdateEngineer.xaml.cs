@@ -25,6 +25,7 @@ namespace PL.Engineer
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
+        #region dependency properties
         //Using a DependencyProperty as the backing store for CurrentEngineer.This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CurrentEngineerProperty =
             DependencyProperty.Register("CurrentEngineer", typeof(BO.Engineer), typeof(AddUpdateEngineer), new PropertyMetadata(null));
@@ -38,15 +39,9 @@ namespace PL.Engineer
             set { SetValue(CurrentEngineerProperty, value); }
         }
 
-        public IEnumerable<BO.TaskInEngineer> AllTasks
-        {
-            get { return (IEnumerable<BO.TaskInEngineer>)GetValue(AllTasksProperty); }
-            set { SetValue(AllTasksProperty, value); }
-        }
-
-        // Using a DependencyProperty as the backing store for AllTasks.  This enables animation, styling, binding, etc...
-        public static readonly DependencyProperty AllTasksProperty =
-            DependencyProperty.Register("AllTasks", typeof(IEnumerable<BO.TaskInEngineer>), typeof(AddUpdateEngineer), new PropertyMetadata(null));
+        /// <summary>
+        /// dependency property for the project's status
+        /// </summary>
         public BO.ProjectStatus CurrentProjectStatusEngineer
         {
             get { return (BO.ProjectStatus)GetValue(CurrentProjectStatusEngineerProperty); }
@@ -56,14 +51,12 @@ namespace PL.Engineer
         public static readonly DependencyProperty CurrentProjectStatusEngineerProperty =
             DependencyProperty.Register("CurrentProjectStatusEngineer", typeof(BO.ProjectStatus), typeof(AddUpdateTask), new PropertyMetadata(null));
 
-
-
-
-
         /// <summary>
         /// a property for the experience of engineer - the level field 
         /// </summary>
         public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;
+
+        #endregion
 
         /// <summary>
         /// ctor for the window
@@ -72,18 +65,14 @@ namespace PL.Engineer
         /// when adding the id will be 0 - default value
         /// </param>
         public AddUpdateEngineer(int id = 0)
-        {
-           
+        {           
             InitializeComponent();
             CurrentProjectStatusEngineer = s_bl.getProjectStatus();
-            AllTasks = (from item in s_bl.Task.ReadAll()
-                            select new BO.TaskInEngineer() { Id = item.Id, Alias = item.Alias }).ToList();
-            
+                        
             if (id == 0)
             {
                 ///create an engineer with default values
                 CurrentEngineer = new BO.Engineer();
-
             }
             else
             {
@@ -93,15 +82,17 @@ namespace PL.Engineer
                     CurrentEngineer = s_bl.Engineer.Read(id);
                 }
                 ///if an exception was thrown from the read function, catch it and show a message box which explains the exception
-                catch (BO.BlDoesNotExistException e)
+                catch (BO.BlDoesNotExistException)
                 {
                     MessageBox.Show($"Engineer with id: {id} does not exist", "Input Error!",
                                                         MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
+            ///because there're several dependency properties, the data context needs to be the whole window
             this.DataContext = this;
         }
 
+        #region help functions and event handlers
         /// <summary>
         /// an event when clicking the add button
         /// </summary>
@@ -131,7 +122,6 @@ namespace PL.Engineer
             }///if an exception was thrown from the create function, catch it and show a message box which explains the exception
             catch (BO.BlInputCheckException ex) { MessageBox.Show(ex.Message); }
             catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message); }
-
         }
 
         /// <summary>
@@ -167,6 +157,11 @@ namespace PL.Engineer
 
         }
 
+        /// <summary>
+        /// prevents typing letters when only numbers are needed
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CheckNumInput(object sender, TextCompositionEventArgs e)
         {
             // Check if the input is a numeric character
@@ -175,18 +170,37 @@ namespace PL.Engineer
                 e.Handled = true; // Mark the event as handled, preventing the character from being added to the TextBox
             }
         }
+
+        /// <summary>
+        /// returns whether the string contains only numbers
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         private bool IsNumeric(string text)
         {
             return int.TryParse(text, out _);
         }
 
+        /// <summary>
+        /// close the window when the x button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
+
+        /// <summary>
+        /// enables the window to move according to mouse moves
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+
+        #endregion
     }
 }

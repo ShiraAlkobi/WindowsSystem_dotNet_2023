@@ -21,6 +21,7 @@ namespace PL
     {
 
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
+
         /// <summary>
         /// dependency property for the start date of the project
         /// </summary>
@@ -57,20 +58,23 @@ namespace PL
             StartDate = DateTime.Now;
             CurrentDate = s_bl.getClock();
         }
+
         /// <summary>
         /// set start date for the project and scheduld dates for the tasks
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void setDate_Click(object sender, RoutedEventArgs e)
-        {
-            
-                s_bl.setStartAndEndDates(StartDate);
-
-                Close();
-            
+        {            
+            s_bl.setStartAndEndDates(StartDate);
+            Close();            
         }
 
+        /// <summary>
+        /// close the window when the x button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();

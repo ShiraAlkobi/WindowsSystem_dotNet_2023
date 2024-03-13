@@ -27,7 +27,7 @@ namespace Dal
 
         /// <summary>
         /// these properties represents the project start and end dates
-        /// also, there's a property for the project's current status 
+        /// also, there's a property for the project's current status and the project's clock 
         /// the status is an enum type
         /// all of these properties will be saved in the config xml file
         /// </summary>
@@ -182,6 +182,10 @@ namespace Dal
             XMLTools.ResetId("data-config", "NextTaskId");
         }
 
+        /// <summary>
+        /// sets clock in the config file
+        /// </summary>
+        /// <param name="clock"></param>
         public void setClock(DateTime clock)
         {
 
@@ -201,6 +205,10 @@ namespace Dal
             XMLTools.SaveListToXMLElement(root, "data-config");
         }
 
+        /// <summary>
+        /// returns the clock
+        /// </summary>
+        /// <returns></returns>
         public DateTime getClock()
         {
             ///load data
@@ -214,9 +222,7 @@ namespace Dal
             string temp = t_Clock.Value;
             DateTime s;
             DateTime.TryParse(temp, out s);
-            return s;
-            
-            
+            return s;           
         }
     }
 }

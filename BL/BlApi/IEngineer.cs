@@ -52,5 +52,11 @@ public interface IEngineer
     /// </summary>
     /// <returns></returns>
     public IEnumerable<BO.Engineer> SortByName();
+
+    /// <summary>
+    /// returns whether a task can be assigned to engineer
+    /// </summary>
+    /// <param name="t_id"></param>
+    /// <returns></returns>
     public bool checkAssignedTask(int t_id);
 }

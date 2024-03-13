@@ -20,12 +20,27 @@ namespace PL.Engineer
     public partial class EngineerListWindow : Window
     {
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();//giving us access to bl functions
-        public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;//experience field has defualt
-        public IEnumerable<BO.Engineer> EngineerList//the list of engineers
+
+        #region dependency properties
+
+        //experience field has defualt
+        public BO.EngineerExperience Experience { get; set; } = BO.EngineerExperience.All;
+
+        /// <summary>
+        /// dependency property that gets all engineers fields to the control list
+        /// </summary>
+        public IEnumerable<BO.Engineer> EngineerList
         {
             get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
             set { SetValue(EngineerListProperty, value); }
         }
+
+        public static readonly DependencyProperty EngineerListProperty =
+            DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
+
+        /// <summary>
+        /// dependency property for the project's status - used for enabeling controls
+        /// </summary>
         public BO.ProjectStatus ProjectStatusEngineerList
         {
             get { return (BO.ProjectStatus)GetValue(ProjectStatusEngineerListProperty); }
@@ -35,11 +50,20 @@ namespace PL.Engineer
         // Using a DependencyProperty as the backing store for ProjectStatus. 
         public static readonly DependencyProperty ProjectStatusEngineerListProperty =
             DependencyProperty.Register("ProjectStatusEngineerList", typeof(BO.ProjectStatus), typeof(MainWindow), new PropertyMetadata(null));
-        /// <summary>
-        /// dependency propert that gets all engineers fields to the control list
-        /// </summary>
-        public static readonly DependencyProperty EngineerListProperty =
-            DependencyProperty.Register("EngineerList", typeof(IEnumerable<BO.Engineer>), typeof(EngineerListWindow), new PropertyMetadata(null));
+
+        #endregion
+
+        public EngineerListWindow()
+        {
+            InitializeComponent();
+            EngineerList = s_bl?.Engineer.ReadAll()!;            
+            ProjectStatusEngineerList = s_bl.getProjectStatus();
+            ///because there're several dependency properties, the data context needs to be the whole window
+            this.DataContext = this;
+        }
+
+        #region help functions and event handlers
+
         /// <summary>
         /// the user can change the selection of engineers in the combobox to engineers with certain level
         /// the function will call readall again and the filter parameter will be the items the are the level as the one selected
@@ -50,14 +74,6 @@ namespace PL.Engineer
         {
             EngineerList = (Experience == BO.EngineerExperience.All) ?
                 s_bl?.Engineer.ReadAll()! : s_bl?.Engineer.ReadAll(item => item.Level == Experience)!;
-        }
-        public EngineerListWindow()
-        {
-            InitializeComponent();
-            EngineerList = s_bl?.Engineer.ReadAll()!;//rereading the engineerlist after updating or adding engineer
-                                                     //because we want the list to be updated immidiatly
-            this.DataContext = this;
-            ProjectStatusEngineerList = s_bl.getProjectStatus();
         }
 
         /// <summary>
@@ -90,14 +106,26 @@ namespace PL.Engineer
                                                                                                       //because we want the list to be updated immidiatly
         }
 
+        /// <summary>
+        /// close the window when the x button is clicked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             this.Close();
         }
 
+        /// <summary>
+        /// enables the window to move according to mouse moves
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
         }
+
+        #endregion
     }
 }
