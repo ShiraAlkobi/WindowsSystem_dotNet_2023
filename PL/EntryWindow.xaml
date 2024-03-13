@@ -56,7 +56,7 @@
 
         <Border CornerRadius="10" BorderBrush="White" BorderThickness="1" HorizontalAlignment="left" Height="24" Margin="60,187,0,0"  VerticalAlignment="Top" Width="200" >
 
-            <TextBox BorderBrush="Transparent" Background="Transparent" Text ="{Binding CurrentUser.Password}"  GotFocus="Password_GotFocus" LostFocus="Password_LostFocus"/>
+            <TextBox Foreground="White" BorderBrush="Transparent" Background="Transparent" Text ="{Binding CurrentUser.Password}"  GotFocus="Password_GotFocus" LostFocus="Password_LostFocus"/>
 
         </Border>
 

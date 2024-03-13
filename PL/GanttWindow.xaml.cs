@@ -47,15 +47,38 @@ namespace PL
 
 
 
+        public int WeekWidth
+        {
+            get { return (int)GetValue(WeekWidthProperty); }
+            set { SetValue(WeekWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for WeekWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WeekWidthProperty =
+            DependencyProperty.Register("WeekWidth", typeof(int), typeof(GanttWindow), new PropertyMetadata(0));
+
+
+
+        public int TotalWidth
+        {
+            get { return (int)GetValue(TotalWidthProperty); }
+            set { SetValue(TotalWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TotalWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TotalWidthProperty =
+            DependencyProperty.Register("TotalWidth", typeof(int), typeof(GanttWindow), new PropertyMetadata(0));
+
+
+
         public GanttWindow()
         {
             InitializeComponent();
             UpdateWeekRanges();
-                DateTime? projectStartDate=s_bl.getStartDate();
-                DateTime? projectEndDate = s_bl.getEndDate();
-            
+            DateTime? projectStartDate = s_bl.getStartDate();
+            DateTime? projectEndDate = s_bl.getEndDate();
             GanttTasks = from item in s_bl.Task.ReadAll()
-                        let task =s_bl.Task.Read(item.Id)  
+                        let task = s_bl.Task.Read(item.Id)  
                         select new TaskGantt()
                         {
                             Id = task.Id,
@@ -70,13 +93,14 @@ namespace PL
         private void UpdateWeekRanges()
         {
             WeekRanges.Clear();
-
+            int count = 0;
             DateTime? currentStartDate = s_bl.getStartDate();
             DateTime? ProjectStartDate = s_bl.getStartDate();
             DateTime? currentEndDate;
             DateTime? ProjectEndDate = s_bl.getEndDate();
             while (currentStartDate <= ProjectEndDate)
             {
+                count++;
                 currentEndDate = currentStartDate?.AddDays(6);
                 if (currentEndDate > ProjectEndDate)
                 {
@@ -88,6 +112,8 @@ namespace PL
 
                 currentStartDate = currentEndDate?.AddDays(1);
             }
+            TotalWidth = count * 147 + 17;
+            WeekWidth = count * 147;
         }
     }
 }

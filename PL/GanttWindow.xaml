@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         Title="GanttWindow" Height="600" Width="800" Background="LightGray" >
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Hidden">
         <Grid  >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
@@ -38,56 +38,57 @@
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
 
+            
+                <ItemsControl Background="White" Grid.Column="2" Grid.Row="2" ItemsSource="{Binding GanttTasks}"  >
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="2"  BorderBrush="DimGray">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
 
-            <ItemsControl Grid.Column="2" Grid.Row="2" ItemsSource="{Binding GanttTasks}" >
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <Border BorderThickness="2"  BorderBrush="DimGray">
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Id}" FontWeight="Bold" Background="Silver" Width="17"/>
+                                    <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}"  Fill="White"/>
 
-                                <TextBlock HorizontalAlignment="Center" TextAlignment="Center" Text="{Binding Id}" FontWeight="Bold" Background="Silver" Width="17"/>
-                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeFromStart}"  Fill="White"/>
-
-                                <!--Width="{Binding DaysFromStart}"-->
-                                <!--Width="{Binding DaysFromStart}"-->
-                                <TextBlock HorizontalAlignment="Left"  Width="{Binding Duration}" FontWeight="Bold" Background="{Binding Status, Mode=TwoWay, Converter={StaticResource StatusToColorConverterKey}}"/>
-                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeToEnd}"  Fill="White"/>
-
-
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Top">-->
+                                    <!--Width="{Binding DaysFromStart}"-->
+                                    <!--Width="{Binding DaysFromStart}"-->
+                                    <TextBlock HorizontalAlignment="Left"  Width="{Binding Duration}" FontWeight="Bold" Background="{Binding Status, Mode=TwoWay, Converter={StaticResource StatusToColorConverterKey}}"/>
+                                    <Rectangle HorizontalAlignment="Right" Height="20" Width="{Binding TimeToEnd}"  Fill="White"/>
 
 
-            <ItemsControl Grid.Column="2"  ItemsSource="{Binding WeekRanges}" VerticalAlignment="Center" >
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate >
-                        <!-- Use a horizontal StackPanel as the ItemsPanel -->
-                        <StackPanel Margin="17,0,0,0" Orientation="Horizontal" Height="30" VerticalAlignment="Center"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel >
-                <ItemsControl.ItemTemplate  >
-                    <DataTemplate >
-                        <Border BorderThickness="1" BorderBrush="DimGray" VerticalAlignment="Center"  >
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
-
-                                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center"  TextAlignment="Center" Text="{Binding}" FontWeight="Bold" Background="silver"  Width="147"/>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Top">-->
 
 
-                            </StackPanel>
-                        </Border>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <Grid Grid.Row="2" >
-                <TextBlock Background="CornflowerBlue" Width="100"  TextAlignment="Center" Text="Scheduled" Margin="44,486,106,9" Height="20"/>
-                <TextBlock Background="LimeGreen" Width="100"  TextAlignment="Center" Text="Done" Margin="445,486,-295,9" Height="20"/>
-                <TextBlock Background="Yellow" Width="100"  TextAlignment="Center" Text="On Track" Margin="177,486,-27,9" Height="20"/>
-                <TextBlock Background="Red" Width="100" TextAlignment="Center" Text="Delayed" Margin="310,486,-160,9" Height="20"/>
+                <ItemsControl  Grid.Column="2" ItemsSource="{Binding WeekRanges}" VerticalAlignment="Center" Margin="34,0,0,0" >
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate >
+                            <!-- Use a horizontal StackPanel as the ItemsPanel -->
+                            <StackPanel Margin="17,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel >
+                    <ItemsControl.ItemTemplate  >
+                        <DataTemplate >
+                            <Border BorderThickness="1" BorderBrush="DimGray" VerticalAlignment="Center"  >
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
+
+                                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding}" FontWeight="Bold" Background="silver" Width="147"/>
+
+
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <Grid Grid.Row="2" >
+                    <TextBlock Background="CornflowerBlue" Width="100"  TextAlignment="Center" Text="Scheduled" Margin="44,486,106,9" Height="20"/>
+                    <TextBlock Background="LimeGreen" Width="100"  TextAlignment="Center" Text="Done" Margin="445,486,-295,9" Height="20"/>
+                    <TextBlock Background="Yellow" Width="100"  TextAlignment="Center" Text="On Track" Margin="177,486,-27,9" Height="20"/>
+                    <TextBlock Background="Red" Width="100" TextAlignment="Center" Text="Delayed" Margin="310,486,-160,9" Height="20"/>
+                </Grid>
             </Grid>
-        </Grid>
+        
     </ScrollViewer>
 </Window>

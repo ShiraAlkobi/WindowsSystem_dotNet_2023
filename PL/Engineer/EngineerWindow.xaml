@@ -5,12 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
-        Title="EngineerWindow" Height="480" Width="800">
+        WindowStyle="None"     
+        Title="EngineerWindow" Height="480" Width="800" Background="#FF4D62A4">
     <Grid >
-        <Grid Margin="0,0,552,0" VerticalAlignment="Top" >
+
+        <Label Grid.ZIndex="1" Background="#FFD5DAF1" Content="{Binding CurrentDate}" HorizontalAlignment="Left" VerticalAlignment="Top" Height="68" 
+               VerticalContentAlignment="Center"
+               FontFamily="Bahnschrift" FontSize="24" HorizontalContentAlignment="Center" Width="262" Margin="0,382,0,0"/>
+
+
+
+        <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click"/>
+
+
+        <Grid Panel.ZIndex="1" Margin="0,0,524,113" Background="#FFD5DAF1">
             <!-- Personal Information Section -->
-            <StackPanel Background="LightGray" Margin="0,10,-24,0" >
-                <Image Height="75" Margin="20,20,20,0" Width="87" Source="/Engineer/user (1).png"/>
+            <StackPanel Margin="0,0,0,118" >
+                <Image Height="75" Width="88" Margin="40,5" Source="/Engineer/user (1).png"/>
                 <TextBlock Text="Personal Information:" FontSize="16" FontWeight="Thin" FontFamily="Century Gothic" Margin="0,10,0,5"  />
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <Label Content="Id:" Width="50" VerticalAlignment="Center" FontFamily="Century Gothic"/>
@@ -20,8 +31,7 @@
                     <Label Content="Name:" Width="50" VerticalAlignment="Center"/>
                     <Label Content="{Binding CurrentEngineerUser.Name}" BorderBrush="#FF007ACC" BorderThickness="1.5" VerticalAlignment="Center" HorizontalAlignment="Right"/>
                 </StackPanel>
-                <Button  Margin="150,0,4,200" Click="viewBtn_Click" Height="39" RenderTransformOrigin="0.5,0.5" Width="64" Background="Transparent" BorderThickness="0">
-                    <Image Source="/Engineer/eye.png" />
+                <Button  Margin="154,0,4,200" Click="viewBtn_Click" Height="39" RenderTransformOrigin="0.5,0.5" Width="64" Background="Transparent" BorderThickness="0">
                     <Button.RenderTransform>
                         <TransformGroup>
                             <ScaleTransform ScaleY="-1"/>
@@ -30,6 +40,8 @@
                             <TranslateTransform/>
                         </TransformGroup>
                     </Button.RenderTransform>
+
+                    <Image Source="/Engineer/eye.png" />
 
                 </Button>
 
@@ -42,40 +54,38 @@
             </StackPanel>
 
             <!-- Current Task Section -->
-            <StackPanel Background="LightGray" Margin="0,263,-24,-32" >
+            <StackPanel Panel.ZIndex="1" Margin="0,217,0,0" Height="140" VerticalAlignment="Top" >
                 <TextBlock Text="Current Task:" FontSize="16"  Margin="0,10,0,5" FontWeight="Thin" FontFamily="Century Gothic"/>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" RenderTransformOrigin="0.5,0.5">
-                    <StackPanel.RenderTransform>
-                        <TransformGroup>
-                            <ScaleTransform/>
-                            <SkewTransform/>
-                            <RotateTransform Angle="-0.072"/>
-                            <TranslateTransform/>
-                        </TransformGroup>
-                    </StackPanel.RenderTransform>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+
                     <Label Content="Id:" FontFamily="Century Gothic" Width="50" VerticalAlignment="Center"/>
                     <Label Content="{Binding CurrentEngineerUser.Task.Id}" FontFamily="Century Gothic" BorderBrush="#FF007ACC" BorderThickness="1.5" VerticalAlignment="Center"/>
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Height="42">
-                    <Label Content="Alias:" Width="50" VerticalAlignment="Center"/>
-                    <Label Content="{Binding CurrentEngineerUser.Task.Alias}"  BorderBrush="#FF007ACC" BorderThickness="1.5"  VerticalAlignment="Center" />
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
+                    <Label Content="Alias:" FontFamily="Century Gothic" Width="50" VerticalAlignment="Center"/>
+                    <Label Content="{Binding CurrentEngineerUser.Task.Alias}" BorderBrush="#FF007ACC" BorderThickness="1.5"  VerticalAlignment="Center" />
                 </StackPanel>
-                <Button Height="39" BorderThickness="0" Margin="0,0,29,20" IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterKey}, Mode=TwoWay}" HorizontalAlignment="Right" Click="ViewTask_Click" Background="Transparent" Foreground="White" Width="64">
+                <Button Height="39" BorderThickness="0" Margin="154,0,26,20" IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterKey}, Mode=TwoWay}" HorizontalAlignment="Right" Click="ViewTask_Click"
+                        Background="Transparent" Foreground="White" Width="64">
                     <Image Source="/Engineer/eye.png" />
                 </Button>
                 <Popup x:Name="viewDetailsTaskPopUp"  IsOpen="False" StaysOpen="False" Placement="MousePoint" >
                     <TextBlock Background="White" Text="{Binding CurrentAssignedTask}"/>
                 </Popup>
-                <ProgressBar Height="20" Margin="0,10,0,0"/>
             </StackPanel>
 
         </Grid>
 
+
+
         <!-- Action Section -->
-        <Grid Margin="248,0,0,0" VerticalAlignment="Top">
-            <TextBlock Text="What would you like to do?" FontSize="24" FontFamily="Century Gothic" HorizontalAlignment="Left" Margin="111,71,0,72"/>
-            <TextBlock Text="Hello" FontFamily="Century Gothic" FontSize="28" HorizontalAlignment="Left" Margin="32,22,0,0"/>
-            <TextBlock FontSize="28" HorizontalAlignment="Left" Margin="106,22,0,0" FontFamily="Century Gothic">
+        <Grid Margin="276,0,0,0" VerticalAlignment="Top">
+            <Border Margin="79,69,-727,84" Width="1200" Height="45" Background="#FFB7DDFA" CornerRadius="20"/>
+            <Border Margin="-205,19,135,134" Height="45" Background="#FFB7DDFA" CornerRadius="20"/>
+
+            <TextBlock Text="What would you like to do?" FontSize="24" FontFamily="Century Gothic" HorizontalAlignment="Left" Margin="111,74,0,72"/>
+            <TextBlock Text="Hello" FontFamily="Century Gothic" FontSize="28" HorizontalAlignment="Left" Margin="25,21,0,-2"/>
+            <TextBlock FontSize="28" HorizontalAlignment="Left" Margin="110,21,0,0" FontFamily="Century Gothic">
                 <TextBlock.Text>
                     <MultiBinding StringFormat="{}{0}!">
                         <Binding Path="CurrentEngineerUser.Name"/>
@@ -84,19 +94,19 @@
             </TextBlock>
 
             <!-- Task Completed Section -->
-            <StackPanel Margin="32,131,0,-51" Background="#F5F5F5">
-                <TextBlock FontFamily="Century Gothic" Text="To mark your current task as completed, please press -&gt;"/>
-                <Button Content="Task Completed" FontFamily="Century Gothic" Width="148" Height="43" Margin="0,10,0,0" Click="taskCompleted_Click"
+            <StackPanel Margin="25,146,17,-37" Background="Transparent">
+                <TextBlock Style="{StaticResource normalText}" FontFamily="Century Gothic" Text="To mark your current task as completed, please press -&gt;" FontSize="14" TextAlignment="Center"/>
+                <Button Content="Task Completed" FontFamily="Century Gothic" Width="148" Height="43" Click="taskCompleted_Click"
                         IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterKey}, Mode=TwoWay}"
-                        Background="#4CAF50" Foreground="White"/>
+                        Background="#FFC5BEED" Foreground="White"/>
             </StackPanel>
 
             <!-- Start Task Section -->
-            <StackPanel Margin="32,272,5,-242" Background="#F5F5F5">
-                <TextBlock Height="58"><Run FontFamily="Century Gothic" Text="To start a new task, please choose from the following:"/><LineBreak/><Run Text="Note! You can only start a new task if you completed the previous one."/></TextBlock>
+            <StackPanel Margin="25,284,17,-223" Background="Transparent">
+                <TextBlock Style="{StaticResource normalText}" Height="48" TextAlignment="Center" FontSize="14"><Run FontFamily="Century Gothic" Text="To start a new task, please choose from the following:"/><LineBreak/><Run Text="Note! You can only start a new task if you completed the previous one." FontFamily="Century Gothic"/></TextBlock>
                 <ComboBox x:Name="tasksForEngineer" DropDownOpened="tasksForEngineer_DropDownOpened" Width="434" Height="38" Margin="0,10,0,0"
-          ItemsSource="{Binding AvailableTasks}" SelectionChanged="tasksForEngineer_SelectionChanged"
-          IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterReverseKey}, Mode=TwoWay}">
+                    ItemsSource="{Binding AvailableTasks}" SelectionChanged="tasksForEngineer_SelectionChanged"
+                        IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterReverseKey}, Mode=TwoWay}">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
                             <Grid>
@@ -130,7 +140,7 @@
 
                 <Button Content="Start task" FontFamily="Century Gothic" Width="228" Margin="0,10,0,0" Click="assignTask_Click"
                         IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterReverseKey}, Mode=TwoWay}"
-                        Background="#007ACC" Foreground="White"/>
+                        Background="#FFC5BEED" Foreground="White"/>
             </StackPanel>
         </Grid>
     </Grid>
