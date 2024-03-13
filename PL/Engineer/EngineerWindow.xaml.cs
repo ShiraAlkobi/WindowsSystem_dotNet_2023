@@ -21,8 +21,6 @@ namespace PL.Engineer
     /// </summary>
     public partial class EngineerWindow : Window
     {
-
-
         static readonly BlApi.IBl s_bl = BlApi.Factory.Get();
 
         //Using a DependencyProperty as the backing store for CurrentEngineer.This enables animation, styling, binding, etc...
@@ -50,7 +48,7 @@ namespace PL.Engineer
             DependencyProperty.Register("CurrentAssignedTask", typeof(BO.Task), typeof(EngineerWindow), new PropertyMetadata(null));
 
         public static readonly DependencyProperty TaskDetailsProperty =
-    DependencyProperty.Register("TaskDetails", typeof(BO.Task), typeof(EngineerWindow),new PropertyMetadata(null));
+            DependencyProperty.Register("TaskDetails", typeof(BO.Task), typeof(EngineerWindow),new PropertyMetadata(null));
 
         public BO.Task TaskDetails
         {
@@ -66,10 +64,21 @@ namespace PL.Engineer
         // Using a DependencyProperty as the backing store for AllTasks.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty AvailableTasksProperty =
             DependencyProperty.Register("AvailableTasks", typeof(ObservableCollection<BO.TaskInList>), typeof(EngineerWindow), new PropertyMetadata(null));
+
+        public DateTime CurrentDate
+        {
+            get { return (DateTime)GetValue(CurrentDateProperty); }
+            set { SetValue(CurrentDateProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CurrentDate.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CurrentDateProperty =
+            DependencyProperty.Register("CurrentDate", typeof(DateTime), typeof(EngineerWindow), new PropertyMetadata(null));
+
         public EngineerWindow(int id)
         {
             InitializeComponent();
-
+            CurrentDate = s_bl.getClock();
             try
             {
 
@@ -94,7 +103,6 @@ namespace PL.Engineer
             }
 
             this.DataContext = this;
-
         }
 
         private void taskCompleted_Click(object sender, RoutedEventArgs e)
@@ -223,6 +231,11 @@ namespace PL.Engineer
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
         }
     }
 }

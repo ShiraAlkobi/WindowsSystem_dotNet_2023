@@ -46,6 +46,15 @@ namespace PL
             get { return (IEnumerable<BO.EngineerInTask>)GetValue(EngineersProperty); }
             set { SetValue(EngineersProperty, value); }
         }
+        public BO.ProjectStatus ProjectStatusTaskList
+        {
+            get { return (BO.ProjectStatus)GetValue(ProjectStatusTaskListProperty); }
+            set { SetValue(ProjectStatusTaskListProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProjectStatus. 
+        public static readonly DependencyProperty ProjectStatusTaskListProperty =
+            DependencyProperty.Register("ProjectStatusTaskList", typeof(BO.ProjectStatus), typeof(MainWindow), new PropertyMetadata(null));
 
         // Using a DependencyProperty as the backing store for AllTasks.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty EngineersProperty =
@@ -65,6 +74,8 @@ namespace PL
             TaskList = s_bl?.Task.ReadAll()!;
             Engineers = from item in s_bl?.Engineer.ReadAll()
                         select new BO.EngineerInTask() { Id = item.Id, Name = item.Name };
+            ProjectStatusTaskList = s_bl.getProjectStatus();
+            this.DataContext = this;
         }
 
         private void AddTaskWindow_Click(object sender, RoutedEventArgs e)

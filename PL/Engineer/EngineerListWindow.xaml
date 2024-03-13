@@ -8,7 +8,7 @@
         WindowStyle="None"
         MouseDown="Window_MouseDown"
         Title="EngineerListWindow" Height="640" Width="800"
-        DataContext="{Binding RelativeSource={RelativeSource Mode=Self}}">
+        >
 
     <!-- Window background color -->
     <Window.Background>
@@ -90,7 +90,7 @@
         </ListView>
 
         <!-- Button to Add Engineer -->
-        <Button Content="Add" Grid.Row="1" HorizontalAlignment="Center" Foreground="#FF4D62A4" Background="#FFCFDFE6" Width="280" Margin="0,498,0,0" Style="{StaticResource ButtonStyle}" Click="AddEngineerWindow_Click" Height="66">
+        <Button Content="Add Engineer" Grid.Row="1" HorizontalAlignment="Center" IsEnabled="{Binding ProjectStatusEngineerList, Mode=TwoWay, Converter={StaticResource ProjectStatusToBoolConverterKey}}" Foreground="#FF4D62A4" Background="#FFCFDFE6" Width="280" Margin="0,498,0,0" Style="{StaticResource ButtonStyle}" Click="AddEngineerWindow_Click" Height="66">
             <!-- Apply the  button style to the Button -->
 
         </Button>

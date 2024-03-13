@@ -26,6 +26,15 @@ namespace PL.Engineer
             get { return (IEnumerable<BO.Engineer>)GetValue(EngineerListProperty); }
             set { SetValue(EngineerListProperty, value); }
         }
+        public BO.ProjectStatus ProjectStatusEngineerList
+        {
+            get { return (BO.ProjectStatus)GetValue(ProjectStatusEngineerListProperty); }
+            set { SetValue(ProjectStatusEngineerListProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for ProjectStatus. 
+        public static readonly DependencyProperty ProjectStatusEngineerListProperty =
+            DependencyProperty.Register("ProjectStatusEngineerList", typeof(BO.ProjectStatus), typeof(MainWindow), new PropertyMetadata(null));
         /// <summary>
         /// dependency propert that gets all engineers fields to the control list
         /// </summary>
@@ -47,6 +56,8 @@ namespace PL.Engineer
             InitializeComponent();
             EngineerList = s_bl?.Engineer.ReadAll()!;//rereading the engineerlist after updating or adding engineer
                                                      //because we want the list to be updated immidiatly
+            this.DataContext = this;
+            ProjectStatusEngineerList = s_bl.getProjectStatus();
         }
 
         /// <summary>

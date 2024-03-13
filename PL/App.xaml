@@ -77,6 +77,8 @@
             </Setter>
         </Style>
 
+       
+
         <Style x:Key="label" TargetType="Label">            
             <Setter Property="FontSize" Value="14"/>
             <Setter Property="Foreground" Value="white"/>

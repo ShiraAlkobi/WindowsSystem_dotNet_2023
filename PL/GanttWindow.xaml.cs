@@ -47,6 +47,30 @@ namespace PL
 
 
 
+        public int WeekWidth
+        {
+            get { return (int)GetValue(WeekWidthProperty); }
+            set { SetValue(WeekWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for WeekWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty WeekWidthProperty =
+            DependencyProperty.Register("WeekWidth", typeof(int), typeof(GanttWindow), new PropertyMetadata(0));
+
+
+
+        public int TotalWidth
+        {
+            get { return (int)GetValue(TotalWidthProperty); }
+            set { SetValue(TotalWidthProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for TotalWidth.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty TotalWidthProperty =
+            DependencyProperty.Register("TotalWidth", typeof(int), typeof(GanttWindow), new PropertyMetadata(0));
+
+
+
         public GanttWindow()
         {
             InitializeComponent();
@@ -73,13 +97,14 @@ namespace PL
         private void UpdateWeekRanges()
         {
             WeekRanges.Clear();
-
+            int count = 0;
             DateTime? currentStartDate = s_bl.getStartDate();
             DateTime? ProjectStartDate = s_bl.getStartDate();
             DateTime? currentEndDate;
             DateTime? ProjectEndDate = s_bl.getEndDate();
             while (currentStartDate <= ProjectEndDate)
             {
+                count++;
                 currentEndDate = currentStartDate?.AddDays(6);
                 if (currentEndDate > ProjectEndDate)
                 {
@@ -91,10 +116,21 @@ namespace PL
 
                 currentStartDate = currentEndDate?.AddDays(1);
             }
+            TotalWidth = count * 147 + 50;
+            WeekWidth = count * 147;
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+
         }
+        private void CloseButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+        }
+
+
     }
-}
+}  
+    
+

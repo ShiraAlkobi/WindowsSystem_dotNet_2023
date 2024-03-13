@@ -5,19 +5,22 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
+        WindowStyle="None"
         MouseDown="Window_MouseDown"
         Title="GanttWindow" Height="600" Width="800" Background="LightGray" >
-    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Hidden">
-        <Grid  >
+    <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" >
+        <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="250"/>
                 <ColumnDefinition Width="auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
+                <RowDefinition Height="40"/>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="35"/>
-                <RowDefinition Height="515"/>
 
             </Grid.RowDefinitions>
+            <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center"/>
 
             <ItemsControl  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding GanttTasks}" >
                 <ItemsControl.ItemTemplate>
@@ -27,8 +30,8 @@
 
                                 <TextBlock  Height="20" HorizontalAlignment="Left" Text="{Binding Name}" FontWeight="Bold" Background="LightGray">
                                     <TextBlock.ToolTip  >
-                                        
-                                            <!-- Use an ItemsControl to display the collection -->
+
+                                        <!-- Use an ItemsControl to display the collection -->
                                         <ItemsControl ItemsSource="{Binding Dependencies}"  />
                                     </TextBlock.ToolTip>
                                     <ToolTipService.PlacementTarget>
@@ -50,7 +53,7 @@
             </ItemsControl>
 
 
-            <ItemsControl Grid.Column="2" Grid.Row="2" ItemsSource="{Binding GanttTasks}" >
+            <ItemsControl Background="White" Grid.Column="1" Grid.Row="1" Width="{Binding TotalWidth}" ItemsSource="{Binding GanttTasks}"  >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness="2"  BorderBrush="DimGray">
@@ -62,7 +65,7 @@
                                 <!--Width="{Binding DaysFromStart}"-->
                                 <!--Width="{Binding DaysFromStart}"-->
                                 <TextBlock HorizontalAlignment="Left"  Width="{Binding Duration}" FontWeight="Bold" Background="{Binding Status, Mode=TwoWay, Converter={StaticResource StatusToColorConverterKey}}"/>
-                                <Rectangle HorizontalAlignment="Left" Height="20" Width="{Binding TimeToEnd}"  Fill="White"/>
+                                <Rectangle HorizontalAlignment="Right" Height="20" Width="{Binding TimeToEnd}"  Fill="White"/>
 
 
                             </StackPanel>
@@ -73,11 +76,11 @@
             <!--<StackPanel Orientation="Horizontal" VerticalAlignment="Top">-->
 
 
-            <ItemsControl Grid.Column="2"  ItemsSource="{Binding WeekRanges}" VerticalAlignment="Center" >
+            <ItemsControl  Grid.Column="1" ItemsSource="{Binding WeekRanges}" VerticalAlignment="Center" Margin="5,0,0,0" Grid.Row="0" >
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate >
                         <!-- Use a horizontal StackPanel as the ItemsPanel -->
-                        <StackPanel Margin="17,0,0,0" Orientation="Horizontal" Height="30" VerticalAlignment="Center"/>
+                        <StackPanel Margin="17,0,0,0" Orientation="Horizontal" HorizontalAlignment="Left" Height="30" VerticalAlignment="Center"/>
                     </ItemsPanelTemplate>
                 </ItemsControl.ItemsPanel >
                 <ItemsControl.ItemTemplate  >
@@ -85,20 +88,25 @@
                         <Border BorderThickness="1" BorderBrush="DimGray" VerticalAlignment="Center"  >
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Center">
 
-                                <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Center"  TextAlignment="Center" Text="{Binding}" FontWeight="Bold" Background="silver"  Width="147"/>
+                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" Text="{Binding}" FontWeight="Bold" Background="silver" Width="147"/>
 
 
                             </StackPanel>
                         </Border>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
+
             </ItemsControl>
-            <Grid Grid.Row="2" >
-                <TextBlock Background="CornflowerBlue" Width="100"  TextAlignment="Center" Text="Scheduled" Margin="44,486,106,9" Height="20"/>
-                <TextBlock Background="LimeGreen" Width="100"  TextAlignment="Center" Text="Done" Margin="445,486,-295,9" Height="20"/>
-                <TextBlock Background="Yellow" Width="100"  TextAlignment="Center" Text="On Track" Margin="177,486,-27,9" Height="20"/>
-                <TextBlock Background="Red" Width="100" TextAlignment="Center" Text="Delayed" Margin="310,486,-160,9" Height="20"/>
+            <Grid VerticalAlignment="Bottom" Grid.Column="0" Grid.Row="0">
+
+
+                <TextBlock Background="CornflowerBlue"  TextAlignment="Center" Text="Scheduled"  Height="17" Width="100" Margin="46,-20,104,21"/>
+                <TextBlock Background="LimeGreen"   TextAlignment="Center" Text="Done" Margin="151,1,-1,0" Height="17" Width="100"/>
+                <TextBlock Background="Yellow"  TextAlignment="Center" Text="On Track" Margin="151,-20,-1,21" Height="17" Width="100"/>
+                <TextBlock Background="Red" TextAlignment="Center" Text="Delayed"  Height="17" Width="100" Margin="46,0,104,1"/>
             </Grid>
+
         </Grid>
+
     </ScrollViewer>
 </Window>

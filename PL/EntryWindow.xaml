@@ -39,12 +39,6 @@
                 </EventTrigger>
             </Image.Triggers>
         </Image>
-        <Button Content="Admin" Height="33" Width="75" HorizontalAlignment="Left" Margin="10,224,0,0" VerticalAlignment="Top" Click="btn_AdminWindow_Click">
-            <Button.Background>
-                <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ActiveCaptionColorKey}}"/>
-            </Button.Background>
-        </Button>
-        <Button Content="Engineer" Height="31" Width="74" HorizontalAlignment="Left" Margin="10,269,0,0" VerticalAlignment="Top" Click="btn_EngineerWindow_Click" Background="#FF94AAC2"/>
         <TextBlock Style="{StaticResource titleText}" Text="Log into the system" Height="54" Margin="-25,40,250,0" VerticalAlignment="Top" Foreground="#FFD299F9"  />
         <TextBlock Style="{StaticResource normalText}" Text="User Name:" Height="27" Margin="60,94,0,0" FontFamily="Bahnschrift SemiLight" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Width="90" Foreground="#FFD299F9"/>
         <TextBlock Style="{StaticResource normalText}" Text="Password:" Height="27" Margin="60,160,300,0" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FFD299F9"/>
@@ -57,7 +51,7 @@
 
         <Border CornerRadius="10" BorderBrush="White" BorderThickness="1" HorizontalAlignment="left" Height="24" Margin="60,187,0,0"  VerticalAlignment="Top" Width="200" >
 
-            <TextBox BorderBrush="Transparent" Background="Transparent" Foreground="White" Text ="{Binding CurrentUser.Password}"  GotFocus="Password_GotFocus" LostFocus="Password_LostFocus"/>
+            <TextBox Foreground="White" BorderBrush="Transparent" Background="Transparent" Text ="{Binding CurrentUser.Password}"  GotFocus="Password_GotFocus" LostFocus="Password_LostFocus"/>
 
         </Border>
 

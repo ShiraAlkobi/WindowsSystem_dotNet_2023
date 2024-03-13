@@ -127,15 +127,18 @@ public static class Initialization
             s_dal!.Dependency.Create(d);
             d = new Dependency(0, 3, 2);
             s_dal!.Dependency.Create(d);
-            d = new Dependency(0, 4, 3);
+            d = new Dependency(0, 3, 4);
             s_dal!.Dependency.Create(d);
             d = new Dependency(0, 5, 4);
             s_dal!.Dependency.Create(d);
             d = new Dependency(0, 6, 4);
             s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 7, 2);
+            s_dal!.Dependency.Create(d);
             d = new Dependency(0, 7, 4);
             s_dal!.Dependency.Create(d);
-            for (int i=5;i<8;i++)
+
+            for (int i = 5; i < 8; i++)
             {
                 d = new Dependency(0, 8, i);
                 s_dal!.Dependency.Create(d);
@@ -152,9 +155,15 @@ public static class Initialization
                 d = new Dependency(0, i, 6);
                 s_dal!.Dependency.Create(d);
             }
+            d = new Dependency(0, 11, 3);
+            s_dal!.Dependency.Create(d);
             d = new Dependency(0, 11, 10);
             s_dal!.Dependency.Create(d);
             d = new Dependency(0, 14, 10);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 15, 10);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 15, 13);
             s_dal!.Dependency.Create(d);
             d = new Dependency(0, 16, 8);
             s_dal!.Dependency.Create(d);
@@ -165,6 +174,8 @@ public static class Initialization
             d = new Dependency(0, 18, 12);
             s_dal!.Dependency.Create(d);
             d = new Dependency(0, 18, 13);
+            s_dal!.Dependency.Create(d);
+            d = new Dependency(0, 19, 3);
             s_dal!.Dependency.Create(d);
             d = new Dependency(0, 19, 8);
             s_dal!.Dependency.Create(d);
@@ -179,9 +190,7 @@ public static class Initialization
             d = new Dependency(0, 19, 17);
             s_dal!.Dependency.Create(d);
             d = new Dependency(0, 20, 19);
-            s_dal!.Dependency.Create(d);
-
-         
+            s_dal!.Dependency.Create(d);         
         }
     }
 
