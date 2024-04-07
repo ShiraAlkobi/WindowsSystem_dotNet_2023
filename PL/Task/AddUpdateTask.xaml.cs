@@ -164,7 +164,15 @@ namespace PL
             try
             {
                 ///add the new engineer
-                s_bl.Task.Create(newTask);
+                int id = s_bl.Task.Create(newTask);
+                CurrentTask= s_bl.Task.Read(id);
+                if (SelectedDependencies is not null)
+                {
+                    foreach (var item in SelectedDependencies)
+                    {
+                        s_bl.Task.UpdateDependencies(item.Id, id);
+                    }
+                }
                 ///notify on the adding
                 MessageBox.Show("Task added successfully");
                 ///close the window
@@ -172,6 +180,7 @@ namespace PL
             }///if an exception was thrown from the create function, catch it and show a message box which explains the exception
             catch (BO.BlInputCheckException ex) { MessageBox.Show(ex.Message); }
             catch (BO.BlAlreadyExistsException ex) { MessageBox.Show(ex.Message); }
+            
 
         }
 
@@ -246,11 +255,22 @@ namespace PL
         /// <param name="e"></param>
         private void AddDependency_Click(object sender, RoutedEventArgs e)
         {
-
-
             Button button = (Button)sender;
             if (button != null && button.DataContext is BO.TaskInList selectedObject)
             {
+                if(CurrentTask.Id==0)
+                {
+                    if (SelectedDependencies is null)
+                        SelectedDependencies = new ObservableCollection<TaskInList>();
+
+                    SelectedDependencies.Add(selectedObject); 
+                    NotSelectedDependencies = NotSelectedDependencies.Where(item => item.Id != selectedObject.Id).ToList();
+                    return;
+                }
+                if(CurrentTask.Dependencies is null)
+                {
+                    CurrentTask.Dependencies = new List<TaskInList>();
+                }
                 CurrentTask.Dependencies.Add(selectedObject);
                 s_bl.Task.UpdateDependencies(selectedObject.Id, CurrentTask.Id);
                 NotSelectedDependencies = NotSelectedDependencies.Where(item => item.Id != selectedObject.Id).ToList();

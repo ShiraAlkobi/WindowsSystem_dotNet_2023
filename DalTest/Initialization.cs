@@ -199,8 +199,8 @@ public static class Initialization
     /// </summary>
     private static void CreateUsers()
     {
-        ///add the manager to the data base
-        s_dal!.User.Create(new User(12345678, "12345678", "Manager123", DO.Position.Manager));
+
+        s_dal!.User.Create(new User(12345678, "12345678", "Manager1234", DO.Position.Manager));
         ///get all the engineers
         IEnumerable<DO.Engineer?> engineers = s_dal!.Engineer.ReadAll();
         string t_password;
@@ -240,9 +240,14 @@ public static class Initialization
         createTasks();
         createEngineers();
         CreateDependencies();
-        CreateUsers();  
+        CreateUsers();
     }
-
+    public static void setManager()
+    {
+        s_dal = Factory.Get;
+        ///add the manager to the data base
+        s_dal!.User.Create(new User(12345678, "12345678", "Manager1234", DO.Position.Manager));
+    }
     public static void emptyData()
     {
         s_dal = Factory.Get;
@@ -282,7 +287,8 @@ public static class Initialization
                 s_dal.User.Delete(user.Id);
             }
         }
-
+        
+        
         ///resets the auto numbers, the project's status and the clock
         s_dal.ResetId();
         s_dal.setStatus();

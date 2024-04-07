@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL"
         mc:Ignorable="d"
         WindowStyle="None"
+        Icon="{StaticResource AppIcon}"
         MouseDown="Window_MouseDown"
         Title="GanttWindow" Height="600" Width="800" Background="LightGray" >
     <ScrollViewer HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Auto" >

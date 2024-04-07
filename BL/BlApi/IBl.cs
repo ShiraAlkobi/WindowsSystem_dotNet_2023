@@ -53,6 +53,8 @@ public interface IBl
     /// </summary>
     public void ResetDB() => DalTest.Initialization.emptyData();
 
+    public void setManager() => DalTest.Initialization.setManager();
+
     #region Clock Defining
     /// <summary>
     /// the property represent the whole program clock

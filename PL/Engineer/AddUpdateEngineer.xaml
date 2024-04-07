@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"   
+        Icon="{StaticResource AppIcon}"
         WindowStyle="None" 
         MouseDown="Window_MouseDown"
         Title="AddUpdateEngineer" Height="400" Width="350" Background="#FF5D6A76">

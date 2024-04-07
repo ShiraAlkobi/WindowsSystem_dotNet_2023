@@ -1,6 +1,8 @@
-﻿using PL.Engineer;
+﻿using BO;
+using PL.Engineer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -28,14 +30,14 @@ namespace PL
         /// <summary>
         /// dependency property that gets all engineers fields to the control list
         /// </summary>
-        public IEnumerable<BO.TaskInList> TaskList
+        public ObservableCollection<BO.TaskInList> TaskList
         {
-            get { return (IEnumerable<BO.TaskInList>)GetValue(TaskListProperty); }
+            get { return (ObservableCollection<BO.TaskInList>)GetValue(TaskListProperty); }
             set { SetValue(TaskListProperty, value); }
         }
 
         public static readonly DependencyProperty TaskListProperty =
-            DependencyProperty.Register("TaskList", typeof(IEnumerable<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
+            DependencyProperty.Register("TaskList", typeof(ObservableCollection<BO.TaskInList>), typeof(TaskListWindow), new PropertyMetadata(null));
         
         public BO.EngineerExperience Complexity { get; set; } = BO.EngineerExperience.All;//experience field has defualt
 
@@ -74,7 +76,7 @@ namespace PL
         public TaskListWindow()
         {
             InitializeComponent();
-            TaskList = s_bl?.Task.ReadAll()!;
+            TaskList = new ObservableCollection<TaskInList>(s_bl?.Task.ReadAll()!);
             Engineers = from item in s_bl?.Engineer.ReadAll()
                         select new BO.EngineerInTask() { Id = item.Id, Name = item.Name };
             ProjectStatusTaskList = s_bl.getProjectStatus();
@@ -94,7 +96,7 @@ namespace PL
             if (sender is RadioButton radioButton && radioButton.Content is BO.EngineerExperience selectedComplexity)
             {
                 TaskList = (selectedComplexity == BO.EngineerExperience.All) ?
-              s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Complexity == selectedComplexity)!;
+              new ObservableCollection<TaskInList>(s_bl?.Task.ReadAll()!) : new ObservableCollection<TaskInList>( s_bl?.Task.ReadAll(item => item.Complexity == selectedComplexity)!);
             }
         }
 
@@ -107,8 +109,10 @@ namespace PL
         {
             new AddUpdateTask().ShowDialog();
             TaskList = (Complexity == BO.EngineerExperience.All) ?
-               s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Complexity == Complexity)!; ////rereading the engineerlist after updating or adding engineer
-                                                                                                   //because we want the list to be updated immidiatlynew AddUpdateTask().ShowDialog();
+               new ObservableCollection<TaskInList>(s_bl?.Task.ReadAll()!) : new ObservableCollection<TaskInList>(s_bl?.Task.ReadAll(item => item.Complexity == Complexity)!);
+            ////rereading the engineerlist after updating or adding engineer
+            ////because we want the list to be updated immidiatly
+            //new AddUpdateTask().ShowDialog();
         }
 
         /// <summary>
@@ -122,9 +126,9 @@ namespace PL
             BO.TaskInList? task = (sender as ListView)?.SelectedItem as BO.TaskInList;
             //create new window with id parameter from the clicked engineer
              new AddUpdateTask(task.Id).ShowDialog();//show the windo
-            TaskList = (Complexity == BO.EngineerExperience.All) ?
-                s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Complexity == Complexity)!;//rereading the engineerlist after updating or adding engineer
-                                                                                                      //because we want the list to be updated immidiatly
+            //TaskList = (Complexity == BO.EngineerExperience.All) ?
+            //    s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Complexity == Complexity)!;//rereading the engineerlist after updating or adding engineer
+            //                                                                                          //because we want the list to be updated immidiatly
         } 
 
         /// <summary>
@@ -137,7 +141,7 @@ namespace PL
             if (sender is RadioButton radioButton && radioButton.Content is BO.Status selectedStatus)
             {
                 TaskList = (selectedStatus == BO.Status.Unscheduled) ?
-               s_bl?.Task.ReadAll()! : s_bl?.Task.ReadAll(item => item.Status == selectedStatus)!;
+               new ObservableCollection<TaskInList>(s_bl?.Task.ReadAll()!) : new ObservableCollection<TaskInList>(s_bl?.Task.ReadAll(item => item.Status == selectedStatus)!);
             }
         }
 
@@ -150,9 +154,9 @@ namespace PL
         {
             if (sender is RadioButton radioButton && radioButton.Content is BO.EngineerInTask selectedEngineer)
             {
-                TaskList = from task in s_bl?.Task.ReadAll()
+                TaskList = new ObservableCollection<TaskInList>(from task in s_bl?.Task.ReadAll()
                            where (s_bl?.Task.Read(task.Id).Engineer?.Id == selectedEngineer.Id)
-                           select task;
+                           select task);
             }
         }
 
@@ -163,7 +167,7 @@ namespace PL
         /// <param name="e"></param>
         private void resetFilter_Click(object sender, RoutedEventArgs e)
         {
-            TaskList = s_bl?.Task.ReadAll();
+            TaskList = new ObservableCollection<TaskInList>(s_bl?.Task.ReadAll());
         }
 
         /// <summary>

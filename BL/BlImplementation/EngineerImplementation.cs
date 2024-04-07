@@ -165,20 +165,19 @@ internal class EngineerImplementation : BlApi.IEngineer
         {
             throw new BO.BlInputCheckException("email is not valid\n");
         }
+        if (t.Level == BO.EngineerExperience.All)
+            throw new BO.BlInputCheckException("please select engineer's level\n");
 
+        if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)//can only upgrade level of engineer
+        {
+            throw new BO.BlCanNotUpdate("can't update engineer to a lower level");
+        } 
         try
         {
             if (t.Task is not null)
             {
                 DO.Task? t_task = _dal.Task.Read(t.Task.Id);
-                if ((int)t.Level < (int)_dal.Engineer.Read(t.Id).Level)//can only upgrade level of engineer
-                {
-                    throw new BO.BlCanNotUpdate("can't update engineer to a lower level");
-                }
-                if ((int)t.Level < (int)t_task.Complexity)//can only assign engineer with enough experience for the comlexity of the task
-                                                          //return false;
-
-                    checkAssignedTask(t.Task.Id);
+                checkAssignedTask(t.Task.Id);
                 _dal.Task.Update(t_task with { EngineerId = t.Id });
             }
             DO.Engineer t_engineer = new DO.Engineer(t.Id, t.Email, t.Cost, t.Name, (DO.EngineerExperience)t.Level);//creating new object with updated fields

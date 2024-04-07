@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         Height="317" Width="286"
         WindowStyle="None"
+        Icon="{StaticResource AppIcon}"
         DataContext =  "{Binding RelativeSource = {RelativeSource Mode=self}}">
     
     <Grid Margin="0,0,10,7">

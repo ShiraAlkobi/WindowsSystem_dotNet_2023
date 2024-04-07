@@ -42,6 +42,7 @@ namespace PL
         public EntryWindow()
         {
             InitializeComponent();
+            s_bl.setManager();
             CurrentUser = new BO.User();                           
             this.DataContext = this;
         }
@@ -169,8 +170,8 @@ namespace PL
                 {
                     if (t_user.Position == BO.Position.Manager)
                     {
-                        new MainWindow().ShowDialog();
-                        Close();
+                        new MainWindow().Show();
+                       
                     }
                     else
                     {

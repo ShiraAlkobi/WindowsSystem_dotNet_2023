@@ -15,8 +15,8 @@
         <local:ProjectStatusToBoolConverter x:Key="ProjectStatusToBoolConverterKey"/>
         <local:AssignedTaskToBoolConverter x:Key="AssignedTaskToBoolConverterKey"/>
         <local:AssignedTaskToBoolConverterReverse x:Key="AssignedTaskToBoolConverterReverseKey"/>
-        
-        
+        <BitmapImage x:Key="AppIcon" UriSource="/images/analysis-services.png"/>
+
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Margin" Value="10"/>
             <Setter Property="Padding" Value="15"/>

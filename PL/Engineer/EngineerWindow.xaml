@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:PL.Engineer"
         mc:Ignorable="d"
         WindowStyle="None"  
+        Icon="{StaticResource AppIcon}"
         MouseDown="Window_MouseDown"
         Title="EngineerWindow" Height="480" Width="800" Background="#FF4D62A4">
     <Grid >

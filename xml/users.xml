@@ -3,43 +3,43 @@
   <User>
     <Id>12345678</Id>
     <UserName>12345678</UserName>
-    <Password>Manager123</Password>
+    <Password>Manager1234</Password>
     <Position>Manager</Position>
   </User>
   <User>
-    <Id>416882652</Id>
-    <UserName>416882652</UserName>
-    <Password>AmitCohen2652</Password>
+    <Id>757429744</Id>
+    <UserName>757429744</UserName>
+    <Password>AmitCohen9744</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>139284795</Id>
-    <UserName>139284795</UserName>
-    <Password>MayaLevi4795</Password>
+    <Id>945960352</Id>
+    <UserName>945960352</UserName>
+    <Password>MayaLevi0352</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>850816356</Id>
-    <UserName>850816356</UserName>
-    <Password>OdeyaLapian6356</Password>
+    <Id>302206087</Id>
+    <UserName>302206087</UserName>
+    <Password>OdeyaLapian6087</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>921669656</Id>
-    <UserName>921669656</UserName>
-    <Password>YaelShoham9656</Password>
+    <Id>831158355</Id>
+    <UserName>831158355</UserName>
+    <Password>YaelShoham8355</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>674971233</Id>
-    <UserName>674971233</UserName>
-    <Password>ItayAvraham1233</Password>
+    <Id>624287855</Id>
+    <UserName>624287855</UserName>
+    <Password>ItayAvraham7855</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>272577727</Id>
-    <UserName>272577727</UserName>
-    <Password>NoaMoshe7727</Password>
+    <Id>998047587</Id>
+    <UserName>998047587</UserName>
+    <Password>NoaMoshe7587</Password>
     <Position>Engineer</Position>
   </User>
   <User>
@@ -47,5 +47,11 @@
     <UserName>87654321</UserName>
     <Password>Engineer4321</Password>
     <Position>Engineer</Position>
+  </User>
+  <User>
+    <Id>12345678</Id>
+    <UserName>12345678</UserName>
+    <Password>Manager1234</Password>
+    <Position>Manager</Position>
   </User>
 </ArrayOfUser>

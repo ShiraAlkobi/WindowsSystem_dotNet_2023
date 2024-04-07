@@ -7,6 +7,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         MouseDown="Window_MouseDown"
+        Icon="{StaticResource AppIcon}"
         Title="EntryWindow" Height="420" Width="600"
         Background="#FF4D62A4">
     
@@ -44,14 +45,14 @@
         <TextBlock Style="{StaticResource normalText}" Text="Password:" Height="27" Margin="60,160,300,0" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="#FFD299F9"/>
 
         <Border CornerRadius="10" BorderThickness="1" BorderBrush="White" HorizontalAlignment="Left" Height="24" Margin="60,120,0,0" VerticalAlignment="Top" Width="200">
-            <TextBox  BorderBrush="Transparent" Background="Transparent" Text="{Binding CurrentUser.UserName}" 
+            <TextBox  BorderBrush="Transparent" Background="Transparent" Text="{Binding CurrentUser.UserName}" BorderThickness="0"
                      Foreground="White" TextWrapping="Wrap" GotFocus="UserName_GotFocus" LostFocus="UserName_LostFocus"/>
 
         </Border>
 
         <Border CornerRadius="10" BorderBrush="White" BorderThickness="1" HorizontalAlignment="left" Height="24" Margin="60,187,0,0"  VerticalAlignment="Top" Width="200" >
 
-            <TextBox Foreground="White" BorderBrush="Transparent" Background="Transparent" Text ="{Binding CurrentUser.Password}"  GotFocus="Password_GotFocus" LostFocus="Password_LostFocus"/>
+            <TextBox Foreground="White" BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Text ="{Binding CurrentUser.Password}"  GotFocus="Password_GotFocus" LostFocus="Password_LostFocus"/>
 
         </Border>
 
