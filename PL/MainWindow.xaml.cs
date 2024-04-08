@@ -82,11 +82,10 @@ namespace PL
             {
                 Factory.Get().ResetDB();//delete data
                 Factory.Get().InitializeDB();//initialize data
+                MessageBox.Show("Data initialized!"); 
                 CurrentDate = s_bl.ResetClock();//reset time
-                ProjectStatus = s_bl.getProjectStatus();//getting the prokject status
-                MessageBox.Show("Data initialized!");
+                ProjectStatus = s_bl.getProjectStatus();//getting the project's status
             }
-            
         }
         /// <summary>
         /// deleting data
@@ -102,8 +101,9 @@ namespace PL
                 CurrentDate = s_bl.ResetClock();
                 ProjectStatus = s_bl.getProjectStatus();
                 MessageBox.Show("Data reset!");
+                CurrentDate = s_bl.ResetClock();
+                ProjectStatus = s_bl.getProjectStatus();
             }
-   
         }
         /// <summary>
         /// show gantt window

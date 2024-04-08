@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
             <Button Style="{StaticResource CloseButton}" Click="CloseButton_Click" HorizontalAlignment="Left" Margin="5,0,0,0" VerticalAlignment="Center"/>
 
-            <ItemsControl  Grid.Row="1" Grid.Column="0" ItemsSource="{Binding GanttTasks}" >
+            <ItemsControl Grid.Row="1" Grid.Column="0" ItemsSource="{Binding GanttTasks}" >
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
                         <Border BorderThickness="2" BorderBrush="silver">

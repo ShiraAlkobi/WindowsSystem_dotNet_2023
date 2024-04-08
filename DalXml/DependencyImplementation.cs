@@ -96,7 +96,6 @@ internal class DependencyImplementation : IDependency
             Dependencys.Remove(temp);//remove the old object from the list
             Dependencys.Add(item);//add the new object - the updated
             XMLTools.SaveListToXMLSerializer<Dependency>(Dependencys, s_dependency_xml);//save updated list to xml file
-
         }
     }
 }

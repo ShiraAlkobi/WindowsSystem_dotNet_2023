@@ -96,10 +96,7 @@ internal class Bl : IBl
             end = end < help ? help : end;
         }
         ///set the dates in the data source
-        _dal.setStartAndEndDates(start, end);
-
-        
-        
+        _dal.setStartAndEndDates(start, end);       
     }
 
     /// <summary>
