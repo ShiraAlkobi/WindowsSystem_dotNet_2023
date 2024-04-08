@@ -199,7 +199,7 @@ internal class TaskImplementation : ITask
     public void UpdateScedualedDate(int id, DateTime date)
     {
         DateTime? t_date;
-        BO.Task t = Read(id);//get the task to update(no try needed because the task is from the list of tasks so it exsists)
+        BO.Task t = Read(id);//get the task to update(no try needed because the task is from the list of tasks so it exsits)
         if (t.ScheduledDate is not null) return;//if the task already has a schedual date,return
         else
         {
@@ -220,7 +220,7 @@ internal class TaskImplementation : ITask
                         UpdateScedualedDate(item.Id, date);
                     }
                 
-                //this happens after all tasks in dependencies list of the curreent task has n=been initialized
+                //this happens after all tasks in dependencies list of the curreent task has been initialized
                 DateTime? help;
                 t_date = getForecastDate(_dal.Task.Read(t.Dependencies.First().Id));//the forcast date of first dependency
                 foreach (var item in t.Dependencies)//go through list of dependencies and finding the max of forecast date
@@ -230,7 +230,7 @@ internal class TaskImplementation : ITask
                         t_date = help;
 
                 }
-                t_date = t_date?.AddDays(1);//the schedual date of current task will be the mex of forecast dated of tasks in dependency list+1
+                t_date = t_date?.AddDays(1);//the schedual date of current task will be the max of forecast dated of tasks in dependency list+1
             }
             try//creating new task
             {
@@ -294,7 +294,7 @@ internal class TaskImplementation : ITask
             return BO.Status.OnTrack;
         else return BO.Status.Done;//if there is a complete but not done
 
-        //TODO:add jeopardy condition
+        
     }
     /// <summary>
     /// help function to get forecast date to finish task-used by read function
@@ -318,7 +318,7 @@ internal class TaskImplementation : ITask
         return new BO.EngineerInTask() { Id = t.EngineerId, Name = _dal.Engineer.Read(t.EngineerId)!.Name };//create the engineer in task by using read function
     }
     /// <summary>
-    /// function to gruop task by their status
+    /// function to group task by their status
     /// </summary>
     /// <returns></returns>
     public IEnumerable<IGrouping<BO.Status, BO.TaskInList>> GroupByStatus()

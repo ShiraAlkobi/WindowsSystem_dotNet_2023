@@ -82,10 +82,11 @@ namespace PL
             {
                 Factory.Get().ResetDB();//delete data
                 Factory.Get().InitializeDB();//initialize data
+                CurrentDate = s_bl.ResetClock();//reset time
+                ProjectStatus = s_bl.getProjectStatus();//getting the prokject status
                 MessageBox.Show("Data initialized!");
             }
-            CurrentDate = s_bl.ResetClock();//reset time
-            ProjectStatus = s_bl.getProjectStatus();//getting the prokject status
+            
         }
         /// <summary>
         /// deleting data
@@ -98,10 +99,11 @@ namespace PL
             if (result == MessageBoxResult.Yes)
             {
                 Factory.Get().ResetDB();
+                CurrentDate = s_bl.ResetClock();
+                ProjectStatus = s_bl.getProjectStatus();
                 MessageBox.Show("Data reset!");
             }
-            CurrentDate = s_bl.ResetClock();
-            ProjectStatus = s_bl.getProjectStatus();
+   
         }
         /// <summary>
         /// show gantt window
@@ -120,7 +122,7 @@ namespace PL
         /// <param name="e"></param>
         private void btn_TaskList_Click(object sender, RoutedEventArgs e)
         {
-            new TaskListWindow().Show();//create new window and show
+            new TaskListWindow().ShowDialog();//create new window and show
         }
 
         /// <summary>

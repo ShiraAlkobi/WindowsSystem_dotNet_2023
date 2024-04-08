@@ -105,22 +105,7 @@ namespace PL
             }
         }
 
-        /// <summary>
-        /// prevents typing letters when only numbers are needed - in user name
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        public bool ContainsOnlyLetters(string input)
-        {
-            foreach (char c in input)
-            {
-                if (!char.IsLetter(c))
-                {
-                    return false; // Return false if any character is not a letter
-                }
-            }
-            return true; // Return true if all characters are letters
-        }
+       
 
         /// <summary>
         /// returns whether the string contains only numbers
@@ -154,7 +139,7 @@ namespace PL
 
                 if (!IsNumeric(CurrentUser.UserName))
                 {
-                    MessageBox.Show("User name have to contain only numbers", "", MessageBoxButton.OK);
+                    MessageBox.Show("User name must only contain numbers", "", MessageBoxButton.OK);
                     return;
                 }
 

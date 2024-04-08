@@ -90,9 +90,10 @@ namespace PL.Engineer
         public EngineerWindow(int id)
         {
             InitializeComponent();
-            CurrentDate = s_bl.getClock();
+            
             try
             {
+                CurrentDate = s_bl.getClock();
                 ///read the right engineer according to the given id
                 CurrentEngineerUser = s_bl.Engineer.Read(id);
                 if(CurrentEngineerUser.Task is not null)

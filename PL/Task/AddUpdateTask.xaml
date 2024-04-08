@@ -75,7 +75,7 @@
             <TextBox Margin="0,4,0,10" Height="30"
                 Text="{Binding CurrentTask.Remarks, Mode=TwoWay, NotifyOnValidationError=true,  ValidatesOnExceptions=true}"
                      TextWrapping="Wrap" />
-            <TextBox Margin="0,0,0,10" Background="white" Text="{Binding CurrentTask.Engineer}" IsEnabled="False" Height="46"/>
+            <TextBox Margin="0,0,0,10" Background="white" Text="{Binding CurrentTask.Engineer, Mode=OneTime, NotifyOnValidationError=true,ValidatesOnExceptions=true}" IsEnabled="False" Height="46"/>
 
             <ComboBox Margin="0,0,0,0"
                    ItemsSource="{Binding Source={StaticResource EngineerExperienceCollectionKey}}" 

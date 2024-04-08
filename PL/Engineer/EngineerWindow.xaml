@@ -68,8 +68,8 @@
                     <Label Content="Alias:" FontFamily="Century Gothic" Width="50" VerticalAlignment="Center"/>
                     <Label Content="{Binding CurrentEngineerUser.Task.Alias}" BorderBrush="#FF007ACC" BorderThickness="1.5"  VerticalAlignment="Center" />
                 </StackPanel>
-                <Button Height="39" BorderThickness="0" Margin="154,0,26,20" IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterKey}, Mode=TwoWay}" HorizontalAlignment="Right" Click="ViewTask_Click"
-                        Background="Transparent" Foreground="White" Width="64">
+                <Button BorderThickness="0" Margin="154,0,26,20" IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterKey}, Mode=TwoWay}" HorizontalAlignment="Right" Click="ViewTask_Click"
+                         Width="64" Height="39" RenderTransformOrigin="0.5,0.5"  Background="Transparent" >
                     <Image Source="/images/eye.png" />
                 </Button>
                 <Popup x:Name="viewDetailsTaskPopUp"  IsOpen="False" StaysOpen="False" Placement="MousePoint" >

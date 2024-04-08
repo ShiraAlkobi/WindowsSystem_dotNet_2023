@@ -98,7 +98,7 @@ internal class Bl : IBl
         ///set the dates in the data source
         _dal.setStartAndEndDates(start, end);
 
-        ///change the project's status from plan to execution stage
+        
         
     }
 
