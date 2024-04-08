@@ -1,6 +1,7 @@
 ﻿///this file gathers the exceptions` classes
 ///they inherit from exception class
 namespace DO;
+
 [Serializable]
 public class DalDoesNotExistException : Exception
 {

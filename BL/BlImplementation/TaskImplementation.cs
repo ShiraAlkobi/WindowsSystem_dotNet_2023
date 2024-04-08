@@ -199,11 +199,11 @@ internal class TaskImplementation : ITask
     public void UpdateScedualedDate(int id, DateTime date)
     {
         DateTime? t_date;
-        BO.Task t = Read(id);//get the task to update(no try needed because the task is from the list of tasks so it exsists)
+        BO.Task t = Read(id);//get the task to update(no try needed because the task is from the list of tasks so it exists)
         if (t.ScheduledDate is not null) return;//if the task already has a schedual date,return
         else
         {
-            /// if a task doesnt have any previous tasks, its schedual date
+            /// if a task doesnt have any previous tasks, its scheduale date
             /// will be start+3
             if (t.Dependencies.Count==0)
                 t_date = date.AddDays(3);
@@ -220,7 +220,7 @@ internal class TaskImplementation : ITask
                         UpdateScedualedDate(item.Id, date);
                     }
                 
-                //this happens after all tasks in dependencies list of the curreent task has n=been initialized
+                //this happens after all tasks in dependencies list of the curreent task has been initialized
                 DateTime? help;
                 t_date = getForecastDate(_dal.Task.Read(t.Dependencies.First().Id));//the forcast date of first dependency
                 foreach (var item in t.Dependencies)//go through list of dependencies and finding the max of forecast date
@@ -230,7 +230,7 @@ internal class TaskImplementation : ITask
                         t_date = help;
 
                 }
-                t_date = t_date?.AddDays(1);//the schedual date of current task will be the mex of forecast dated of tasks in dependency list+1
+                t_date = t_date?.AddDays(1);//the scheduale date of current task will be the max of forecast dates of tasks in dependency list+1
             }
             try//creating new task
             {
@@ -288,13 +288,13 @@ internal class TaskImplementation : ITask
             return BO.Status.Unscheduled;
         if (t.StartDate == null)//if there is a schedual date but not start
             return BO.Status.Scheduled;
-        if (t.CompleteDate == null && _dal.getClock()>(t.ScheduledDate + t.RequiredEffortTime))
+
+        if (t.CompleteDate == null && _dal.getClock() > (t.ScheduledDate + t.RequiredEffortTime))
             return BO.Status.Delayed;
         if (t.CompleteDate == null)//if there is a start date but not complete
             return BO.Status.OnTrack;
         else return BO.Status.Done;//if there is a complete but not done
 
-        //TODO:add jeopardy condition
     }
     /// <summary>
     /// help function to get forecast date to finish task-used by read function
@@ -318,7 +318,7 @@ internal class TaskImplementation : ITask
         return new BO.EngineerInTask() { Id = t.EngineerId, Name = _dal.Engineer.Read(t.EngineerId)!.Name };//create the engineer in task by using read function
     }
     /// <summary>
-    /// function to gruop task by their status
+    /// function to group task by their status
     /// </summary>
     /// <returns></returns>
     public IEnumerable<IGrouping<BO.Status, BO.TaskInList>> GroupByStatus()
@@ -346,7 +346,6 @@ internal class TaskImplementation : ITask
     /// <param name="dependent"></param>
     public void DeleteDependencies(int dependsOn, int dependent)
     {
-
         IEnumerable<DO.Dependency>? dependencies = _dal.Dependency.ReadAll();
         DO.Dependency? t_dependency=(from item in dependencies
                                      where item.DependsOnTask == dependsOn && item.DependentTask == dependent

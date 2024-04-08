@@ -69,7 +69,7 @@
                     <Label Content="{Binding CurrentEngineerUser.Task.Alias}" BorderBrush="#FF007ACC" BorderThickness="1.5"  VerticalAlignment="Center" />
                 </StackPanel>
                 <Button Height="39" BorderThickness="0" Margin="154,0,26,20" IsEnabled="{Binding CurrentEngineerUser.Task, Converter={StaticResource AssignedTaskToBoolConverterKey}, Mode=TwoWay}" HorizontalAlignment="Right" Click="ViewTask_Click"
-                        Background="Transparent" Foreground="White" Width="64">
+                        Background="Transparent" Width="64">
                     <Image Source="/images/eye.png" />
                 </Button>
                 <Popup x:Name="viewDetailsTaskPopUp"  IsOpen="False" StaysOpen="False" Placement="MousePoint" >
