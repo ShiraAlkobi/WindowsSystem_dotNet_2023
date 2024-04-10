@@ -7,39 +7,39 @@
     <Position>Manager</Position>
   </User>
   <User>
-    <Id>594249127</Id>
-    <UserName>594249127</UserName>
-    <Password>AmitCohen9127</Password>
+    <Id>298089645</Id>
+    <UserName>298089645</UserName>
+    <Password>AmitCohen9645</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>475616001</Id>
-    <UserName>475616001</UserName>
-    <Password>MayaLevi6001</Password>
+    <Id>163195410</Id>
+    <UserName>163195410</UserName>
+    <Password>MayaLevi5410</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>910325496</Id>
-    <UserName>910325496</UserName>
-    <Password>OdeyaLapian5496</Password>
+    <Id>538832437</Id>
+    <UserName>538832437</UserName>
+    <Password>OdeyaLapian2437</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>728564539</Id>
-    <UserName>728564539</UserName>
-    <Password>YaelShoham4539</Password>
+    <Id>768086661</Id>
+    <UserName>768086661</UserName>
+    <Password>YaelShoham6661</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>343267519</Id>
-    <UserName>343267519</UserName>
-    <Password>ItayAvraham7519</Password>
+    <Id>378261942</Id>
+    <UserName>378261942</UserName>
+    <Password>ItayAvraham1942</Password>
     <Position>Engineer</Position>
   </User>
   <User>
-    <Id>317631525</Id>
-    <UserName>317631525</UserName>
-    <Password>NoaMoshe1525</Password>
+    <Id>881663616</Id>
+    <UserName>881663616</UserName>
+    <Password>NoaMoshe3616</Password>
     <Position>Engineer</Position>
   </User>
   <User>
@@ -47,41 +47,5 @@
     <UserName>87654321</UserName>
     <Password>Engineer4321</Password>
     <Position>Engineer</Position>
-  </User>
-  <User>
-    <Id>12345678</Id>
-    <UserName>12345678</UserName>
-    <Password>Manager1234</Password>
-    <Position>Manager</Position>
-  </User>
-  <User>
-    <Id>12345678</Id>
-    <UserName>12345678</UserName>
-    <Password>Manager1234</Password>
-    <Position>Manager</Position>
-  </User>
-  <User>
-    <Id>12345678</Id>
-    <UserName>12345678</UserName>
-    <Password>Manager1234</Password>
-    <Position>Manager</Position>
-  </User>
-  <User>
-    <Id>12345678</Id>
-    <UserName>12345678</UserName>
-    <Password>Manager1234</Password>
-    <Position>Manager</Position>
-  </User>
-  <User>
-    <Id>12345678</Id>
-    <UserName>12345678</UserName>
-    <Password>Manager1234</Password>
-    <Position>Manager</Position>
-  </User>
-  <User>
-    <Id>12345678</Id>
-    <UserName>12345678</UserName>
-    <Password>Manager1234</Password>
-    <Position>Manager</Position>
   </User>
 </ArrayOfUser>
